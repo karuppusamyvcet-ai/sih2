@@ -1,0 +1,36 @@
+{
+  "schema": "heritage.achievements.v1",
+  "version": "1.0.0",
+  "note": "Achievements are all educational milestones: no purchase, no loot box, no random reward. Points are knowledge points, spent on nothing — they only measure progress.",
+  "achievements": [
+    {"id": "ach_first_steps", "title": "First Steps", "description": "Enter the central hall of the museum.", "points": 10, "icon": "door", "trigger": {"type": "mission_complete", "target": "mission_01_enter"}},
+    {"id": "ach_archive_opened", "title": "Archive Opened", "description": "Open the Digital Archive for the first time.", "points": 10, "icon": "archive", "trigger": {"type": "interact", "target": "ui_archive"}},
+    {"id": "ach_first_discovery", "title": "First Discovery", "description": "Record your first archive item.", "points": 10, "icon": "book", "trigger": {"type": "collect", "count": 1}},
+    {"id": "ach_early_life", "title": "The Student Years", "description": "Complete the Early Life & Education gallery.", "points": 40, "icon": "cap", "trigger": {"type": "mission_complete", "target": "mission_02_early_life"}},
+    {"id": "ach_social_reform", "title": "Standing for Equality", "description": "Complete the Social Reform gallery and both mini-games.", "points": 40, "icon": "raise", "trigger": {"type": "mission_complete", "target": "mission_03_social_reform"}},
+    {"id": "ach_constitution", "title": "We, the People", "description": "Complete the Law & Constitution gallery and its quiz.", "points": 40, "icon": "pillar", "trigger": {"type": "mission_complete", "target": "mission_04_constitution"}},
+    {"id": "ach_manuscripts", "title": "In the Stacks", "description": "Complete the Books, Manuscripts & Scholarship archive.", "points": 40, "icon": "scroll", "trigger": {"type": "mission_complete", "target": "mission_05_manuscripts"}},
+    {"id": "ach_memorials", "title": "Places of Memory", "description": "Visit the memorial reconstructions and complete the map exercise.", "points": 40, "icon": "map", "trigger": {"type": "mission_complete", "target": "mission_06_memorials"}},
+    {"id": "ach_legacy", "title": "The Living Archive", "description": "Complete the Legacy & Digital Archive.", "points": 40, "icon": "network", "trigger": {"type": "mission_complete", "target": "mission_07_legacy"}},
+    {"id": "ach_guide", "title": "In Conversation", "description": "Ask the Archive Guide five questions.", "points": 20, "icon": "chat", "trigger": {"type": "ask_guide", "count": 5}},
+    {"id": "ach_searcher", "title": "Researcher", "description": "Run ten searches across the archive.", "points": 20, "icon": "search", "trigger": {"type": "search", "count": 10}},
+    {"id": "ach_collector_25", "title": "Collector — 25 Items", "description": "Record 25 archive items in your digital archive.", "points": 30, "icon": "stack", "trigger": {"type": "collect", "count": 25}},
+    {"id": "ach_perfect_quiz", "title": "No Hesitation", "description": "Answer every question in a quiz correctly on the first attempt.", "points": 30, "icon": "star", "trigger": {"type": "quiz_perfect", "count": 1}},
+    {"id": "ach_honest_reader", "title": "Read the Source", "description": "Open the source citation of five archive records.", "points": 20, "icon": "quote", "trigger": {"type": "source_opened", "count": 5}},
+    {"id": "ach_final_challenge", "title": "The Final Challenge", "description": "Pass all six stages of the final knowledge challenge.", "points": 80, "icon": "trophy", "trigger": {"type": "mission_complete", "target": "mission_08_final"}},
+    {"id": "ach_heritage_archivist", "title": "HERITAGE ARCHIVIST", "description": "Complete the whole Digital Heritage Journey.", "points": 150, "icon": "seal", "trigger": {"type": "completion", "target": "heritage_archivist"}, "isCompletionBadge": true}
+  ],
+  "progressDashboard": {
+    "note": "Shown on the achievement wall and on the completion certificate screen.",
+    "fields": [
+      {"id": "exhibits_discovered", "label": "Exhibits discovered", "source": "exhibitsInteracted"},
+      {"id": "archive_items", "label": "Archive items collected", "source": "archiveCollected"},
+      {"id": "quiz_score", "label": "Quiz score", "source": "quizCorrect/quizAttempted"},
+      {"id": "knowledge_points", "label": "Knowledge points", "source": "knowledgePoints"},
+      {"id": "galleries_completed", "label": "Galleries completed", "source": "missionsComplete/8"},
+      {"id": "memorials_visited", "label": "Memorials visited", "source": "memorialsVisited/8"},
+      {"id": "searches_run", "label": "Archive searches", "source": "searchesRun"},
+      {"id": "guide_questions", "label": "Questions to the Archive Guide", "source": "guideQuestions"}
+    ]
+  }
+}

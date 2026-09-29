@@ -1,0 +1,90 @@
+{
+  "schema": "heritage.museum.v1",
+  "version": "1.0.0",
+  "name": "The Digital Ambedkar Heritage Museum",
+  "note": "Parametric description of the hub. Both builders (Unity SceneBuilder and the WebGL world builder) read this file and generate the geometry, so the layout is identical on PC and Android and can be re-tuned without editing code.",
+  "spawnPoint": [0.0, 0.0, -11.5],
+  "spawnFacing": 0.0,
+  "hall": {
+    "width": 44.0,
+    "depth": 30.0,
+    "height": 9.2,
+    "wallThickness": 0.6,
+    "floorMaterial": "marble_cream",
+    "wallMaterial": "stone_sandstone",
+    "ceilingMaterial": "ceiling_coffered",
+    "wainscotHeight": 1.4,
+    "skylightStrips": 5,
+    "columns": [
+      {"x": -14.0, "z": 6.0, "height": 8.2, "radius": 0.55, "style": "heritage_fluted"},
+      {"x": 14.0, "z": 6.0, "height": 8.2, "radius": 0.55, "style": "heritage_fluted"},
+      {"x": -14.0, "z": -6.0, "height": 8.2, "radius": 0.55, "style": "heritage_fluted"},
+      {"x": 14.0, "z": -6.0, "height": 8.2, "radius": 0.55, "style": "heritage_fluted"}
+    ],
+    "arches": {"entranceWidth": 7.2, "entranceHeight": 6.4, "pattern": "indian_multifoil"}
+  },
+  "doors": [
+    {"doorId": "door_01", "zone": "early_life", "index": 1, "x": -15.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "EARLY LIFE & EDUCATION", "accent": "#C9A227", "icon": "book_cap", "lockedMessage": "This gallery is open from the beginning of the journey."},
+    {"doorId": "door_02", "zone": "social_reform", "index": 2, "x": -9.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "SOCIAL REFORM", "accent": "#8C2F39", "icon": "raised_hand", "lockedMessage": "Complete the Early Life gallery to open this door."},
+    {"doorId": "door_03", "zone": "law_constitution", "index": 3, "x": -3.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "LAW & CONSTITUTION", "accent": "#1F4E79", "icon": "pillar", "lockedMessage": "Complete the Social Reform gallery to open this door."},
+    {"doorId": "door_04", "zone": "manuscripts", "index": 4, "x": 3.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "BOOKS & MANUSCRIPTS", "accent": "#6B4F2A", "icon": "scroll", "lockedMessage": "Complete the Constitution gallery to open this door."},
+    {"doorId": "door_05", "zone": "memorials", "index": 5, "x": 9.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "MEMORIALS", "accent": "#2E6E5E", "icon": "map", "lockedMessage": "Complete the Manuscript Archive to open this door."},
+    {"doorId": "door_06", "zone": "legacy", "index": 6, "x": 15.0, "z": 15.0, "width": 3.4, "height": 4.8, "label": "LEGACY & DIGITAL ARCHIVE", "accent": "#7A5BA6", "icon": "network", "lockedMessage": "Complete the Memorials gallery to open this door."}
+  ],
+  "doorCount": 6,
+  "doorCountRule": "Exactly six doors exist. No seventh door is generated, and the door register is validated by Tools/validate_content.py.",
+  "setDressing": [
+    {"id": "hub_reception_desk", "type": "reception_desk", "x": 12.0, "z": -9.0, "rotationY": 20.0, "size": [6.0, 1.15, 1.6]},
+    {"id": "hub_guide_terminal", "type": "guide_terminal", "x": 9.0, "z": -8.2, "rotationY": -20.0, "size": [1.1, 2.1, 0.5]},
+    {"id": "hub_central_obelisk", "type": "central_monument", "x": 0.0, "z": 1.2, "rotationY": 0.0, "size": [3.2, 5.6, 1.4]},
+    {"id": "hub_bench_ring_1", "type": "bench", "x": -4.6, "z": 1.2, "rotationY": 0.0, "size": [3.0, 0.45, 0.7]},
+    {"id": "hub_bench_ring_2", "type": "bench", "x": 4.6, "z": 1.2, "rotationY": 0.0, "size": [3.0, 0.45, 0.7]},
+    {"id": "hub_bench_ring_3", "type": "bench", "x": 0.0, "z": -2.6, "rotationY": 90.0, "size": [3.0, 0.45, 0.7]},
+    {"id": "hub_timeline_wall", "type": "timeline_wall", "x": -21.2, "z": 0.0, "rotationY": 90.0, "size": [22.0, 2.8, 0.25]},
+    {"id": "hub_projection_screen", "type": "projection_screen", "x": 21.4, "z": 0.0, "rotationY": -90.0, "size": [12.0, 6.4, 0.2]},
+    {"id": "hub_archive_terminal_1", "type": "archive_kiosk", "x": -10.5, "z": -10.0, "rotationY": 15.0, "size": [1.4, 2.2, 0.8]},
+    {"id": "hub_archive_terminal_2", "type": "archive_kiosk", "x": -6.5, "z": -10.0, "rotationY": 15.0, "size": [1.4, 2.2, 0.8]},
+    {"id": "hub_glass_case_1", "type": "glass_display_case", "x": -19.0, "z": 10.5, "rotationY": 0.0, "size": [2.6, 1.5, 1.1]},
+    {"id": "hub_glass_case_2", "type": "glass_display_case", "x": -19.0, "z": 6.5, "rotationY": 0.0, "size": [2.6, 1.5, 1.1]},
+    {"id": "hub_bookshelf_1", "type": "bookshelf", "x": -19.5, "z": -6.0, "rotationY": 0.0, "size": [6.0, 3.2, 0.6], "fillLevel": 0.85},
+    {"id": "hub_bookshelf_2", "type": "bookshelf", "x": 19.5, "z": -6.0, "rotationY": 0.0, "size": [6.0, 3.2, 0.6], "fillLevel": 0.7},
+    {"id": "hub_archive_cabinet_1", "type": "archive_cabinet", "x": 19.5, "z": 8.5, "rotationY": 180.0, "size": [3.4, 2.4, 0.7]},
+    {"id": "hub_information_stele_1", "type": "info_stele", "x": -25.0, "z": -4.0, "rotationY": 90.0, "size": [1.2, 2.4, 0.2]},
+    {"id": "hub_information_stele_2", "type": "info_stele", "x": 25.0, "z": -4.0, "rotationY": -90.0, "size": [1.2, 2.4, 0.2]},
+    {"id": "hub_planter_1", "type": "planter", "x": -8.0, "z": -13.0, "rotationY": 0.0, "size": [1.6, 0.9, 1.6]},
+    {"id": "hub_planter_2", "type": "planter", "x": 8.0, "z": -13.0, "rotationY": 0.0, "size": [1.6, 0.9, 1.6]},
+    {"id": "hub_door_label_rail", "type": "label_rail", "x": 0.0, "z": 14.6, "rotationY": 180.0, "size": [36.0, 0.6, 0.12]}
+  ],
+  "lighting": {
+    "ambient": "#3B3A38",
+    "ambientIntensity": 0.55,
+    "temperatureK": 3400,
+    "skylightColor": "#D9E4F2",
+    "skylightIntensity": 0.35,
+    "spotGroups": [
+      {"id": "spot_zone_doors", "count": 6, "positions": [[-15, 7.4, 12.5], [-9, 7.4, 12.5], [-3, 7.4, 12.5], [3, 7.4, 12.5], [9, 7.4, 12.5], [15, 7.4, 12.5]], "targets": [[-15, 2.4, 15], [-9, 2.4, 15], [-3, 2.4, 15], [3, 2.4, 15], [9, 2.4, 15], [15, 2.4, 15]], "intensity": 12.0, "angleDeg": 34},
+      {"id": "spot_center", "count": 3, "positions": [[0, 8.4, 1.2], [-3, 8.4, 1.2], [3, 8.4, 1.2]], "targets": [[0, 1.8, 1.2], [0, 1.2, 1.2], [0, 1.2, 1.2]], "intensity": 16.0, "angleDeg": 30},
+      {"id": "spot_timeline", "count": 4, "positions": [[-20.2, 7.2, -8], [-20.2, 7.2, -3], [-20.2, 7.2, 3], [-20.2, 7.2, 8]], "targets": [[-21.0, 1.6, -8], [-21.0, 1.6, -3], [-21.0, 1.6, 3], [-21.0, 1.6, 8]], "intensity": 9.0, "angleDeg": 40},
+      {"id": "spot_reception", "count": 2, "positions": [[12, 7.0, -7], [9, 7.0, -6.5]], "targets": [[12, 1.3, -9], [9, 1.5, -8.2]], "intensity": 10.0, "angleDeg": 38}
+    ],
+    "bakedOnMobile": true,
+    "realtimeShadowLightsMobile": 1
+  },
+  "materials": {
+    "marble_cream": {"color": "#E8E2D6", "roughness": 0.24, "metallic": 0.0, "texture": "marble_veined"},
+    "stone_sandstone": {"color": "#C9B79A", "roughness": 0.85, "metallic": 0.0, "texture": "stone_blocks"},
+    "ceiling_coffered": {"color": "#D8D2C6", "roughness": 0.72, "metallic": 0.0},
+    "wood_walnut": {"color": "#4A3423", "roughness": 0.55, "metallic": 0.0, "texture": "wood_grain"},
+    "brass_polished": {"color": "#B08D4F", "roughness": 0.28, "metallic": 0.85},
+    "glass_case": {"color": "#DFEAF2", "roughness": 0.06, "metallic": 0.0, "alpha": 0.18},
+    "fabric_deep_blue": {"color": "#22314E", "roughness": 0.86, "metallic": 0.0},
+    "paper_archive": {"color": "#EFE7D3", "roughness": 0.9, "metallic": 0.0},
+    "screen_emissive": {"color": "#0E1A2B", "emissive": "#3E6EA8", "roughness": 0.2, "metallic": 0.0}
+  },
+  "ui": {
+    "objectiveBanner": true,
+    "minimap": {"enabled": true, "scaleMeters": 90.0, "collapsibleOnMobile": true, "showDoors": true, "showObjectives": true, "showPlayer": true},
+    "interactionPromptPC": "Press E to Interact",
+    "interactionPromptMobile": "INTERACT"
+  }
+}

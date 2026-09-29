@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0E1626">
+<meta name="description" content="AMBEDKAR: THE DIGITAL HERITAGE JOURNEY — an interactive educational heritage archive for SIH26096. Explore the six galleries, read the manuscripts, search the archive and ask the Archive Guide.">
+<title>AMBEDKAR: THE DIGITAL HERITAGE JOURNEY — Digital Heritage Archive (SIH26096)</title>
+<link rel="stylesheet" href="./styles/ui.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js" } }
+</script>
+</head>
+<body>
+<!-- ===================================================== 3D viewport -->
+<canvas id="viewport"></canvas>
+
+<!-- ===================================================== loading / boot -->
+<div id="boot" class="overlay visible">
+  <div class="boot-inner">
+    <div class="boot-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h1 class="boot-title">AMBEDKAR:<br><span>THE DIGITAL HERITAGE JOURNEY</span></h1>
+    <p class="boot-sub" data-i18n="app.subtitle">Explore. Discover. Learn.</p>
+    <div class="boot-bar"><i id="boot-progress"></i></div>
+    <p class="boot-status" id="boot-status">Opening the archive…</p>
+    <p class="boot-meta">Smart India Hackathon 2026 · SIH26096 · Ministry of Social Justice and Empowerment</p>
+  </div>
+</div>
+
+<!-- ===================================================== intro cinematic -->
+<div id="intro" class="overlay">
+  <div class="intro-lines">
+    <p class="intro-line" id="intro-line-1">AMBEDKAR:<br>THE DIGITAL HERITAGE JOURNEY</p>
+    <p class="intro-line" id="intro-line-2">An interactive educational heritage experience</p>
+    <p class="intro-line small" id="intro-line-3">Six galleries. Sixty-nine records. One archive that cites everything it shows.</p>
+  </div>
+  <button class="intro-skip" id="intro-skip">SKIP ▸</button>
+</div>
+
+<!-- ===================================================== main menu -->
+<div id="menu" class="overlay menu-overlay">
+  <div class="menu-scrim"></div>
+  <div class="menu-panel">
+    <div class="menu-head">
+      <p class="menu-kicker">Smart India Hackathon 2026 · SIH26096 · Smart Education</p>
+      <h1>AMBEDKAR:<br><span>THE DIGITAL HERITAGE JOURNEY</span></h1>
+      <p class="menu-sub" data-i18n="app.subtitle">Explore. Discover. Learn.</p>
+    </div>
+    <nav class="menu-actions" id="menu-actions">
+      <button class="btn btn-primary" data-action="new">
+        <span class="btn-label" data-i18n="menu.newJourney">NEW JOURNEY</span>
+        <span class="btn-hint">Start at the museum entrance</span>
+      </button>
+      <button class="btn" data-action="continue" id="btn-continue" disabled>
+        <span class="btn-label" data-i18n="menu.continue">CONTINUE</span>
+        <span class="btn-hint" id="continue-hint">No saved journey</span>
+      </button>
+      <div class="menu-row">
+        <button class="btn btn-ghost" data-action="archive" data-i18n="menu.archive">DIGITAL ARCHIVE</button>
+        <button class="btn btn-ghost" data-action="settings" data-i18n="menu.settings">SETTINGS</button>
+        <button class="btn btn-ghost" data-action="credits" data-i18n="menu.credits">CREDITS</button>
+      </div>
+      <div class="menu-row">
+        <button class="btn btn-accent" data-action="demo" data-i18n="menu.demo">DEMO MODE</button>
+        <button class="btn btn-ghost" data-action="presentation" data-i18n="menu.presentation">PRESENTATION MODE</button>
+        <button class="btn btn-ghost danger" data-action="exit" data-i18n="menu.exit">EXIT</button>
+      </div>
+    </nav>
+    <p class="menu-disclaimer">
+      The character is a <strong>digital reconstruction</strong> prepared for education — not an authentic photograph.
+      Generated reconstructions are labelled throughout; every archive record carries its source citation.
+    </p>
+  </div>
+</div>
+
+<!-- ===================================================== HUD -->
+<div id="hud" class="hud">
+  <div class="hud-objective" id="hud-objective">
+    <p class="hud-label" data-i18n="hud.objective">CURRENT OBJECTIVE</p>
+    <p class="hud-text" id="objective-text">Enter the Digital Heritage Museum</p>
+    <p class="hud-progress" id="objective-progress"></p>
+  </div>
+
+  <div class="hud-points">
+    <span class="kp-icon" aria-hidden="true">◆</span>
+    <span id="kp-value">0</span>
+    <span class="kp-label" data-i18n="hud.knowledgePoints">Knowledge points</span>
+  </div>
+
+  <div class="hud-top-right">
+    <button class="hud-btn" id="hud-archive" data-i18n="hud.archive">ARCHIVE</button>
+    <button class="hud-btn" id="hud-map" data-i18n="hud.map">MAP</button>
+    <button class="hud-btn" id="hud-menu" data-i18n="hud.menu">MENU</button>
+  </div>
+
+  <canvas id="minimap" width="220" height="220" aria-label="Museum map"></canvas>
+
+  <div class="hud-prompt" id="hud-prompt">
+    <span class="prompt-key" id="prompt-key">E</span>
+    <span class="prompt-text" id="prompt-text">Interact</span>
+  </div>
+
+  <div class="hud-zone" id="hud-zone"></div>
+
+  <!-- touch controls -->
+  <div class="touch-layer" id="touch-layer">
+    <div class="touch-stick" id="touch-stick">
+      <div class="stick-base"><div class="stick-knob" id="stick-knob"></div></div>
+    </div>
+    <div class="touch-buttons">
+      <button class="touch-btn interact" id="touch-interact" data-i18n="hud.interactMobile">INTERACT</button>
+      <button class="touch-btn" id="touch-run" data-i18n="hud.run">RUN</button>
+      <button class="touch-btn" id="touch-map" data-i18n="hud.map">MAP</button>
+      <button class="touch-btn" id="touch-archive" data-i18n="hud.archive">ARCHIVE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== subtitles -->
+<div id="subtitles" class="subtitles"><span id="subtitle-text"></span></div>
+
+<!-- ===================================================== toast -->
+<div id="toast" class="toast"></div>
+
+<!-- ===================================================== modals -->
+<div id="modal-root">
+  <div class="modal" id="modal-pause">
+    <div class="modal-card">
+      <h2 class="modal-title" id="pause-title">PAUSED</h2>
+      <div class="modal-actions" id="pause-actions">
+        <button class="btn btn-primary" data-close="pause" data-i18n="pause.resume">RESUME</button>
+        <button class="btn" data-pause="archive" data-i18n="pause.archive">ARCHIVE</button>
+        <button class="btn" data-pause="map" data-i18n="pause.map">MAP</button>
+        <button class="btn" data-pause="objectives" data-i18n="pause.objectives">OBJECTIVES</button>
+        <button class="btn" data-pause="settings" data-i18n="pause.settings">SETTINGS</button>
+        <button class="btn" data-pause="restart" data-i18n="pause.restart">RESTART CHECKPOINT</button>
+        <button class="btn danger" data-pause="mainmenu" data-i18n="pause.mainMenu">MAIN MENU</button>
+      </div>
+      <div class="keymap">
+        <h3>Controls</h3>
+        <ul>
+          <li><b>W A S D</b> move · <b>Shift</b> run · <b>Space</b> jump</li>
+          <li><b>Mouse</b> look (click to capture, Esc to release) · <b>Wheel</b> zoom</li>
+          <li><b>E</b> interact · <b>Tab</b> archive · <b>M</b> map · <b>G</b> Archive Guide · <b>Esc</b> menu</li>
+          <li><b>F</b> reduced effects · <b>+ / −</b> text size · <b>Touch</b> joystick + swipe on mobile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-archive">
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2 class="modal-title" data-i18n="archive.title">MY DIGITAL ARCHIVE</h2>
+        <button class="modal-x" data-close="archive">✕</button>
+      </header>
+      <div class="archive-toolbar">
+        <input class="archive-search" id="archive-search" type="search" autocomplete="off"
+               data-i18n-ph="archive.searchPlaceholder" placeholder="constitution · education · social reform · memorials · books">
+        <div class="archive-filters" id="archive-filters"></div>
+      </div>
+      <div class="archive-body">
+        <div class="archive-list" id="archive-list"></div>
+        <article class="archive-detail" id="archive-detail">
+          <p class="empty">Select a record to read it, with its citation.</p>
+        </article>
+      </div>
+      <p class="archive-status" id="archive-status"></p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-viewer">
+    <div class="modal-card wide viewer">
+      <header class="modal-head">
+        <h2 class="modal-title" id="viewer-title">Document viewer</h2>
+        <button class="modal-x" data-close="viewer">✕</button>
+      </header>
+      <div class="viewer-body">
+        <div class="viewer-page" id="viewer-page">
+          <div class="page-sheet" id="page-sheet"></div>
+        </div>
+        <aside class="viewer-meta" id="viewer-meta"></aside>
+      </div>
+      <footer class="viewer-foot">
+        <button class="btn btn-ghost" id="viewer-prev">◂ PREV</button>
+        <span id="viewer-pager">Page 1 of 1</span>
+        <button class="btn btn-ghost" id="viewer-next">NEXT ▸</button>
+        <button class="btn btn-ghost" id="viewer-zoom">MAGNIFY</button>
+        <span class="viewer-flag" id="viewer-flag"></span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-quiz">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 class="modal-title" id="quiz-title">Knowledge check</h2>
+        <button class="modal-x" data-close="quiz">✕</button>
+      </header>
+      <div class="quiz-progress"><i id="quiz-progress-bar"></i></div>
+      <p class="quiz-counter" id="quiz-counter">Question 1 of 5</p>
+      <p class="quiz-prompt" id="quiz-prompt"></p>
+      <div class="quiz-image" id="quiz-image"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-foot">
+        <span class="quiz-score" id="quiz-score"></span>
+        <button class="btn btn-primary" id="quiz-next" disabled>NEXT</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-guide">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 class="modal-title" id="guide-title">ARCHIVE GUIDE</h2>
+        <button class="modal-x" data-close="guide">✕</button>
+      </header>
+      <p class="guide-mode" id="guide-mode"></p>
+      <div class="guide-log" id="guide-log"></div>
+      <div class="guide-suggest" id="guide-suggest"></div>
+      <form class="guide-form" id="guide-form">
+        <input id="guide-input" type="text" autocomplete="off" data-i18n-ph="guide.placeholder" placeholder="Ask about anything in the archive…">
+        <button class="btn btn-primary" type="submit" data-i18n="guide.send">ASK</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-map">
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2 class="modal-title" data-i18n="map.title">MUSEUM MAP</h2>
+        <button class="modal-x" data-close="map">✕</button>
+      </header>
+      <div class="map-body">
+        <canvas id="map-canvas" width="900" height="620"></canvas>
+        <aside class="map-side">
+          <h3 data-i18n="map.legend">Galleries · archive · completed · current objective</h3>
+          <ul id="map-list"></ul>
+          <div class="map-jump" id="map-jump"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-memorial">
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2 class="modal-title" id="memorial-title">Memorial</h2>
+        <button class="modal-x" data-close="memorial">✕</button>
+      </header>
+      <div class="memorial-body">
+        <div class="memorial-list" id="memorial-list"></div>
+        <article class="memorial-detail" id="memorial-detail"></article>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-objectives">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 class="modal-title" data-i18n="objectives.title">OBJECTIVES</h2>
+        <button class="modal-x" data-close="objectives">✕</button>
+      </header>
+      <div class="objectives-body" id="objectives-body"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-settings">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 class="modal-title" data-i18n="settings.title">SETTINGS</h2>
+        <button class="modal-x" data-close="settings">✕</button>
+      </header>
+      <div class="settings-body" id="settings-body"></div>
+      <p class="settings-note">
+        Reduced visual effects lowers shadow quality and particle counts for older devices.
+        High-contrast mode and text size apply to every panel immediately.
+      </p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-credits">
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 class="modal-title" data-i18n="credits.title">CREDITS</h2>
+        <button class="modal-x" data-close="credits">✕</button>
+      </header>
+      <div class="credits-body" id="credits-body"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-certificate">
+    <div class="modal-card certificate">
+      <h2 class="cert-title" data-i18n="certificate.title">DIGITAL HERITAGE JOURNEY COMPLETE</h2>
+      <p class="cert-seal" data-i18n="certificate.status">HERITAGE ARCHIVIST</p>
+      <p class="cert-body" data-i18n="certificate.body">Your archive exploration is complete.</p>
+      <div class="cert-stats" id="cert-stats"></div>
+      <p class="cert-note">
+        Smart India Hackathon 2026 · SIH26096 · Digital Heritage Archive for Memorials, Manuscripts &amp; Ambedkar ·
+        Ministry of Social Justice and Empowerment
+      </p>
+      <div class="cert-foot">
+        <button class="btn btn-primary" id="cert-print" data-i18n="certificate.print">Print / save as PDF</button>
+        <button class="btn btn-ghost" data-close="certificate" data-i18n="common.close">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<noscript>
+  <p style="color:#fff;padding:2rem">This build requires JavaScript. The archive content is also available as JSON in /content.</p>
+</noscript>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

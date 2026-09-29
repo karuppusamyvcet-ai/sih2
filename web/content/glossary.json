@@ -1,0 +1,207 @@
+{
+  "schema": "heritage.glossary.v1",
+  "version": "1.0.0",
+  "note": "Constitutional and historical concepts exhibited in the Law & Constitution gallery and searchable from the Digital Archive. Each entry carries a citation. Definitions are written for a general visitor (class 9 upward) and deliberately avoid paraphrasing any text so closely that a paraphrase could be mistaken for the provision itself.",
+  "concepts": [
+    {
+      "id": "con_preamble",
+      "term": "The Preamble",
+      "zone": "law_constitution",
+      "shortDef": "The opening statement of the Constitution, which declares that its authority comes from the people of India and lists its objects: justice, liberty, equality and fraternity.",
+      "longDef": "The Preamble is not an operative provision granting rights; it states the source of the Constitution's authority and the purposes it serves. Courts have used it as an aid to interpretation. Its claims — sovereignty of the people, justice in its social, economic and political dimensions, liberty of thought, expression, belief, faith and worship, equality of status and of opportunity, and fraternity assuring the dignity of the individual and the unity and integrity of the Nation — recur throughout the Constitutional Gallery exhibits.",
+      "keywords": ["preamble", "we the people", "justice", "liberty", "equality", "fraternity", "sovereignty"],
+      "source": "Constitution of India, Preamble; Constituent Assembly Debates, Vol. I and Vol. XI.",
+      "archiveIds": ["arc_law_preamble", "arc_law_objectives_resolution"]
+    },
+    {
+      "id": "con_fundamental_rights",
+      "term": "Fundamental Rights",
+      "zone": "law_constitution",
+      "shortDef": "The rights guaranteed in Part III of the Constitution (Articles 12 to 35), enforceable in the courts.",
+      "longDef": "Part III guarantees a set of rights that no law or executive action may violate except as the Constitution itself permits. They include equality before the law (Article 14), prohibition of discrimination (Article 15), equality of opportunity in public employment (Article 16), abolition of untouchability (Article 17), freedom of speech and expression and other freedoms (Article 19), protection of life and personal liberty (Article 21), freedom of religion (Articles 25–28), and the right to constitutional remedies (Article 32).",
+      "keywords": ["fundamental rights", "part iii", "equality", "freedom", "constitutional remedies"],
+      "source": "Constitution of India, Part III; India Code (Government of India).",
+      "archiveIds": ["arc_law_fundamental_rights", "arc_law_article32"]
+    },
+    {
+      "id": "con_article14",
+      "term": "Article 14 — Equality before the law",
+      "zone": "law_constitution",
+      "shortDef": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+      "longDef": "Article 14 combines two ideas: formal equality before the law, and the equal protection of the laws, which permits reasonable classification as long as it has a rational basis and a legitimate purpose. The gallery explains with examples how courts distinguish permissible classification from impermissible discrimination.",
+      "keywords": ["article 14", "equality before law", "equal protection", "classification"],
+      "source": "Constitution of India, Article 14; India Code.",
+      "archiveIds": ["arc_law_fundamental_rights"]
+    },
+    {
+      "id": "con_article15",
+      "term": "Article 15 — Prohibition of discrimination",
+      "zone": "law_constitution",
+      "shortDef": "Prohibits discrimination by the State on grounds of religion, race, caste, sex or place of birth, while allowing special provisions for the advancement of backward classes, Scheduled Castes, Scheduled Tribes, women and children.",
+      "longDef": "Article 15 states the grounds on which the State may not discriminate, and then expressly permits affirmative measures. The combination — a prohibition with an enabling clause — is the constitutional form of substantive equality and is the reason the article appears in both the Constitutional Gallery and the Legacy Archive's policy section.",
+      "keywords": ["article 15", "discrimination", "affirmative action", "caste", "sex"],
+      "source": "Constitution of India, Article 15; India Code.",
+      "archiveIds": ["arc_law_fundamental_rights"]
+    },
+    {
+      "id": "con_article16",
+      "term": "Article 16 — Equality of opportunity in public employment",
+      "zone": "law_constitution",
+      "shortDef": "Guarantees equality of opportunity in matters of public employment, with provisions for reservation in favour of backward classes not adequately represented in State services.",
+      "longDef": "Article 16 applies the equality principle to employment under the State and provides for reservation. The gallery presents the article together with the policy debates on how such measures are implemented, since the mechanism is frequently discussed in public life.",
+      "keywords": ["article 16", "public employment", "reservation", "equal opportunity"],
+      "source": "Constitution of India, Article 16; India Code.",
+      "archiveIds": ["arc_law_fundamental_rights", "arc_law_dpsp"]
+    },
+    {
+      "id": "con_article17",
+      "term": "Article 17 — Abolition of untouchability",
+      "zone": "law_constitution",
+      "shortDef": "Untouchability is abolished and its practice in any form is forbidden; enforcement of any disability arising out of it is an offence punishable by law.",
+      "longDef": "Article 17 is one of the very few provisions of the Constitution that uses the word 'abolished'. It is placed in Part III among the fundamental rights, and the practice of untouchability is itself made an offence rather than merely being declared void. The later Protection of Civil Rights Act, 1955 and the Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Act, 1989 are ordinary statutes built on this provision. The Constitutional Gallery links Article 17 to the Social Reform gallery's account of the Mahad and Nashik campaigns, which were the direct precursors of the constitutional guarantee.",
+      "keywords": ["article 17", "untouchability", "abolition", "offence", "civil rights act"],
+      "source": "Constitution of India, Article 17; India Code.",
+      "archiveIds": ["arc_law_fundamental_rights", "arc_social_mahad_1927", "arc_social_kalaram_1930"]
+    },
+    {
+      "id": "con_article21",
+      "term": "Article 21 — Life and personal liberty",
+      "zone": "law_constitution",
+      "shortDef": "No person shall be deprived of life or personal liberty except according to procedure established by law.",
+      "longDef": "Article 21 is among the most expansively interpreted provisions of the Constitution. Courts have read into it access to a speedy trial, legal aid, a clean environment, education (also a fundamental right under Article 21A since 2002), health and dignity. The gallery shows how a short text becomes a body of law through judicial interpretation, with a note on how that process works.",
+      "keywords": ["article 21", "life", "liberty", "due process", "education", "dignity"],
+      "source": "Constitution of India, Article 21 and Article 21A; India Code.",
+      "archiveIds": ["arc_law_fundamental_rights", "arc_law_dpsp"]
+    },
+    {
+      "id": "con_article32",
+      "term": "Article 32 — Right to constitutional remedies",
+      "zone": "law_constitution",
+      "shortDef": "The right to move the Supreme Court for the enforcement of the fundamental rights, through writs including habeas corpus, mandamus, prohibition, quo warranto and certiorari.",
+      "longDef": "Article 32 makes the fundamental rights enforceable. Speaking in the Constituent Assembly on 25 November 1949, Dr. Ambedkar called it the provision that makes the rights real, comparing it to the soul and heart of the Constitution. The gallery presents the five writs with plain-language explanations and examples, and uses the article as the closing exhibit of the Fundamental Rights bay.",
+      "keywords": ["article 32", "writ", "habeas corpus", "mandamus", "certiorari", "supreme court", "remedies"],
+      "source": "Constitution of India, Article 32; Constituent Assembly Debates, Vol. XI (25 November 1949).",
+      "archiveIds": ["arc_law_article32", "arc_law_fundamental_rights"]
+    },
+    {
+      "id": "con_dpsp",
+      "term": "Directive Principles of State Policy",
+      "zone": "law_constitution",
+      "shortDef": "The goals set out in Part IV for the State to pursue through policy. They are not enforceable in court by themselves, but they guide legislation.",
+      "longDef": "Part IV asks the State to promote welfare, reduce inequalities (Article 38) and protect the interests of the weaker sections (Article 46). The gallery explains the design decision behind Part IV — that a newly independent country needed both enforceable limits on power (Part III) and positive instructions to government (Part IV) — and shows how courts have used the Directive Principles when interpreting fundamental rights.",
+      "keywords": ["directive principles", "part iv", "article 38", "article 46", "welfare", "non-enforceable"],
+      "source": "Constitution of India, Part IV; India Code.",
+      "archiveIds": ["arc_law_dpsp", "arc_law_fundamental_rights"]
+    },
+    {
+      "id": "con_constitutional_morality",
+      "term": "Constitutional morality",
+      "zone": "law_constitution",
+      "shortDef": "The habit of respecting the forms, means and methods of constitutional government, without which, Ambedkar argued, a constitution on paper is not enough.",
+      "longDef": "In the Constituent Assembly debate of 4 November 1948, Ambedkar warned that constitutional forms could not by themselves sustain democratic government and argued that a corresponding morality — respect for procedure, for opposition, and for the limits of power — was necessary. The term is now widely used in Indian public debate. The gallery treats it as an argument made in a specific debate, cited to the Debates volume, rather than as a general maxim.",
+      "keywords": ["constitutional morality", "1948", "procedure", "democracy", "civic virtue"],
+      "source": "Constituent Assembly Debates, Vol. VII, 4 November 1948.",
+      "archiveIds": ["arc_law_constitutional_morality"]
+    },
+    {
+      "id": "con_social_democracy",
+      "term": "Social democracy",
+      "zone": "law_constitution",
+      "shortDef": "The position that political democracy requires a social base of equality — that elections alone cannot hold a society together if status and opportunity are unequal.",
+      "longDef": "In his address of 25 November 1949 Ambedkar argued that a nation that begins with inequality will eventually have to confront it, because political democracy rests on social foundations. The Constitutional Gallery uses this as the transition from Part III back to the Social Reform gallery, and the Legacy Archive uses it as the closing idea of the final knowledge challenge.",
+      "keywords": ["social democracy", "1949", "equality of status", "political democracy", "foundations"],
+      "source": "Constituent Assembly Debates, Vol. XI, 25 November 1949.",
+      "archiveIds": ["arc_law_social_democracy", "arc_law_preamble"]
+    },
+    {
+      "id": "con_fraternity",
+      "term": "Fraternity and the dignity of the individual",
+      "zone": "law_constitution",
+      "shortDef": "The Preamble's fourth object: to assure the dignity of the individual and the unity and integrity of the Nation.",
+      "longDef": "Fraternity in the Preamble connects dignity to national unity: the claim is that a society which denies dignity to some of its members cannot be stable or united. The gallery pairs the phrase with the archive's records on the exclusion documented in the Early Life and Social Reform galleries.",
+      "keywords": ["fraternity", "dignity", "unity", "integrity", "preamble"],
+      "source": "Constitution of India, Preamble.",
+      "archiveIds": ["arc_law_preamble", "arc_law_social_democracy"]
+    },
+    {
+      "id": "con_universal_adult_suffrage",
+      "term": "Universal adult suffrage",
+      "zone": "law_constitution",
+      "shortDef": "Every adult citizen has the vote, without property, literacy or gender qualifications.",
+      "longDef": "The adoption of universal adult suffrage for the first general elections of 1951–52 was a considerable decision for a country with low literacy rates at the time. The gallery notes the decision together with the argument frequently made in the Constituent Assembly that the people could be trusted with the vote, and shows the election timeline that follows from it.",
+      "keywords": ["universal adult suffrage", "vote", "elections", "1951", "democracy"],
+      "source": "Constitution of India, Article 326; Representation of the People Act, 1950 (Government of India).",
+      "archiveIds": ["arc_law_adoption_1949", "arc_law_commencement_1950"]
+    },
+    {
+      "id": "con_federalism",
+      "term": "Federal structure with a strong centre",
+      "zone": "law_constitution",
+      "shortDef": "The Constitution distributes powers between the Union and the States, listing subjects in the Union, State and Concurrent Lists, while retaining centralising features for emergencies and for national unity.",
+      "longDef": "The Indian arrangement is often described as federal in structure with unitary features: separate legislative lists, a division of revenues, and provisions that shift power towards the Union in an emergency. Ambedkar had written about federal finance and federal options before 1947, and the gallery uses his pre-1947 writing (for example 'Federation versus Freedom') as a way into the design problem.",
+      "keywords": ["federalism", "union list", "state list", "concurrent list", "emergency", "centre-state"],
+      "source": "Constitution of India, Part XI and the Seventh Schedule; Dr. Babasaheb Ambedkar: Writings and Speeches (Federation versus Freedom, 1939).",
+      "archiveIds": ["arc_man_federation_freedom_1939", "arc_law_drafting_committee"]
+    },
+    {
+      "id": "con_citizenship",
+      "term": "Citizenship",
+      "zone": "law_constitution",
+      "shortDef": "Part II of the Constitution determines who is a citizen at the commencement of the Constitution; the details of citizenship thereafter are governed by law made by Parliament.",
+      "longDef": "Part II (Articles 5 to 11) settled who would be a citizen when the Constitution came into force, and left the future law of citizenship to Parliament — the Citizenship Act, 1955 and later amendments. The gallery treats citizenship as a worked example of how the Constitution divides its work between the text and ordinary legislation.",
+      "keywords": ["citizenship", "part ii", "articles 5 to 11", "citizenship act 1955"],
+      "source": "Constitution of India, Part II; Citizenship Act, 1955 (Government of India).",
+      "archiveIds": ["arc_law_commencement_1950", "arc_law_drafting_committee"]
+    },
+    {
+      "id": "con_judicial_review",
+      "term": "Judicial review",
+      "zone": "law_constitution",
+      "shortDef": "The power of courts to examine whether a law or executive action conforms to the Constitution, and to declare it invalid if it does not.",
+      "longDef": "Judicial review is not created by a single article: it follows from the supremacy of the Constitution and from provisions such as Articles 13, 32 and 226. The gallery explains the mechanism, together with the counter-argument about the balance between elected legislatures and courts — a debate that runs through the archive's constitutional records.",
+      "keywords": ["judicial review", "article 13", "article 32", "article 226", "supremacy", "courts"],
+      "source": "Constitution of India, Articles 13, 32 and 226; India Code.",
+      "archiveIds": ["arc_law_article32", "arc_law_fundamental_rights"]
+    },
+    {
+      "id": "con_minority_safeguards",
+      "term": "Safeguards for minorities",
+      "zone": "law_constitution",
+      "shortDef": "Provisions intended to protect religious and linguistic minorities, including rights under Articles 29 and 30 and representation in the political process.",
+      "longDef": "The archive's constitutional records show how the question of minority protection was argued through the 1930s and 1940s: separate electorates, reserved seats, fundamental rights and cultural and educational rights for minorities. The gallery presents both the claims made and the objections raised, with citations, rather than a single verdict.",
+      "keywords": ["minorities", "article 29", "article 30", "safeguards", "representation", "separate electorate"],
+      "source": "Constitution of India, Articles 29 and 30; Constituent Assembly Debates; Dr. Babasaheb Ambedkar: Writings and Speeches (States and Minorities, 1947).",
+      "archiveIds": ["arc_law_states_minorities_1947", "arc_social_round_table", "arc_social_poonapact_1932"]
+    },
+    {
+      "id": "con_representation",
+      "term": "Representation and reserved seats",
+      "zone": "law_constitution",
+      "shortDef": "The mechanism by which seats are set aside for particular groups within an elected body, as against a separate electorate in which only members of that group vote.",
+      "longDef": "The distinction between a separate electorate and reserved seats in a joint electorate is the substance of the 1932 settlement. The Constitutional Gallery explains the difference in plain language, because the two arrangements are often confused, and the Social Reform gallery shows the argument between Ambedkar and Gandhi that produced the compromise.",
+      "keywords": ["representation", "reserved seats", "separate electorate", "joint electorate", "1932"],
+      "source": "Text of the Poona Pact, 1932 (Government of India records); Constituent Assembly Debates.",
+      "archiveIds": ["arc_social_poonapact_1932", "arc_law_states_minorities_1947"]
+    },
+    {
+      "id": "con_amendment",
+      "term": "Amendment of the Constitution",
+      "zone": "law_constitution",
+      "shortDef": "The Constitution may be amended by Parliament under Article 368, by the procedures set out there — including, for some provisions, ratification by the States.",
+      "longDef": "Article 368 provides the procedure for amendment. The gallery explains the different majorities required and notes the debates about the extent of the amending power, which the courts have addressed in judgments beginning in the 1950s and 1960s. The entry is deliberately descriptive and does not take a position on contested questions.",
+      "keywords": ["amendment", "article 368", "ratification", "special majority"],
+      "source": "Constitution of India, Article 368; India Code.",
+      "archiveIds": ["arc_law_drafting_committee", "arc_law_commencement_1950"]
+    },
+    {
+      "id": "con_education_right",
+      "term": "The constitutional instruction on education",
+      "zone": "law_constitution",
+      "shortDef": "Article 46 directs the State to promote the educational and economic interests of the weaker sections of the people, and in particular of the Scheduled Castes and Scheduled Tribes; Article 21A makes elementary education a fundamental right.",
+      "longDef": "The archive's education mission has a constitutional basis in two places: the Directive Principle in Article 46, and the fundamental right to elementary education inserted as Article 21A in 2002, with the Right of Children to Free and Compulsory Education Act, 2009 as the implementing law. The Legacy Archive's education wing displays both, together with the institutions the movement built for the same purpose.",
+      "keywords": ["article 46", "article 21a", "education", "right to education", "2009", "weaker sections"],
+      "source": "Constitution of India, Articles 46 and 21A; Right of Children to Free and Compulsory Education Act, 2009 (Government of India).",
+      "archiveIds": ["arc_law_dpsp", "arc_legacy_peoples_education_society"]
+    }
+  ]
+}

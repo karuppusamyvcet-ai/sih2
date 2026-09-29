@@ -1,0 +1,25 @@
+# ---- build output (generated locally or by CI) ----------------------------
+Builds/
+Build/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+UserSettings/
+*.csproj
+*.sln
+*.apk
+*.aab
+*.exe
+*.unitypackage
+
+# ---- browser build artefacts ---------------------------------------------
+web/node_modules/
+node_modules/
+*.log
+
+# ---- editor / OS noise ---------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
