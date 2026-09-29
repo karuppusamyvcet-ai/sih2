@@ -1,338 +1,338 @@
 {
-  "schema": "heritage.character.v1",
-  "id": "dr_br_ambedkar",
-  "displayName": "Dr. B. R. Ambedkar",
-  "role": "Playable character — digital reconstruction",
-  "disclaimer": "Digital Reconstruction — artistic visualisation, not an authentic photograph.",
-  "sourceSheet": "Assets/Art/Characters/Reference/ambedkar_character_sheet.png",
-  "heightTotal": 1.7,
-  "proportions": {
-    "headHeight": 0.236,
-    "headWidth": 0.176,
-    "headDepth": 0.196,
-    "headToBodyRatio": 7.2,
-    "neckHeight": 0.086,
-    "neckRadius": 0.062,
-    "neckPitchDeg": 4.0,
-    "shoulderWidth": 0.414,
-    "shoulderHeight": 1.4,
-    "chestDepth": 0.242,
-    "waistDepth": 0.252,
-    "waistWidth": 0.332,
-    "bellyBulge": 0.014,
-    "hipHeight": 0.856,
-    "upperArmLength": 0.246,
-    "lowerArmLength": 0.238,
-    "handLength": 0.098,
-    "armDropDeg": 12.0,
-    "legLength": 0.856,
-    "thighRadius": 0.092,
-    "calfRadius": 0.068,
-    "shoeLength": 0.262,
-    "shoeWidth": 0.104,
-    "shoeHeight": 0.078,
-    "eyeHeight": 1.58,
-    "chinHeight": 1.464,
-    "hairlineHeight": 1.655,
-    "eyeSpacing": 0.072,
-    "kneeAboveAnkle": 0.408,
-    "ankleAboveSole": 0.062,
-    "hipToShoulder": 0.544,
-    "hipToKnee": 0.38,
-    "hipJointHeight": 0.85,
-    "crownHeight": 1.7,
-    "skullHalfWidth": 0.086,
-    "skullHalfHeight": 0.103,
-    "skullHalfDepth": 0.098,
-    "headCentreHeight": 1.567,
-    "hairCapThickness": 0.03
+ "schema": "heritage.character.v1",
+ "id": "dr_br_ambedkar",
+ "displayName": "Dr. B. R. Ambedkar",
+ "role": "Playable character — digital reconstruction",
+ "disclaimer": "Digital Reconstruction — artistic visualisation, not an authentic photograph.",
+ "sourceSheet": "Assets/Art/Characters/Reference/ambedkar_character_sheet.png",
+ "heightTotal": 1.7,
+ "proportions": {
+  "headHeight": 0.236,
+  "headWidth": 0.196,
+  "headDepth": 0.206,
+  "headToBodyRatio": 7.2,
+  "neckHeight": 0.086,
+  "neckRadius": 0.062,
+  "neckPitchDeg": 4.0,
+  "shoulderWidth": 0.414,
+  "shoulderHeight": 1.4,
+  "chestDepth": 0.242,
+  "waistDepth": 0.252,
+  "waistWidth": 0.332,
+  "bellyBulge": 0.014,
+  "hipHeight": 0.856,
+  "upperArmLength": 0.246,
+  "lowerArmLength": 0.238,
+  "handLength": 0.098,
+  "armDropDeg": 12.0,
+  "legLength": 0.856,
+  "thighRadius": 0.092,
+  "calfRadius": 0.068,
+  "shoeLength": 0.262,
+  "shoeWidth": 0.104,
+  "shoeHeight": 0.078,
+  "eyeHeight": 1.58,
+  "chinHeight": 1.464,
+  "hairlineHeight": 1.655,
+  "eyeSpacing": 0.072,
+  "kneeAboveAnkle": 0.408,
+  "ankleAboveSole": 0.062,
+  "hipToShoulder": 0.544,
+  "hipToKnee": 0.38,
+  "hipJointHeight": 0.85,
+  "crownHeight": 1.7,
+  "skullHalfWidth": 0.098,
+  "skullHalfHeight": 0.103,
+  "skullHalfDepth": 0.103,
+  "headCentreHeight": 1.567,
+  "hairCapThickness": 0.03
+ },
+ "facialFeatures": {
+  "glasses": {
+   "type": "round",
+   "lensRadius": 0.0335,
+   "lensThickness": 0.004,
+   "rimThickness": 0.0032,
+   "bridgeWidth": 0.02,
+   "templeLength": 0.108,
+   "yOffset": -0.002,
+   "zOffset": 0.086,
+   "mustRemainVisible": true
   },
-  "facialFeatures": {
-    "glasses": {
-      "type": "round",
-      "lensRadius": 0.0275,
-      "lensThickness": 0.004,
-      "rimThickness": 0.0022,
-      "bridgeWidth": 0.022,
-      "templeLength": 0.108,
-      "yOffset": 0.003,
-      "zOffset": 0.086,
-      "mustRemainVisible": true
-    },
-    "hair": {
-      "style": "short_receding_swept_side",
-      "sideVolume": 1.12,
-      "topVolume": 0.72,
-      "hairlineRecession": 0.16,
-      "mustNotBeLong": true
-    },
-    "moustache": {
-      "style": "short_clipped",
-      "width": 0.052,
-      "height": 0.011,
-      "yOffset": -0.058,
-      "zOffset": 0.086
-    },
-    "brows": {
-      "thickness": 0.008,
-      "angle": 0.0
-    },
-    "ears": {
-      "size": 0.032,
-      "protrusion": 0.012
-    },
-    "beard": {
-      "style": "none",
-      "note": "The reference character is clean-shaven apart from the clipped moustache. Any beard or stubble in a render is a fidelity defect, not a stylistic choice."
-    }
+  "hair": {
+   "style": "short_receding_swept_side",
+   "sideVolume": 1.12,
+   "topVolume": 0.62,
+   "hairlineRecession": 0.16,
+   "mustNotBeLong": true
   },
-  "clothing": {
-    "suit": "three_piece_single_breasted_notch",
-    "jacketColor": "#1D2B45",
-    "jacketVariantGray": "#4A4F55",
-    "jacketTrim": "#16223A",
-    "waistcoatColor": "#243352",
-    "shirtColor": "#F3F1EA",
-    "collarHeight": 0.034,
-    "lapelWidth": 0.062,
-    "pocketFlaps": true,
-    "tieColor": "#9E2130",
-    "tiePatternColorA": "#E6D9C6",
-    "tiePatternColorB": "#2A1A16",
-    "tiePattern": "micro_dot_diagonal",
-    "tieWidth": 0.046,
-    "trousersColor": "#232B3D",
-    "trouserCuffBreak": 0.018,
-    "shoeColor": "#2A211C",
-    "shoeStyle": "lace_up_oxford"
+  "moustache": {
+   "style": "short_clipped",
+   "width": 0.052,
+   "height": 0.011,
+   "yOffset": -0.058,
+   "zOffset": 0.086
   },
-  "materials": {
-    "skin": {
-      "color": "#8A5A3B",
-      "metallic": 0.0,
-      "roughness": 0.58
-    },
-    "skin_shadow": {
-      "color": "#7A4E33",
-      "metallic": 0.0,
-      "roughness": 0.62
-    },
-    "hair": {
-      "color": "#17110D",
-      "metallic": 0.05,
-      "roughness": 0.44
-    },
-    "moustache": {
-      "color": "#1B1410",
-      "metallic": 0.0,
-      "roughness": 0.48
-    },
-    "glasses_frame": {
-      "color": "#241E18",
-      "metallic": 0.35,
-      "roughness": 0.35
-    },
-    "glass_lens": {
-      "color": "#F2F6FF",
-      "metallic": 0.0,
-      "roughness": 0.08,
-      "alpha": 0.22
-    },
-    "jacket": {
-      "color": "#1D2B45",
-      "metallic": 0.04,
-      "roughness": 0.62,
-      "texture": "fabric_weave"
-    },
-    "jacket_trim": {
-      "color": "#16223A",
-      "metallic": 0.05,
-      "roughness": 0.55
-    },
-    "waistcoat": {
-      "color": "#243352",
-      "metallic": 0.04,
-      "roughness": 0.66,
-      "texture": "fabric_weave"
-    },
-    "shirt": {
-      "color": "#F3F1EA",
-      "metallic": 0.0,
-      "roughness": 0.72
-    },
-    "tie": {
-      "color": "#9E2130",
-      "metallic": 0.03,
-      "roughness": 0.55,
-      "texture": "tie_pattern"
-    },
-    "trousers": {
-      "color": "#232B3D",
-      "metallic": 0.03,
-      "roughness": 0.7,
-      "texture": "fabric_weave"
-    },
-    "shoes": {
-      "color": "#2A211C",
-      "metallic": 0.1,
-      "roughness": 0.42,
-      "texture": "leather_grain"
-    }
+  "brows": {
+   "thickness": 0.008,
+   "angle": 0.0
   },
-  "proceduralTextures": {
-    "tie_pattern": {
-      "size": 256,
-      "motif": "micro_dot_diagonal",
-      "scale": 18
-    },
-    "fabric_weave": {
-      "size": 256,
-      "motif": "weave_noise",
-      "scale": 64,
-      "strength": 0.06
-    },
-    "leather_grain": {
-      "size": 256,
-      "motif": "grain_noise",
-      "scale": 40,
-      "strength": 0.12
-    },
-    "skin_ramp": {
-      "size": 256,
-      "motif": "tone_ramp",
-      "strength": 0.08
-    }
+  "ears": {
+   "size": 0.032,
+   "protrusion": 0.012
   },
-  "rig": {
-    "rootMotion": false,
-    "bindPose": "A_POSE_12",
-    "bones": [
-      "Root",
-      "Hips",
-      "Spine",
-      "Chest",
-      "UpperChest",
-      "Neck",
-      "Head",
-      "Jaw",
-      "Eye_L",
-      "Eye_R",
-      "Shoulder_L",
-      "UpperArm_L",
-      "LowerArm_L",
-      "Hand_L",
-      "Thumb_L",
-      "Index_L",
-      "Middle_L",
-      "Ring_L",
-      "Pinky_L",
-      "Shoulder_R",
-      "UpperArm_R",
-      "LowerArm_R",
-      "Hand_R",
-      "Thumb_R",
-      "Index_R",
-      "Middle_R",
-      "Ring_R",
-      "Pinky_R",
-      "UpperLeg_L",
-      "LowerLeg_L",
-      "Foot_L",
-      "Toe_L",
-      "UpperLeg_R",
-      "LowerLeg_R",
-      "Foot_R",
-      "Toe_R"
-    ]
-  },
-  "animator": {
-    "controller": "Assets/Art/Animations/AmbedkarAnimator.controller",
-    "parameters": {
-      "Speed": "float",
-      "MoveX": "float",
-      "MoveZ": "float",
-      "IsCarrying": "bool",
-      "InteractType": "int",
-      "DialogueMode": "int",
-      "Trigger": "trigger",
-      "DoorTrigger": "trigger",
-      "SkipIntro": "trigger"
-    },
-    "defaultBlendSeconds": 0.18,
-    "interactionBlendSeconds": 0.32
-  },
-  "clipList": [
-    "Idle_Breathe",
-    "Idle_Stand",
-    "Walk",
-    "Walk_Carry_Book",
-    "Run_FastWalk",
-    "Turn_Left",
-    "Turn_Right",
-    "Look_At_Exhibit",
-    "Point_At_Exhibit",
-    "Speak",
-    "Listen",
-    "Read_Standing",
-    "Examine_Manuscript",
-    "Interact_Press",
-    "Sit_Idle",
-    "Sit_Read",
-    "Door_Enter",
-    "Door_Exit",
-    "Greet",
-    "Think",
-    "Explain_Gesture",
-    "Take_Notes",
-    "Book_Open",
-    "Book_Close",
-    "Presentation_Lecture"
-  ],
-  "lod": {
-    "lod0Distance": 12.0,
-    "lod1Distance": 26.0,
-    "lod2Distance": 45.0,
-    "cullDistance": 70.0,
-    "triangleBudget": {
-      "lod0": 9300,
-      "lod1": 4300,
-      "lod2": 1700
-    }
-  },
-  "budget": {
-    "materialsMax": 15,
-    "bonesMax": 40,
-    "textureSizeMax": 256,
-    "mobileMaterialOverride": {
-      "roughnessDelta": 0.08,
-      "reflections": false,
-      "additionalLights": false
-    }
-  },
-  "identityChecklist": [
-    "round dark glasses visible",
-    "short neat receding hairline",
-    "small clipped moustache",
-    "stocky broad-shouldered build (shoulder:head = 2.35)",
-    "white shirt with high collar",
-    "red patterned tie visible above waistcoat",
-    "three-piece suit in deep blue / grey",
-    "dark leather lace-up shoes",
-    "calm upright formal stance"
-  ],
-  "rejectedStyles": [
-    "anime",
-    "cartoon",
-    "superhero",
-    "fantasy",
-    "futuristic",
-    "generic politician",
-    "random businessman",
-    "modern avatar"
-  ],
-  "derivedNote": "Derived segment lengths used by both character builders (Unity CharacterBuilder.cs and web/src/char/builder.js).",
-  "derivations": {
-    "verticalLayout": "Head: chin 1.464 to crown 1.700 = 0.236 m, i.e. 7.2 head-heights in a 1.700 m figure. The skin skull is 0.206 m (half-height 0.103) with the 30 mm hair cap above it, so the top of the modelled hair lands exactly on crownHeight. Eyes at 1.580, shoulder line 1.400, hips 0.856. Both character builders place the collar, tie, arms, glasses, moustache and hair from these values, and Tools/audit_character_spec.py checks the sums.",
-    "headVolume": "Head height 0.236 m = skull 0.206 m + hair cap 0.030 m. Skull half-height 0.103 m, so the skull centre sits at crownHeight - hairCapThickness - skullHalfHeight = 1.567 m and the top of the hair lands exactly on crownHeight (1.700 m). The face is clean-shaven but for the moustache."
+  "beard": {
+   "style": "none",
+   "note": "The reference character is clean-shaven apart from the clipped moustache. Any beard or stubble in a render is a fidelity defect, not a stylistic choice."
   }
+ },
+ "clothing": {
+  "suit": "three_piece_single_breasted_notch",
+  "jacketColor": "#1D2B45",
+  "jacketVariantGray": "#4A4F55",
+  "jacketTrim": "#16223A",
+  "waistcoatColor": "#243352",
+  "shirtColor": "#F3F1EA",
+  "collarHeight": 0.034,
+  "lapelWidth": 0.062,
+  "pocketFlaps": true,
+  "tieColor": "#9E2130",
+  "tiePatternColorA": "#E6D9C6",
+  "tiePatternColorB": "#2A1A16",
+  "tiePattern": "micro_dot_diagonal",
+  "tieWidth": 0.046,
+  "trousersColor": "#232B3D",
+  "trouserCuffBreak": 0.018,
+  "shoeColor": "#2A211C",
+  "shoeStyle": "lace_up_oxford"
+ },
+ "materials": {
+  "skin": {
+   "color": "#8A5A3B",
+   "metallic": 0.0,
+   "roughness": 0.58
+  },
+  "skin_shadow": {
+   "color": "#7A4E33",
+   "metallic": 0.0,
+   "roughness": 0.62
+  },
+  "hair": {
+   "color": "#17110D",
+   "metallic": 0.05,
+   "roughness": 0.44
+  },
+  "moustache": {
+   "color": "#1B1410",
+   "metallic": 0.0,
+   "roughness": 0.48
+  },
+  "glasses_frame": {
+   "color": "#241E18",
+   "metallic": 0.35,
+   "roughness": 0.35
+  },
+  "glass_lens": {
+   "color": "#F2F6FF",
+   "metallic": 0.0,
+   "roughness": 0.08,
+   "alpha": 0.18
+  },
+  "jacket": {
+   "color": "#1D2B45",
+   "metallic": 0.04,
+   "roughness": 0.62,
+   "texture": "fabric_weave"
+  },
+  "jacket_trim": {
+   "color": "#16223A",
+   "metallic": 0.05,
+   "roughness": 0.55
+  },
+  "waistcoat": {
+   "color": "#243352",
+   "metallic": 0.04,
+   "roughness": 0.66,
+   "texture": "fabric_weave"
+  },
+  "shirt": {
+   "color": "#F3F1EA",
+   "metallic": 0.0,
+   "roughness": 0.72
+  },
+  "tie": {
+   "color": "#9E2130",
+   "metallic": 0.03,
+   "roughness": 0.55,
+   "texture": "tie_pattern"
+  },
+  "trousers": {
+   "color": "#232B3D",
+   "metallic": 0.03,
+   "roughness": 0.7,
+   "texture": "fabric_weave"
+  },
+  "shoes": {
+   "color": "#2A211C",
+   "metallic": 0.1,
+   "roughness": 0.42,
+   "texture": "leather_grain"
+  }
+ },
+ "proceduralTextures": {
+  "tie_pattern": {
+   "size": 256,
+   "motif": "micro_dot_diagonal",
+   "scale": 18
+  },
+  "fabric_weave": {
+   "size": 256,
+   "motif": "weave_noise",
+   "scale": 64,
+   "strength": 0.06
+  },
+  "leather_grain": {
+   "size": 256,
+   "motif": "grain_noise",
+   "scale": 40,
+   "strength": 0.12
+  },
+  "skin_ramp": {
+   "size": 256,
+   "motif": "tone_ramp",
+   "strength": 0.08
+  }
+ },
+ "rig": {
+  "rootMotion": false,
+  "bindPose": "A_POSE_12",
+  "bones": [
+   "Root",
+   "Hips",
+   "Spine",
+   "Chest",
+   "UpperChest",
+   "Neck",
+   "Head",
+   "Jaw",
+   "Eye_L",
+   "Eye_R",
+   "Shoulder_L",
+   "UpperArm_L",
+   "LowerArm_L",
+   "Hand_L",
+   "Thumb_L",
+   "Index_L",
+   "Middle_L",
+   "Ring_L",
+   "Pinky_L",
+   "Shoulder_R",
+   "UpperArm_R",
+   "LowerArm_R",
+   "Hand_R",
+   "Thumb_R",
+   "Index_R",
+   "Middle_R",
+   "Ring_R",
+   "Pinky_R",
+   "UpperLeg_L",
+   "LowerLeg_L",
+   "Foot_L",
+   "Toe_L",
+   "UpperLeg_R",
+   "LowerLeg_R",
+   "Foot_R",
+   "Toe_R"
+  ]
+ },
+ "animator": {
+  "controller": "Assets/Art/Animations/AmbedkarAnimator.controller",
+  "parameters": {
+   "Speed": "float",
+   "MoveX": "float",
+   "MoveZ": "float",
+   "IsCarrying": "bool",
+   "InteractType": "int",
+   "DialogueMode": "int",
+   "Trigger": "trigger",
+   "DoorTrigger": "trigger",
+   "SkipIntro": "trigger"
+  },
+  "defaultBlendSeconds": 0.18,
+  "interactionBlendSeconds": 0.32
+ },
+ "clipList": [
+  "Idle_Breathe",
+  "Idle_Stand",
+  "Walk",
+  "Walk_Carry_Book",
+  "Run_FastWalk",
+  "Turn_Left",
+  "Turn_Right",
+  "Look_At_Exhibit",
+  "Point_At_Exhibit",
+  "Speak",
+  "Listen",
+  "Read_Standing",
+  "Examine_Manuscript",
+  "Interact_Press",
+  "Sit_Idle",
+  "Sit_Read",
+  "Door_Enter",
+  "Door_Exit",
+  "Greet",
+  "Think",
+  "Explain_Gesture",
+  "Take_Notes",
+  "Book_Open",
+  "Book_Close",
+  "Presentation_Lecture"
+ ],
+ "lod": {
+  "lod0Distance": 12.0,
+  "lod1Distance": 26.0,
+  "lod2Distance": 45.0,
+  "cullDistance": 70.0,
+  "triangleBudget": {
+   "lod0": 9300,
+   "lod1": 4300,
+   "lod2": 1700
+  }
+ },
+ "budget": {
+  "materialsMax": 15,
+  "bonesMax": 40,
+  "textureSizeMax": 256,
+  "mobileMaterialOverride": {
+   "roughnessDelta": 0.08,
+   "reflections": false,
+   "additionalLights": false
+  }
+ },
+ "identityChecklist": [
+  "round dark glasses visible",
+  "short neat receding hairline",
+  "small clipped moustache",
+  "stocky broad-shouldered build (shoulder:head = 2.35)",
+  "white shirt with high collar",
+  "red patterned tie visible above waistcoat",
+  "three-piece suit in deep blue / grey",
+  "dark leather lace-up shoes",
+  "calm upright formal stance"
+ ],
+ "rejectedStyles": [
+  "anime",
+  "cartoon",
+  "superhero",
+  "fantasy",
+  "futuristic",
+  "generic politician",
+  "random businessman",
+  "modern avatar"
+ ],
+ "derivedNote": "Derived segment lengths used by both character builders (Unity CharacterBuilder.cs and web/src/char/builder.js).",
+ "derivations": {
+  "verticalLayout": "Head: chin 1.464 to crown 1.700 = 0.236 m, i.e. 7.2 head-heights in a 1.700 m figure. The skin skull is 0.206 m (half-height 0.103) with the 30 mm hair cap above it, so the top of the modelled hair lands exactly on crownHeight. Eyes at 1.580, shoulder line 1.400, hips 0.856. Both character builders place the collar, tie, arms, glasses, moustache and hair from these values, and Tools/audit_character_spec.py checks the sums.",
+  "headVolume": "Head height 0.236 m = skull 0.206 m + hair cap 0.030 m. Skull half-height 0.103 m, so the skull centre sits at crownHeight - hairCapThickness - skullHalfHeight = 1.567 m and the top of the hair lands exactly on crownHeight (1.700 m). The face is clean-shaven but for the moustache."
+ }
 }

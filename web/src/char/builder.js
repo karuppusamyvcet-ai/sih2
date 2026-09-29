@@ -438,30 +438,35 @@ export function buildCharacter(spec, quality = 'high') {
   const HW = P.skullHalfWidth, HH = P.skullHalfHeight, HD = P.skullHalfDepth;
 
   put(loft([
-    { y: chinRel, rx: HW * 0.36, rz: HD * 0.42, z: 0.008 },            // chin
-    { y: chinRel + HH * 0.20, rx: HW * 0.80, rz: HD * 0.74, z: 0.006 },// jaw
-    { y: chinRel + HH * 0.44, rx: HW * 0.90, rz: HD * 0.90, z: 0.004 },// mouth
-    { y: chinRel + HH * 0.70, rx: HW * 0.95, rz: HD * 0.97, z: 0.002 },// cheek
+    { y: chinRel, rx: HW * 0.54, rz: HD * 0.52, z: 0.014 },            // broad chin
+    { y: chinRel + HH * 0.18, rx: HW * 0.88, rz: HD * 0.82, z: 0.012 },// heavy jaw
+    { y: chinRel + HH * 0.36, rx: HW, rz: HD * 0.96, z: 0.012 },       // jowl
+    { y: chinRel + HH * 0.58, rx: HW * 1.0, rz: HD * 0.98, z: 0.008 }, // mouth and cheek
     { y: eyeRel, rx: HW, rz: HD, z: 0.0 },                             // eye line
-    { y: eyeRel + HH * 0.30, rx: HW * 0.98, rz: HD * 0.97, z: -0.002 },
-    { y: eyeRel + HH * 0.55, rx: HW * 0.86, rz: HD * 0.88, z: -0.004 },
-    { y: chinRel + HH * 1.85, rx: HW * 0.55, rz: HD * 0.58, z: -0.004 },
-    { y: chinRel + HH * 2.0, rx: HW * 0.16, rz: HD * 0.16, z: -0.004 }  // crown
+    { y: eyeRel + HH * 0.30, rx: HW * 0.99, rz: HD * 0.98, z: -0.002 },
+    { y: eyeRel + HH * 0.55, rx: HW * 0.88, rz: HD * 0.90, z: -0.004 },
+    { y: chinRel + HH * 1.85, rx: HW * 0.58, rz: HD * 0.60, z: -0.004 },
+    { y: chinRel + HH * 2.0, rx: HW * 0.17, rz: HD * 0.17, z: -0.004 }  // crown
   ], seg), mats.skin, headMesh, 0, 0, 0);
 
   // neck, visible between the collar and the jaw
-  put(tube(P.neckRadius * 0.94, P.neckRadius, P.neckHeight + 0.030, seg, 0.96), mats.skin, neck,
-    0, -0.006, 0.004);
+  put(tube(P.neckRadius * 1.05, P.neckRadius * 1.12, P.neckHeight + 0.026, seg, 0.96), mats.skin, neck,
+    0, -0.004, 0.012);
 
   // face: nose, eyes, brows, ears, mouth
-  put(ball(0.019), mats.skin, headMesh, 0, eyeRel - 0.030, HD * 0.90, null, [0.72, 1.05, 1.30]);
+  put(loft([
+    { y: eyeRel + 0.012, rx: 0.008, rz: 0.010, z: HD * 0.90 },   // bridge, between the brows
+    { y: eyeRel - 0.020, rx: 0.011, rz: 0.020, z: HD * 0.93 },
+    { y: eyeRel - 0.044, rx: 0.014, rz: 0.026, z: HD * 0.96 },   // tip
+    { y: eyeRel - 0.060, rx: 0.016, rz: 0.016, z: HD * 0.92 }    // nostril line
+  ], fine), mats.skin, headMesh, 0, 0, 0);
   [-1, 1].forEach((s) => {
     // a dark almond rather than a white sphere: at this scale it reads as an
     // eye behind a round lens instead of a cartoon eyeball
-    put(new THREE.BoxGeometry(0.021, 0.009, 0.006), mats.iris, headMesh,
+    put(new THREE.BoxGeometry(0.024, 0.0105, 0.006), mats.iris, headMesh,
       s * P.eyeSpacing / 2, eyeRel - 0.002, HD * 0.86, [0, 0, 0]);
-    put(new THREE.BoxGeometry(0.006, 0.006, 0.004), mats.eye, headMesh,
-      s * P.eyeSpacing / 2 + s * 0.005, eyeRel + 0.001, HD * 0.875);
+    put(new THREE.BoxGeometry(0.007, 0.007, 0.004), mats.eye, headMesh,
+      s * P.eyeSpacing / 2 + s * 0.006, eyeRel + 0.001, HD * 0.872);
     // a soft crease under the moustache stands in for the mouth line
     if (s > 0) put(new THREE.BoxGeometry(0.026, 0.0035, 0.006), mats.skinShadow, headMesh,
       0, chinRel + HH * 0.24, HD * 0.885);
@@ -475,10 +480,10 @@ export function buildCharacter(spec, quality = 'high') {
 
   // moustache — small and clipped, never comic; the reference is clean-shaven
   // apart from this
-  const mous = node('Moustache', headMesh, 0, F.moustache.yOffset, HD * 0.895);
+  const mous = node('Moustache', headMesh, 0, F.moustache.yOffset + 0.006, HD * 0.900);
   [-1, 1].forEach((s) => {
-    put(new THREE.BoxGeometry(F.moustache.width * 0.56, F.moustache.height, 0.013), mats.moustache, mous,
-      s * F.moustache.width * 0.24, s * 0.0015, 0, [0, 0, s * 0.14]);
+    put(new THREE.BoxGeometry(F.moustache.width * 0.58, F.moustache.height, 0.012), mats.moustache, mous,
+      s * F.moustache.width * 0.25, s * 0.0012, 0, [0, 0, s * 0.12]);
   });
 
   // hair: short, neatly combed, receding at the front, fuller at the sides
@@ -486,22 +491,22 @@ export function buildCharacter(spec, quality = 'high') {
   const hairRecession = F.hair?.hairlineRecession ?? 0.16;
   const shell = new THREE.Mesh(hairCap({
     rx: HW * 1.035,
-    ry: (HH + P.hairCapThickness) * 0.99,
+    ry: (HH + P.hairCapThickness) * 0.955,
     rz: HD * 1.04,
     segments: detailed ? 32 : 16,
     rings: detailed ? 8 : 4,
-    front: Math.PI * (0.195 + hairRecession * 0.15),   // high at the forehead: the receding line
-    side: Math.PI * 0.46,                             // stops above the ear
-    back: Math.PI * 0.62
+    front: Math.PI * (0.275 + hairRecession * 0.10),   // well back: the high bald forehead
+    side: Math.PI * 0.50,                             // stops above the ear, temple bare
+    back: Math.PI * 0.63
   }), mats.hair);
   shell.needsUpdate = true;
   shell.castShadow = quality !== 'low';
   hairGroup.add(shell);
   // a slightly fuller mass at the temples, kept clear of the ear itself
   [-1, 1].forEach((s) => {
-    put(ball(0.021), mats.hair, hairGroup, s * HW * 0.90, eyeRel + 0.046, -0.016, null, [0.8, 1.0, 1.4]);
+    put(ball(0.022), mats.hair, hairGroup, s * HW * 0.86, eyeRel + 0.056, -0.030, null, [0.8, 0.95, 1.20]);
   });
-  put(ball(0.036), mats.hair, hairGroup, 0, eyeRel + 0.030, -HD * 0.82, null, [1.35, 1.15, 0.7]);  // nape
+  put(ball(0.040), mats.hair, hairGroup, 0, eyeRel + 0.024, -HD * 0.80, null, [1.5, 1.2, 0.8]);  // nape
 
   // glasses — the single most recognisable feature; visible at every LOD
   const G = F.glasses;
@@ -517,13 +522,13 @@ export function buildCharacter(spec, quality = 'high') {
     lens.position.set(x, eyeRel + G.yOffset, G.zOffset + 0.005);
     lens.renderOrder = 2;
     const temple = new THREE.Mesh(new THREE.BoxGeometry(0.006, 0.006, G.templeLength), mats.frame);
-    temple.position.set(s * (G.lensRadius * 2 + G.bridgeWidth * 0.5), eyeRel + G.yOffset + 0.014,
+    temple.position.set(s * (G.lensRadius * 2 + G.bridgeWidth * 0.5), eyeRel + G.yOffset + 0.008,
       G.zOffset + 0.002 - G.templeLength / 2 - 0.006);
     temple.rotation.x = -0.08;
     glasses.add(rim, lens, temple);
   });
   const bridge = new THREE.Mesh(new THREE.BoxGeometry(G.bridgeWidth, 0.005, 0.006), mats.frame);
-  bridge.position.set(0, eyeRel + G.yOffset + 0.012, G.zOffset + 0.002);
+  bridge.position.set(0, eyeRel + G.yOffset + 0.006, G.zOffset + 0.002);
   glasses.add(bridge);
 
   // ---------------------------------------------------------------- props

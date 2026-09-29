@@ -169,7 +169,7 @@ export class World {
       switch (piece.type) {
         case 'reception_desk': built = P.receptionDesk(this.mats, piece.size); break;
         case 'guide_terminal': built = P.kiosk(this.mats, { title: ['ARCHIVE GUIDE', 'Ask a question'], w: piece.size[0], h: piece.size[1], d: piece.size[2] }); break;
-        case 'central_monument': built = P.centralMonument(this.mats); break;
+        case 'central_monument': built = P.centralMonument(this.mats, { width: piece.size[0], height: piece.size[1], depth: piece.size[2] }); break;
         case 'bench': built = P.bench(this.mats, { width: piece.size[0] }); break;
         case 'projection_screen': built = P.projectionScreen(this.mats, { width: piece.size[0], height: piece.size[1] }); break;
         case 'archive_kiosk': built = P.kiosk(this.mats, { title: ['DIGITAL ARCHIVE', 'Search 69 records'], w: piece.size[0], h: piece.size[1], d: piece.size[2] }); break;

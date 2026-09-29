@@ -671,6 +671,9 @@ export class Panels {
       rows.push(`<div class="set-row"><label>${label}</label>
         <input type="range" data-setting="${key}" min="${min}" max="${max}" step="${step}" value="${s[key]}">
         <span class="val" data-val="${key}">${typeof s[key] === 'number' ? Math.round(s[key] * 100) : s[key]}</span></div>`);
+    const build = (typeof window !== 'undefined' && window.HERITAGE_BUILD) || 'development';
+    rows.push(`<div class="set-row"><label>Build</label><span class="val" style="min-width:auto">
+      ${build}</span></div>`);
     slider('master', this.content.t('settings.master'));
     slider('music', this.content.t('settings.music'));
     slider('voice', this.content.t('settings.voice'));

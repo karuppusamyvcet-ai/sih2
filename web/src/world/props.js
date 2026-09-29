@@ -145,21 +145,23 @@ export function receptionDesk(mats, { width = 6, height = 1.15, depth = 1.6 } = 
   return { group: g };
 }
 
-export function centralMonument(mats, { text = ['THE DIGITAL AMBEDKAR', 'HERITAGE MUSEUM'] } = {}) {
+export function centralMonument(mats, { text = ['THE DIGITAL AMBEDKAR', 'HERITAGE MUSEUM'],
+  width = 3.2, height = 4.8, depth = 1.2 } = {}) {
   const g = new THREE.Group();
-  g.add(mesh(cyl(3.1, 3.4, 0.45, 40), mats.brass, 0, 0.22, 0));
-  g.add(mesh(cyl(2.6, 2.8, 0.3, 40), mats.marble, 0, 0.6, 0));
-  const pillar = mesh(box(2.0, 4.6, 1.0), mats.marble, 0, 3.0, 0);
+  const drum = width / 2;
+  g.add(mesh(cyl(drum * 0.92, drum, 0.45, 40), mats.brass, 0, 0.22, 0));
+  g.add(mesh(cyl(drum * 0.78, drum * 0.84, 0.3, 40), mats.marble, 0, 0.6, 0));
+  const pillar = mesh(box(depth * 1.7, height, depth), mats.marble, 0, height / 2 + 0.75, 0);
   g.add(pillar);
   const plaque = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.0), mats._sign(text, {
     width: 768, height: 448, titleSize: 62, bodySize: 34, seal: true
   }));
-  plaque.position.set(0, 3.3, 0.52);
+  plaque.position.set(0, height * 0.72, depth * 0.52);
   plaque.rotation.y = Math.PI;
   const plaque2 = plaque.clone();
-  plaque2.position.z = -0.52; plaque2.rotation.y = 0;
+  plaque2.position.z = -depth * 0.52; plaque2.rotation.y = 0;
   g.add(plaque, plaque2);
-  g.add(mesh(cyl(1.4, 1.7, 0.5, 32), mats.darkMetal, 0, 0.85, 0));
+  g.add(mesh(cyl(drum * 0.42, drum * 0.5, 0.5, 32), mats.darkMetal, 0, 0.85, 0));
   return { group: g };
 }
 

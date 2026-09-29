@@ -28,12 +28,20 @@ the demo can be shown on any laptop without installing anything.
 Nothing in this repository is concept art or a mockup: the browser build is a running game
 (`web/index.html`), and the Unity project builds the same museum from the same data.
 
+The boot log prints the build stamp (for example `[heritage] build 2026-09-29 · char-3 · movement-2`).
+If that line is missing or shows an older stamp, the browser is running a cached page — reload, or use
+`web/tools/serve.py`, which sends `no-store`.
+
+Two tools render the generated content on the CPU so it can be reviewed without a browser or a device:
+`node web/tools/render_character.mjs [dir]` (front, side, three-quarter and head views) and
+`node web/tools/render_museum.mjs [dir]` (the hall, a gallery and a memorial reconstruction).
+
 ---
 
 ## Run the demo in 30 seconds (no install, no internet)
 
 ```bash
-python3 -m http.server 8000 --directory web     # or any static file server
+python3 web/tools/serve.py 8000                 # no-cache server: a reload always runs current code
 # then open http://localhost:8000/
 ```
 

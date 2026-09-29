@@ -141,6 +141,7 @@ namespace Heritage.Core
         public float rotationY;
         public float[] size;
         public float fillLevel;
+        public string note;              // authoring note: why this piece stands here
     }
 
     [Serializable] public class MuseumFile

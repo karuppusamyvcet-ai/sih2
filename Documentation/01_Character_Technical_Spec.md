@@ -244,8 +244,17 @@ under `Documentation/reference/character-render/` and regenerated with:
 node web/tools/render_character.mjs Documentation/reference/character-render
 ```
 
-That review produced one round of real corrections, recorded here because they
-are as much a part of the likeness as the numbers:
+The review produced two rounds of corrections, recorded here because they are as
+much a part of the likeness as the numbers. The second round followed a portrait
+photograph of Dr. Ambedkar: the face is **broad and round with heavy cheeks and a
+wide jaw** (not narrow), the **glasses are large and sit high** (lens radius
+0.0335 m, rim 0.0032 m), the **hairline recedes far back with visible temples**
+and short, thin hair that is fuller at the sides and the nape, the **nose is
+small and wide**, the moustache is **thin and clipped**, and the **neck is thick**.
+`headWidth` was widened from 0.176 m to 0.196 m on that evidence, and the audit was
+re-run to confirm the head still measures 0.236 m from chin to crown.
+
+The first round:
 
 * the jacket is a **shelled garment** with an open front and an inner lining, so
   the lapels, the shirt, the waistcoat and the tie sit in a V instead of being

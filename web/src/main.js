@@ -13,6 +13,11 @@
    ========================================================================== */
 
 import * as THREE from 'three';
+
+/* Bumped whenever the build changes, so a stale cached page is obvious: the
+   boot log prints it, and Settings shows it under the version line. */
+const HERITAGE_BUILD = '2026-09-29 · char-3 · movement-2';
+if (typeof window !== 'undefined') window.HERITAGE_BUILD = HERITAGE_BUILD;
 import { Content } from './core/content.js';
 import { State } from './core/state.js';
 import { Audio } from './core/audio.js';
@@ -101,6 +106,10 @@ class Game {
     this.updateContinueButton(loadResult);
 
     this.ready = true;
+    // printed once per boot: if this line is missing or shows a different build,
+    // the browser is running a cached copy of the page
+    console.log(`[heritage] build ${HERITAGE_BUILD} — ${this.content.archive.records.length} archive records, ` +
+                `${this.content.museum.doors.length} doors loaded`);
     setTimeout(() => this.showMenu(), 420);
     this.animate();
   }
