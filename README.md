@@ -132,6 +132,7 @@ Current state, last run in this repository:
 | `Documentation/07_Testing_and_Validation.md` | The gates, what each one proves, and how to reproduce the results |
 | `Documentation/08_Accessibility_and_Localization.md` | Accessibility features; the six-locale plan and its honest status |
 | `Documentation/09_Demo_Presentation_Guide.md` | A timed five-to-ten minute demo script for judges |
+| `Documentation/10_Submission_Checklist.md` | Every deliverable mapped to its file, the phase-by-phase status, and the pre-submission checklist |
 
 ---
 
