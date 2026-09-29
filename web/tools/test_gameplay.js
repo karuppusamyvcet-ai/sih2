@@ -349,6 +349,117 @@ console.log('\nSave system');
   check('the damaged save is moved out of the way so the game starts clean', !localStorage.getItem(SAVE_KEY));
 }
 
+/* ------------------------------------------------------------------ movement
+   W must walk the character away from the camera and S back toward it, and A
+   and D must go left and right of the view. This is a regression guard: the
+   camera boom was once placed in front of the character, which made W look like
+   "backwards" and swapped A and D. */
+{
+  const THREE = await import('three');
+  const { Player } = await import('../src/systems/player.js');
+
+  const inputStub = {
+    move: () => ({ x: 0, y: 1 }),
+    consumeLook: () => ({ dx: 0, dy: 0 }),
+    consumeWheel: () => 0,
+    runHeld: () => false,
+    keys: new Set()
+  };
+  // the hub, as the real content describes it, so clampToRoom has real bounds
+  const world = {
+    colliders: [],
+    zone: 'hub',
+    spawnPointFor: () => new THREE.Vector3(0, 0, -11.5),
+    interactables: []
+  };
+  const state = { settings: {}, setSetting() {} };
+  const content = bundle;
+
+  const makePlayer = () => {
+    const character = buildCharacterStub(THREE);
+    const camera = new THREE.PerspectiveCamera(60, 1.6, 0.1, 100);
+    const player = new Player({
+      scene: new THREE.Scene(), camera, character, animator: character.animator,
+      world, state, content, audio: { footstep() {} }
+    });
+    player.spawn('hub');
+    return { player, camera };
+  };
+
+  // forward: the character must move in the direction the camera is looking,
+  // which is the vector that runs from the camera through the character
+  {
+    const { player, camera } = makePlayer();
+    const away = new THREE.Vector3(player.position.x - camera.position.x, 0,
+      player.position.z - camera.position.z).normalize();
+    const from = player.position.clone();
+    for (let i = 0; i < 60; i += 1) player.update(1 / 60, inputStub);
+    const delta = new THREE.Vector3(player.position.x - from.x, 0, player.position.z - from.z);
+    check('W walks the character deeper into the view, away from the camera',
+      delta.length() > 0.4 && delta.normalize().dot(away) > 0.9,
+      `moved ${delta.length().toFixed(2)} m, alignment ${delta.dot(away).toFixed(2)}`);
+  }
+
+  // S brings the character back toward the camera
+  {
+    const { player, camera } = makePlayer();
+    const away = new THREE.Vector3(player.position.x - camera.position.x, 0,
+      player.position.z - camera.position.z).normalize();
+    const from = player.position.clone();
+    const backStub = { ...inputStub, move: () => ({ x: 0, y: -1 }) };
+    for (let i = 0; i < 60; i += 1) player.update(1 / 60, backStub);
+    const delta = new THREE.Vector3(player.position.x - from.x, 0, player.position.z - from.z);
+    check('S walks the character back toward the camera',
+      delta.length() > 0.4 && delta.normalize().dot(away) < -0.9,
+      `moved ${delta.length().toFixed(2)} m, alignment ${delta.dot(away).toFixed(2)}`);
+  }
+
+  // A and D are not swapped: D must go to the right of what the camera sees.
+  // three.js builds the camera basis with z = eye − target, so the screen-right
+  // axis is (−forward.z, 0, forward.x) — the sign that used to be inverted.
+  {
+    const left = makePlayer();
+    const right = makePlayer();
+    const screenRight = new THREE.Vector3(
+      -(right.player.position.z - right.camera.position.z), 0,
+      right.player.position.x - right.camera.position.x).normalize();
+    const leftStub = { ...inputStub, move: () => ({ x: -1, y: 0 }) };
+    const rightStub = { ...inputStub, move: () => ({ x: 1, y: 0 }) };
+    const leftFrom = left.player.position.clone();
+    const rightFrom = right.player.position.clone();
+    for (let i = 0; i < 60; i += 1) { left.player.update(1 / 60, leftStub); right.player.update(1 / 60, rightStub); }
+    const dRight = new THREE.Vector3().subVectors(right.player.position, rightFrom).setY(0).normalize();
+    const dLeft = new THREE.Vector3().subVectors(left.player.position, leftFrom).setY(0).normalize();
+    check('D moves to the right of the view and A to the left',
+      dRight.dot(screenRight) > 0.85 && dLeft.dot(screenRight) < -0.85,
+      `A→x=${left.player.position.x.toFixed(2)}, D→x=${right.player.position.x.toFixed(2)}, ` +
+      `screen-right=(${screenRight.x.toFixed(2)}, ${screenRight.z.toFixed(2)})`);
+  }
+}
+
+function buildCharacterStub(THREE) {
+  const root = new THREE.Group();
+  const bone = (name, y) => {
+    const o = new THREE.Object3D();
+    o.name = name;
+    o.position.set(0, y, 0);
+    root.add(o);
+    return o;
+  };
+  const bones = {
+    Hips: bone('Hips', 0.856), Spine: bone('Spine', 0.1), Chest: bone('Chest', 0.22),
+    UpperChest: bone('UpperChest', 0.2), Neck: bone('Neck', 0.12), Head: bone('Head', 0.086),
+    Hand_L: bone('Hand_L', 0.7), Hand_R: bone('Hand_R', 0.7),
+    Foot_L: bone('Foot_L', 0.06), Foot_R: bone('Foot_R', 0.06)
+  };
+  const book = new THREE.Object3D();
+  return {
+    root, bones, props: { book }, materials: {}, meshes: [],
+    setLod() {}, setShadow() {},
+    animator: { update() {}, play() {}, isPlaying: (name) => name === 'Idle_Breathe', rootOffsetY: 0, current: 'Idle_Breathe' }
+  };
+}
+
 console.log('\n' + '-'.repeat(60));
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -86,7 +86,7 @@ Current state, last run in this repository:
 | `Tools/validate_content.py` | **PASSED** — 69 archive records, 38 timeline events, 42 questions, 48 exhibits, 8 memorials, 6 galleries, exactly six doors |
 | `Tools/audit_character_spec.py` | **PASSED** — 20 checks: 1.700 m tall, 7.20 head-heights, sole on the floor, collar under the chin, #9E2130 tie the only accent |
 | `Tools/check_csharp.py` | **PASSED** — every Unity source lexes, every content id it names exists |
-| `web/tools/run_tests.sh` | **PASSED** — 29 character/animation checks, 46 gameplay checks, 30 archive-engine checks |
+| `web/tools/run_tests.sh` | **PASSED** — 29 character/animation checks, 49 gameplay checks (including camera-relative movement), 30 archive-engine checks |
 | `web/tools/run_boot_test.sh` | **PASSED** — 70 checks: the real `main.js` boots in jsdom and plays menu → intro → hub → six galleries → memorial → exhibit → archive → quiz → Guide → locked doors → save |
 
 ---
@@ -123,7 +123,7 @@ Current state, last run in this repository:
 
 | Document | Read it for |
 | --- | --- |
-| `Documentation/01_Character_Technical_Spec.md` | The character: reference analysis, proportions, palette, rig, 25 clips, acceptance criteria |
+| `Documentation/01_Character_Technical_Spec.md` | The character: reference analysis, proportions, palette, rig, 25 clips, acceptance criteria, rendered verification |
 | `Documentation/02_Architecture.md` | How the systems fit together, and why the content sits outside the code |
 | `Documentation/03_Content_Authoring.md` | Adding a record, a question, an exhibit, a mission or a language without touching gameplay code |
 | `Documentation/04_Build_and_Deployment.md` | Windows and Android builds, CI, and what the shipped artefacts contain |

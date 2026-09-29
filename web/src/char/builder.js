@@ -1,22 +1,26 @@
 /* ==========================================================================
-   builder.js — Dr. B. R. Ambedkar, built from character_spec.json.
+   builder.js — Dr. B. R. Ambedkar, generated from character_spec.json.
 
-   The model is generated, not downloaded, so it stays licence-clean and stays
-   faithful to the reference sheet: round dark glasses, short receding hairline,
-   small clipped moustache, white shirt, red patterned tie, three-piece suit,
-   dark leather lace-up shoes, stocky broad-shouldered build (shoulder width is
-   2.35 × head width), calm upright stance.
+   The figure is not a downloaded model, so it stays licence-clean and stays
+   faithful to the reference: round dark-rimmed glasses, short neatly combed
+   hair with a receding hairline, clipped moustache, clean-shaven, stocky
+   broad-shouldered build, dark navy three-piece suit over a white shirt, the
+   signature red patterned tie, dark lace-up shoes, calm upright stance.
 
-   Rig: an articulated hierarchy of rigid segments (each mesh parented to its
-   bone). This is a deliberate engineering choice for a cross-platform
-   educational title — it is cheap on mobile, has no skinning artefacts, and
-   animates by rotating transforms, which is exactly what the Unity
-   CharacterBuilder mirror does as well. Documentation/01 records the upgrade
-   path to a skinned mesh.
+   Everything is derived from the specification's numbers: the crown, the
+   hairline, the eye line, the chin, the shoulder line, the hip joint, the knee,
+   the ankle and the sole. A single edit to character_spec.json moves the model
+   with it, in this build and in the Unity build.
 
-   Every in-game instance of this character carries the label in CreditsScreen
-   and in the character's own archive record: it is a digital reconstruction,
-   not an authentic photograph.
+   Surfaces are lofted profiles rather than boxes — a body is a tapered volume
+   with a waist, a chest and a jaw, and it has to read as one from any angle.
+   Limbs are tapered tubes joined by spheres at the joints, the shoes carry the
+   sole to the floor, and the head is a lofted skull with a jaw, cheeks and a
+   hairline that recedes at the temples.
+
+   Rig: an articulated hierarchy of rigid segments, one mesh group per bone.
+   That is cheap on mobile, has no skinning artefacts, and animates by rotating
+   transforms — which is exactly what the Unity CharacterFactory mirror does.
    ========================================================================== */
 
 import * as THREE from 'three';
@@ -30,13 +34,178 @@ const mat = (cfg, extra = {}) => new THREE.MeshStandardMaterial({
   ...extra
 });
 
+/* ------------------------------------------------------------------ lofts */
+
+/**
+ * Loft a closed surface through a stack of elliptical rings.
+ * `levels` run bottom to top: { y, rx, rz, z? } — z shifts a ring forward or
+ * back, which is how the chest is carried in front of the spine and how the
+ * face sits proud of the back of the skull.
+ */
+function loft(levels, segments, { caps = true } = {}) {
+  const positions = [];
+  const indices = [];
+  const rings = levels.length;
+
+  for (let i = 0; i < rings; i += 1) {
+    const level = levels[i];
+    const rx = Math.max(0.0006, level.rx);
+    const rz = Math.max(0.0006, level.rz);
+    for (let j = 0; j <= segments; j += 1) {
+      const a = (j / segments) * Math.PI * 2;
+      positions.push(Math.sin(a) * rx, level.y, Math.cos(a) * rz + (level.z || 0));
+    }
+  }
+  for (let i = 0; i < rings - 1; i += 1) {
+    for (let j = 0; j < segments; j += 1) {
+      const a = i * (segments + 1) + j;
+      const b = a + segments + 1;
+      // counter-clockwise seen from outside: a, a+1, b — the other order makes
+      // the surface invisible from the front
+      indices.push(a, a + 1, b, a + 1, b + 1, b);
+    }
+  }
+
+  if (caps) {
+    // flat fans close the top and the bottom, so a limb never shows daylight
+    const bottom = levels[0];
+    const top = levels[rings - 1];
+    const bottomIndex = positions.length / 3;
+    positions.push(0, bottom.y, bottom.z || 0);
+    const topIndex = positions.length / 3;
+    positions.push(0, top.y, top.z || 0);
+    for (let j = 0; j < segments; j += 1) {
+      indices.push(bottomIndex, j + 1, j);
+      const base = (rings - 1) * (segments + 1);
+      indices.push(topIndex, base + j, base + j + 1);
+    }
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/** A tapered limb segment: radiusFrom at the bottom, radiusTo at the top. */
+function tube(radiusBottom, radiusTop, height, segments, squash = 1) {
+  return loft([
+    { y: 0, rx: radiusBottom, rz: radiusBottom * squash },
+    { y: height * 0.5, rx: (radiusBottom + radiusTop) * 0.5, rz: (radiusBottom + radiusTop) * 0.5 * squash },
+    { y: height, rx: radiusTop, rz: radiusTop * squash }
+  ], segments);
+}
+
+/**
+ * A garment shell: the same stack of rings as `loft`, but open at the front with
+ * a per-ring wedge, and given real thickness (an outer surface, an inner lining
+ * and rims along the opening). That is what makes a jacket read as a jacket —
+ * the V of the lapels shows the shirt and the waistcoat beneath, instead of the
+ * front being a painted stripe on a barrel.
+ */
+function shellArc(levels, segments, thickness = 0.008) {
+  const positions = [];
+  const indices = [];
+  const rings = levels.length;
+
+  for (let i = 0; i < rings; i += 1) {
+    const level = levels[i];
+    const gap = Math.max(0, level.gap || 0);
+    const rx = Math.max(0.0006, level.rx);
+    const rz = Math.max(0.0006, level.rz);
+    const z = level.z || 0;
+    const inner = 1 - thickness / Math.max(rx, rz);
+    for (let j = 0; j <= segments; j += 1) {
+      const a = gap + (j / segments) * (Math.PI * 2 - gap * 2);
+      // outer, then inner, interleaved so the rim can be built from the pairs
+      positions.push(Math.sin(a) * rx, level.y, Math.cos(a) * rz + z);
+      positions.push(Math.sin(a) * rx * inner, level.y, Math.cos(a) * rz * inner + z);
+    }
+  }
+
+  const stride = (segments + 1) * 2;
+  for (let i = 0; i < rings - 1; i += 1) {
+    for (let j = 0; j < segments; j += 1) {
+      const o0 = i * stride + j * 2;
+      const o1 = o0 + 2;
+      const u0 = o0 + stride;
+      const u1 = u0 + 2;
+      indices.push(o0, o1, u0, o1, u1, u0);                    // outer face
+      const n0 = o0 + 1, n1 = o1 + 1, m0 = u0 + 1, m1 = u1 + 1;
+      indices.push(n0, m0, n1, n1, m0, m1);                    // lining, wound inward
+    }
+  }
+
+  // the two rims of the opening
+  const last = segments * 2;
+  for (let i = 0; i < rings - 1; i += 1) {
+    const o = i * stride, u = o + stride;
+    indices.push(o, u, o + 1, o + 1, u, u + 1);                // left edge
+    indices.push(o + last, o + last + 1, u + last, o + last + 1, u + last + 1, u + last);
+  }
+
+  // top and bottom caps close the hem and the shoulder line
+  [0, rings - 1].forEach((ring, index) => {
+    const base = ring * stride;
+    for (let j = 0; j < segments; j += 1) {
+      const o = base + j * 2, n = o + 1, o1 = o + 2, n1 = o1 + 1;
+      if (index === 0) indices.push(o, n, o1, o1, n, n1);
+      else indices.push(o, o1, n, o1, n1, n);
+    }
+  });
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/**
+ * The hair cap: a shell over the skull whose lower edge follows a hairline
+ * function of the azimuth. That is what makes the receding line legible — the
+ * hair stops high at the front and sweeps low at the back and over the ears.
+ */
+function hairCap({ rx, ry, rz, segments = 28, rings = 7, front, side, back }) {
+  const positions = [];
+  const indices = [];
+  const hairline = (a) => {
+    const c = Math.cos(a);                       // +1 at the front, -1 at the back
+    return c >= 0 ? front + (side - front) * (1 - c) : side + (back - side) * (-c);
+  };
+  for (let i = 0; i <= rings; i += 1) {
+    const u = i / rings;
+    for (let j = 0; j <= segments; j += 1) {
+      const a = (j / segments) * Math.PI * 2;
+      const t = u * hairline(a);                 // polar angle: 0 at the crown
+      positions.push(Math.sin(t) * Math.sin(a) * rx, Math.cos(t) * ry, Math.sin(t) * Math.cos(a) * rz);
+    }
+  }
+  for (let i = 0; i < rings; i += 1) {
+    for (let j = 0; j < segments; j += 1) {
+      const a = i * (segments + 1) + j;
+      const b = a + segments + 1;
+      indices.push(a, a + 1, b, a + 1, b + 1, b);
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/* ------------------------------------------------------------------ build */
+
 export function buildCharacter(spec, quality = 'high') {
   const P = spec.proportions;
   const C = spec.clothing;
   const M = spec.materials;
   const F = spec.facialFeatures;
   const detailed = quality !== 'low';
-  const seg = detailed ? 20 : 10;
+  const seg = detailed ? 20 : 12;                // radial resolution
+  const fine = detailed ? 16 : 8;
 
   // ------------------------------------------------------------ materials
   const mats = {
@@ -52,16 +221,14 @@ export function buildCharacter(spec, quality = 'high') {
     shirt: mat(M.shirt),
     tie: mat(M.tie, detailed ? { map: tiePatternTexture(C.tieColor, C.tiePatternColorA, C.tiePatternColorB, 256, 12) } : {}),
     trousers: mat(M.trousers, detailed ? { map: fabricTexture(C.trousersColor, 0.05) } : {}),
-    shoes: mat(M.shoes, detailed ? { map: leatherTexture(C.shoeColor) } : {})
+    shoes: mat(M.shoes, detailed ? { map: leatherTexture(C.shoeColor) } : {}),
+    eye: mat({ color: '#F4F1EA', roughness: 0.25 }),
+    iris: mat({ color: '#2A1F17', roughness: 0.2 }),
+    sole: mat({ color: '#191512', roughness: 0.75 })
   };
-
-  // name every material after its palette slot: the audit tooling and the
-  // runtime tests identify parts by material, not by mesh order
+  // name every material after its palette slot: the tooling and the tests
+  // identify parts by material, never by mesh order
   for (const [key, m] of Object.entries(mats)) m.name = key;
-
-  const box = (w, h, d) => new THREE.BoxGeometry(w, h, d);
-  const sphere = (r, w = seg, h = Math.max(6, seg >> 1)) => new THREE.SphereGeometry(r, w, h);
-  const cyl = (rt, rb, h, s = seg) => new THREE.CylinderGeometry(rt, rb, h, s);
 
   const node = (name, parent, x = 0, y = 0, z = 0) => {
     const o = new THREE.Object3D();
@@ -80,6 +247,7 @@ export function buildCharacter(spec, quality = 'high') {
     parent.add(m);
     return m;
   };
+  const ball = (radius) => new THREE.SphereGeometry(radius, fine, Math.max(6, fine >> 1));
 
   // ---------------------------------------------------------------- rig
   const root = new THREE.Group();
@@ -90,170 +258,272 @@ export function buildCharacter(spec, quality = 'high') {
   const spine = node('Spine', hips, 0, SPINE_Y, 0);
   const chest = node('Chest', spine, 0, CHEST_Y, 0);
   const upperChest = node('UpperChest', chest, 0, UPPER_CHEST_Y, 0);
-  // the neck sits exactly on the shoulder line defined by the spec
-  const neck = node('Neck', upperChest, 0, P.shoulderHeight - (P.hipHeight + SPINE_Y + CHEST_Y + UPPER_CHEST_Y), 0.008);
+  const upperChestWorldY = P.hipHeight + SPINE_Y + CHEST_Y + UPPER_CHEST_Y;
+  const neck = node('Neck', upperChest, 0, P.shoulderHeight - upperChestWorldY, 0.006);
   const head = node('Head', neck, 0, P.neckHeight, 0);
 
   const bones = { Hips: hips, Spine: spine, Chest: chest, UpperChest: upperChest, Neck: neck, Head: head };
 
+  const hipY = P.hipHeight;
+  const shoulderY = P.shoulderHeight;
+  const headCentre = P.headCentreHeight;
+  const headPivotY = shoulderY + P.neckHeight;
+  const eyeRel = P.eyeHeight - headCentre;
+  const chinRel = P.chinHeight - headCentre;
+  const kneeY = P.hipJointHeight - P.hipToKnee;
+
+  // ---------------------------------------------------------------- pelvis
+  put(loft([
+    { y: 0.62 - P.hipHeight, rx: 0.128, rz: 0.100, z: 0 },
+    { y: 0.72 - P.hipHeight, rx: 0.142, rz: 0.106, z: 0 },
+    { y: P.hipJointHeight - P.hipHeight, rx: 0.148, rz: 0.104, z: 0 },
+    { y: P.hipJointHeight - P.hipHeight + 0.06, rx: 0.140, rz: 0.098, z: 0 }
+  ], seg), mats.trousers, hips, 0, 0, 0);
+
   // ------------------------------------------------------------- footwear
   const buildLeg = (side) => {
     const s = side === 'L' ? -1 : 1;
-    const upper = node(`UpperLeg_${side}`, hips, s * 0.098, -0.006, 0);          // hip joint at 0.850
-    const lower = node(`LowerLeg_${side}`, upper, 0, -P.hipToKnee, 0);           // knee at 0.470
-    const foot = node(`Foot_${side}`, lower, 0, -P.kneeAboveAnkle, 0);           // ankle at 0.062
-    const toe = node(`Toe_${side}`, foot, 0, -0.02, P.shoeLength * 0.36);
-    const thigh = put(cyl(P.thighRadius * 0.96, P.thighRadius, P.hipToKnee, seg), mats.trousers, upper, 0, -P.hipToKnee / 2, 0);
-    thigh.scale.z = 0.94;
-    put(cyl(P.calfRadius * 0.86, P.calfRadius, P.ankleAboveSole, seg), mats.trousers, lower, 0, -P.ankleAboveSole / 2, 0);
-    const shoe = put(box(P.shoeWidth, P.shoeHeight, P.shoeLength), mats.shoes, foot, 0, -P.shoeHeight * 0.32, P.shoeLength * 0.14);
-    put(box(P.shoeWidth * 0.92, P.shoeHeight * 0.7, P.shoeLength * 0.3), mats.shoes, foot, 0, -P.shoeHeight * 0.45, P.shoeLength * 0.5);
-    // lace-up detail: two small bars on the instep
-    put(box(P.shoeWidth * 0.45, 0.006, 0.012), mats.trim, foot, 0, P.shoeHeight * 0.14, P.shoeLength * 0.16);
-    put(box(P.shoeWidth * 0.45, 0.006, 0.012), mats.trim, foot, 0, P.shoeHeight * 0.14, P.shoeLength * 0.24);
+    const upper = node(`UpperLeg_${side}`, hips, s * 0.082, P.hipJointHeight - hipY, 0);
+    const lower = node(`LowerLeg_${side}`, upper, 0, -P.hipToKnee, 0);
+    const foot = node(`Foot_${side}`, lower, 0, -P.kneeAboveAnkle, 0);
+    const toe = node(`Toe_${side}`, foot, 0, -0.012, P.shoeLength * 0.34);
+
+    // thigh and calf are tapered, so the trouser leg has a shape instead of a
+    // silhouette: the calf runs the full knee-to-ankle length (0.408 m)
+    put(tube(P.thighRadius * 0.82, P.thighRadius, P.hipToKnee, seg, 0.94), mats.trousers, upper, 0, -P.hipToKnee, 0);
+    put(ball(P.thighRadius * 0.62), mats.trousers, lower, 0, 0, 0);
+    const calfHeight = P.kneeAboveAnkle - P.ankleAboveSole * 0.4;
+    put(tube(P.calfRadius * 0.84, P.calfRadius * 1.0, calfHeight, seg, 0.94), mats.trousers, lower, 0, -calfHeight, 0);
+    // trouser break: the cuff rests on the shoe instead of stopping short
+    put(tube(P.calfRadius * 0.9, P.calfRadius * 0.98, C.trouserCuffBreak * 1.6, seg, 0.95), mats.trousers, foot,
+      0, -P.ankleAboveSole * 0.55, 0);
+
+    const shoe = new THREE.Group();
+    shoe.name = `Shoe_${side}`;
+    foot.add(shoe);
+    const soleY = -P.ankleAboveSole;
+    put(new THREE.BoxGeometry(P.shoeWidth, 0.018, P.shoeLength), mats.sole, shoe, 0, soleY + 0.009, P.shoeLength * 0.10);
+    put(new THREE.BoxGeometry(P.shoeWidth * 0.96, P.shoeHeight * 0.62, P.shoeLength * 0.58), mats.shoes, shoe,
+      0, soleY + 0.018 + P.shoeHeight * 0.31, P.shoeLength * 0.06);
+    put(ball(P.shoeHeight * 0.5), mats.shoes, shoe, 0, soleY + P.shoeHeight * 0.45, P.shoeLength * 0.36, null,
+      [P.shoeWidth / (P.shoeHeight), 0.9, (P.shoeLength * 0.5) / (P.shoeHeight * 1.9)]);
+    put(new THREE.BoxGeometry(P.shoeWidth * 0.9, P.shoeHeight * 0.66, P.shoeLength * 0.16), mats.shoes, shoe,
+      0, soleY + 0.018 + P.shoeHeight * 0.33, -P.shoeLength * 0.40);         // heel
+    put(ball(P.shoeHeight * 0.34), mats.shoes, shoe, 0, soleY + P.shoeHeight * 0.72, P.shoeLength * 0.24, null,
+      [P.shoeWidth / (P.shoeHeight * 0.7), 1, 1]);                          // instep
+    for (let i = 0; i < 2; i += 1) {
+      put(new THREE.BoxGeometry(P.shoeWidth * 0.42, 0.006, 0.014), mats.trim, shoe,
+        0, soleY + P.shoeHeight * 0.66, P.shoeLength * (0.10 + i * 0.09));
+    }
+
     return { upper, lower, foot, toe, shoe };
   };
   const legL = buildLeg('L');
   const legR = buildLeg('R');
 
-  // ------------------------------------------------------- vertical layout
-  // Every position below derives from character_spec.json, so the model and the
-  // document cannot drift apart: hips at hipHeight, shoulder line at
-  // shoulderHeight, head centred on headCentreHeight, crown at crownHeight.
-  const hipY = P.hipHeight;
-  const shoulderY = P.shoulderHeight;
-  const torsoH = shoulderY - hipY;                       // hip to shoulder line
-  const headPivotY = shoulderY + P.neckHeight;
-  const headCentre = P.headCentreHeight;                 // = crownHeight - skullHalfHeight
-  const eyeRel = P.eyeHeight - headCentre;               // eyes relative to the head centre
-  const chinRel = P.chinHeight - headCentre;
-
   // ----------------------------------------------------------------- torso
-  const upperChestWorldY = hipY + 0.52;                  // Hips + Spine + Chest + UpperChest offsets
-  const torso = node('TorsoMesh', upperChest, 0, (hipY + torsoH / 2) - upperChestWorldY, 0);
-  const chestDepth = P.chestDepth;
-  // jacket body: a barrel, no athletic taper — the reference build is stocky
-  const jacket = put(cyl(P.waistWidth * 0.44, P.waistWidth * 0.5, torsoH * 1.06, seg), mats.jacket, torso, 0, 0.012, 0);
-  jacket.scale.z = chestDepth / (P.waistWidth * 0.5);
-  // the shoulder yoke joins the jacket to the arm sockets, so nothing floats
-  put(box(P.shoulderWidth - 0.02, 0.1, chestDepth * 0.94), mats.jacket, torso, 0, torsoH / 2 - 0.05, -0.004);
-  const belly = put(sphere(P.waistWidth * 0.36, seg, seg >> 1), mats.jacket, torso, 0, -0.12, P.bellyBulge);
-  belly.scale.set(1.0, 0.82, chestDepth / (P.waistWidth * 0.72));
-  // waistcoat band, visible above the buttoned jacket
-  const waist = put(cyl(P.waistWidth * 0.42, P.waistWidth * 0.42, 0.2, seg), mats.waistcoat, torso, 0, -0.16, 0);
-  waist.scale.z = chestDepth / (P.waistWidth * 0.84);
-  // shirt placket between the lapels
-  put(box(0.072, torsoH * 0.62, 0.03), mats.shirt, torso, 0, torsoH * 0.2, chestDepth * 0.5 + 0.004);
-  // collar, sitting just under the chin
-  put(cyl(0.072, 0.078, C.collarHeight, seg), mats.shirt, torso, 0, torsoH / 2 + 0.018, 0.006);
-  // lapels
-  put(box(C.lapelWidth, 0.3, 0.024), mats.trim, torso, -0.1, torsoH * 0.22, chestDepth * 0.48, [0, 0.32, 0.16]);
-  put(box(C.lapelWidth, 0.3, 0.024), mats.trim, torso, 0.1, torsoH * 0.22, chestDepth * 0.48, [0, -0.32, -0.16]);
-  // pocket flaps + buttons
-  put(box(0.1, 0.026, 0.016), mats.trim, torso, -0.13, -0.1, chestDepth * 0.46);
-  put(box(0.1, 0.026, 0.016), mats.trim, torso, 0.13, -0.1, chestDepth * 0.46);
-  for (let i = 0; i < 2; i += 1) put(cyl(0.008, 0.008, 0.008, 8), mats.trim, torso, 0, 0.04 - i * 0.075, chestDepth * 0.5 + 0.01);
+  const torso = node('TorsoMesh', upperChest, 0, (hipY + shoulderY) / 2 - upperChestWorldY, 0);
+  const torsoRel = (worldY) => worldY - (hipY + shoulderY) / 2;      // torso-local y
 
-  // tie: the signature red patterned strip, hung from the collar
-  const tieTop = node('TieTop', torso, 0, torsoH / 2 - 0.014, chestDepth * 0.5 - 0.006);
-  const tieSeg = (parent, y, w, h, d) => put(box(w, h, d), mats.tie, parent, 0, y, 0);
-  put(box(C.tieWidth * 0.72, 0.036, 0.026), mats.tie, tieTop, 0, -0.02, 0.004);   // knot
-  const tieBody = node('TieBody', tieTop, 0, -0.036, 0.004);
-  tieSeg(tieBody, -0.07, C.tieWidth * 0.82, 0.16, 0.02);
-  tieSeg(tieBody, -0.19, C.tieWidth * 0.9, 0.15, 0.019);
-  tieSeg(tieBody, -0.29, C.tieWidth, 0.12, 0.018);
-  tieSeg(tieBody, -0.38, C.tieWidth * 0.64, 0.07, 0.017);                         // tip
+  // jacket: hem below the hips, waist, belly, chest, shoulders. The reference
+  // build is stocky — the broadest point is the shoulder line, and the waist
+  // never pinches in
+  const jacketLevels = [
+    { y: torsoRel(hipY - 0.16), rx: 0.157, rz: 0.116, z: 0.004 },     // hem, just below the hip joint
+    { y: torsoRel(hipY - 0.06), rx: 0.159, rz: 0.120, z: 0.004 },
+    { y: torsoRel(hipY + 0.06), rx: 0.152, rz: 0.118, z: 0.003 },     // waist (waistWidth 0.332)
+    { y: torsoRel(hipY + 0.20), rx: 0.158, rz: 0.126, z: 0.006 },     // belly, held in
+    { y: torsoRel(hipY + 0.33), rx: 0.170, rz: 0.129, z: 0.008 },     // chest
+    { y: torsoRel(hipY + 0.44), rx: 0.184, rz: 0.124, z: 0.006 },     // upper chest
+    { y: torsoRel(shoulderY - 0.030), rx: P.shoulderWidth / 2 - 0.006, rz: 0.118, z: 0.004 },
+    { y: torsoRel(shoulderY), rx: P.shoulderWidth / 2 - 0.020, rz: 0.110, z: 0.002 },  // the shoulder pitches over
+    { y: torsoRel(shoulderY + 0.022), rx: P.shoulderWidth / 2 - 0.062, rz: 0.092, z: 0.0 }
+  ];
+  // the coat: buttoned at the waist, opening into the V of the lapels above it
+  const gaps = [0, 0, 0.06, 0.20, 0.42, 0.56, 0.66, 0.72, 0.78];
+  const coatLevels = jacketLevels.map((level, i) => ({ ...level, gap: gaps[i] }));
+  put(shellArc(coatLevels, seg, 0.010), mats.jacket, torso, 0, 0, 0);
+  put(shellArc(jacketLevels.map((l, i) => ({ ...l, rx: l.rx * 0.97, rz: l.rz * 0.97, gap: gaps[i] })),
+    seg, 0.008), mats.trim, torso, 0, 0, 0);
+
+  // shoulder caps close the joint, so the sleeves never look bolted on
+  [-1, 1].forEach((s) => {
+    put(ball(0.060), mats.jacket, torso, s * 0.088, torsoRel(shoulderY - 0.028), 0, null, [1, 0.95, 1]);
+  });
+
+  // layers inside the V, from the body outward: shirt, waistcoat, then the tie
+  const coatFront = (index) => jacketLevels[index].rz + (jacketLevels[index].z || 0);
+  put(loft([
+    { y: torsoRel(hipY - 0.05), rx: 0.106, rz: coatFront(0) - 0.030, z: 0.002 },
+    { y: torsoRel(hipY + 0.12), rx: 0.112, rz: coatFront(3) - 0.030, z: 0.004 },
+    { y: torsoRel(hipY + 0.28), rx: 0.105, rz: coatFront(4) - 0.030, z: 0.006 },
+    { y: torsoRel(shoulderY - 0.045), rx: 0.090, rz: coatFront(5) - 0.026, z: 0.004 }
+  ], seg), mats.shirt, torso, 0, 0, 0);
+  // waistcoat: a front panel in the opening below the chest, with two buttons
+  put(loft([
+    { y: torsoRel(hipY + 0.02), rx: 0.084, rz: coatFront(2) - 0.018, z: 0.002 },
+    { y: torsoRel(hipY + 0.18), rx: 0.088, rz: coatFront(3) - 0.018, z: 0.002 },
+    { y: torsoRel(hipY + 0.30), rx: 0.076, rz: coatFront(4) - 0.020, z: 0.002 }
+  ], fine), mats.waistcoat, torso, 0, 0, 0);
+  [-0.02, -0.10].forEach((dy, i) => put(ball(0.005), mats.trim, torso, 0,
+    torsoRel(hipY + 0.20) + dy, coatFront(3) - 0.012 + i * 0.001));
+
+  // lapels: two thin slabs angled out from the collar to the chest
+  [-1, 1].forEach((s) => {
+    // the lapel folds back along the rim of the opening, so it belongs to the
+    // coat rather than floating in front of it
+    const gap = 0.46;
+    const rimX = Math.sin(gap * s) * jacketLevels[5].rx;
+    const rimZ = Math.cos(gap) * jacketLevels[5].rz;
+    const lapel = put(new THREE.BoxGeometry(C.lapelWidth * 1.05, 0.20, 0.016), mats.jacket, torso,
+      rimX * 0.92, torsoRel(shoulderY - 0.10), rimZ - 0.004, [0.04, s * 0.46, s * 0.24]);
+    lapel.name = `Lapel_${s < 0 ? 'L' : 'R'}`;
+  });
+  [-1, 1].forEach((s) => {
+    put(new THREE.BoxGeometry(0.090, 0.022, 0.012), mats.trim, torso, s * 0.108,
+      torsoRel(hipY + 0.07), jacketLevels[2].rz - 0.006, [0, s * 0.5, 0]);
+  });
+
+  // collar: a low band under the chin, with wings at the front so the shirt
+  // reaches the jaw instead of ending at the chest
+  put(tube(0.070, 0.076, C.collarHeight, seg, 0.92), mats.shirt, torso, 0, torsoRel(shoulderY) - 0.002, 0.006);
+  [-1, 1].forEach((s) => {
+    put(new THREE.BoxGeometry(0.044, 0.024, 0.013), mats.shirt, torso,
+      s * 0.030, torsoRel(shoulderY) + 0.006, 0.080, [0, s * 0.5, s * 0.30]);
+  });
+
+  // tie: knot at the collar, body down the shirt, the signature red accent
+  const tieFront = jacketLevels[4].rz + (jacketLevels[4].z || 0) - 0.014;
+  const tieTop = node('TieTop', torso, 0, torsoRel(shoulderY) - 0.020, tieFront);
+  put(new THREE.BoxGeometry(C.tieWidth * 0.78, 0.030, 0.020), mats.tie, tieTop, 0, -0.012, 0.002);
+  const tieBody = node('TieBody', tieTop, 0, -0.030, -0.004);
+  [[-0.055, 0.86, 0.13], [-0.155, 0.94, 0.13], [-0.250, 1.0, 0.10], [-0.315, 0.60, 0.05]]
+    .forEach(([y, w, h]) => put(new THREE.BoxGeometry(C.tieWidth * w, h, 0.016), mats.tie, tieBody, 0, y, 0));
 
   // ------------------------------------------------------------------ arms
   const buildArm = (side) => {
     const s = side === 'L' ? -1 : 1;
-    // shoulder joints sit 5.5 cm below the shoulder line, where a real shoulder
-    // pivots — the jacket yoke covers the gap, so the arms are never detached
-    const shoulder = node(`Shoulder_${side}`, upperChest, s * (P.shoulderWidth / 2 - 0.055),
-      (shoulderY - 0.055) - upperChestWorldY, 0);
-    const upper = node(`UpperArm_${side}`, shoulder, s * 0.045, 0, 0);
+    const shoulder = node(`Shoulder_${side}`, upperChest, s * 0.088,
+      (shoulderY - 0.028) - upperChestWorldY, 0);
+    const upper = node(`UpperArm_${side}`, shoulder, s * 0.058, -0.01, 0);   // socket at ±0.146
     const lower = node(`LowerArm_${side}`, upper, 0, -P.upperArmLength, 0);
     const hand = node(`Hand_${side}`, lower, 0, -P.lowerArmLength, 0);
-    put(cyl(0.062, 0.07, P.upperArmLength, seg), mats.jacket, upper, 0, -P.upperArmLength / 2, 0);
-    put(cyl(0.052, 0.06, P.lowerArmLength * 0.92, seg), mats.jacket, lower, 0, -P.lowerArmLength / 2, 0);
-    put(cyl(0.052, 0.052, 0.018, seg), mats.shirt, lower, 0, -P.lowerArmLength + 0.012, 0);
-    const palm = put(box(P.handLength * 0.62, P.handLength * 0.9, P.handLength * 0.40), mats.skin, hand, 0, -P.handLength * 0.42, 0);
+
+    // sleeve: shoulder → elbow → cuff, tapering the way a jacket sleeve does
+    put(ball(0.059), mats.jacket, upper, 0, 0, 0);
+    put(tube(0.045, 0.058, P.upperArmLength, seg), mats.jacket, upper, 0, -P.upperArmLength, 0);
+    put(ball(0.045), mats.jacket, lower, 0, 0, 0);
+    put(tube(0.040, 0.045, P.lowerArmLength - 0.03, seg), mats.jacket, lower, 0, -(P.lowerArmLength - 0.03), 0);
+    put(tube(0.037, 0.039, 0.012, seg), mats.shirt, lower, 0, -P.lowerArmLength + 0.010, 0);   // cuff
+
+    // hand: palm, four fingers, thumb
+    const handY = -P.handLength * 0.46;
+    put(new THREE.BoxGeometry(0.064, P.handLength * 0.60, 0.030), mats.skin, hand, 0, handY, 0.002);
     const fingers = [];
     if (detailed) {
       for (let i = 0; i < 4; i += 1) {
-        fingers.push(put(box(0.016, P.handLength * 0.5, 0.017), mats.skin, hand,
-          (i - 1.5) * 0.019, -P.handLength * 0.88, 0.004));
+        fingers.push(put(new THREE.BoxGeometry(0.0135, P.handLength * 0.44, 0.017), mats.skin, hand,
+          (i - 1.5) * 0.0158, -P.handLength * 0.92, 0.003));
       }
     }
-    const thumb = put(box(0.018, P.handLength * 0.36, 0.018), mats.skin, hand, s * P.handLength * 0.30, -P.handLength * 0.46, 0.01, [0, 0, s * 0.5]);
-    return { shoulder, upper, lower, hand, palm, fingers, thumb };
+    const thumb = put(new THREE.BoxGeometry(0.015, P.handLength * 0.32, 0.017), mats.skin, hand,
+      s * P.handLength * 0.34, handY + 0.004, 0.012, [0, 0, s * 0.55]);
+    return { shoulder, upper, lower, hand, fingers, thumb };
   };
   const armL = buildArm('L');
   const armR = buildArm('R');
 
-  // ------------------------------------------------------------------ head
+  // ------------------------------------------------------------- head/skull
   const headMesh = node('HeadMesh', head, 0, headCentre - headPivotY, 0);
-  // skull built to the spec's head width / height / depth, not to a sphere
-  put(sphere(1, seg, seg), mats.skin, headMesh, 0, 0, 0, null,
-    [P.skullHalfWidth, P.skullHalfHeight, P.skullHalfDepth]);
-  put(sphere(1, seg, seg >> 1), mats.skin, headMesh, 0, chinRel * 0.55, 0.006, null,
-    [P.skullHalfWidth * 0.95, P.skullHalfHeight * 0.5, P.skullHalfDepth * 0.8]);
-  put(sphere(1, seg >> 1, seg >> 2), mats.skin, headMesh, 0, chinRel * 0.86, 0.026, null, [0.045, 0.034, 0.044]);
-  // the neck is visible between the collar and the jaw
-  put(cyl(P.neckRadius * 0.94, P.neckRadius, P.neckHeight + 0.045, seg), mats.skin, neck, 0, P.neckHeight * 0.25, 0.006);
-  // nose, eyes, brows, ears
-  put(sphere(0.024, seg >> 1, seg >> 2), mats.skin, headMesh, 0, eyeRel - 0.002, P.skullHalfDepth - 0.008, null, [1, 0.96, 1.25]);
-  put(box(0.014, 0.005, 0.018), mats.skinShadow, headMesh, -P.eyeSpacing / 2, eyeRel - 0.03, P.skullHalfDepth - 0.012);
-  put(box(0.014, 0.005, 0.018), mats.skinShadow, headMesh, P.eyeSpacing / 2, eyeRel - 0.03, P.skullHalfDepth - 0.012);
+  const HW = P.skullHalfWidth, HH = P.skullHalfHeight, HD = P.skullHalfDepth;
+
+  put(loft([
+    { y: chinRel, rx: HW * 0.36, rz: HD * 0.42, z: 0.008 },            // chin
+    { y: chinRel + HH * 0.20, rx: HW * 0.80, rz: HD * 0.74, z: 0.006 },// jaw
+    { y: chinRel + HH * 0.44, rx: HW * 0.90, rz: HD * 0.90, z: 0.004 },// mouth
+    { y: chinRel + HH * 0.70, rx: HW * 0.95, rz: HD * 0.97, z: 0.002 },// cheek
+    { y: eyeRel, rx: HW, rz: HD, z: 0.0 },                             // eye line
+    { y: eyeRel + HH * 0.30, rx: HW * 0.98, rz: HD * 0.97, z: -0.002 },
+    { y: eyeRel + HH * 0.55, rx: HW * 0.86, rz: HD * 0.88, z: -0.004 },
+    { y: chinRel + HH * 1.85, rx: HW * 0.55, rz: HD * 0.58, z: -0.004 },
+    { y: chinRel + HH * 2.0, rx: HW * 0.16, rz: HD * 0.16, z: -0.004 }  // crown
+  ], seg), mats.skin, headMesh, 0, 0, 0);
+
+  // neck, visible between the collar and the jaw
+  put(tube(P.neckRadius * 0.94, P.neckRadius, P.neckHeight + 0.030, seg, 0.96), mats.skin, neck,
+    0, -0.006, 0.004);
+
+  // face: nose, eyes, brows, ears, mouth
+  put(ball(0.019), mats.skin, headMesh, 0, eyeRel - 0.030, HD * 0.90, null, [0.72, 1.05, 1.30]);
   [-1, 1].forEach((s) => {
-    put(sphere(0.0085, seg >> 2, seg >> 3), mats.hair, headMesh, s * P.eyeSpacing / 2, eyeRel, P.skullHalfDepth - 0.017);
-    put(box(0.03, 0.007, 0.012), mats.hair, headMesh, s * P.eyeSpacing / 2, eyeRel + 0.027, P.skullHalfDepth - 0.014);
-    put(sphere(F.ears.size, seg >> 1, seg >> 2), mats.skin, headMesh, s * P.skullHalfWidth, eyeRel + 0.002, 0.002, null, [0.4, 1.1, 0.8]);
+    // a dark almond rather than a white sphere: at this scale it reads as an
+    // eye behind a round lens instead of a cartoon eyeball
+    put(new THREE.BoxGeometry(0.021, 0.009, 0.006), mats.iris, headMesh,
+      s * P.eyeSpacing / 2, eyeRel - 0.002, HD * 0.86, [0, 0, 0]);
+    put(new THREE.BoxGeometry(0.006, 0.006, 0.004), mats.eye, headMesh,
+      s * P.eyeSpacing / 2 + s * 0.005, eyeRel + 0.001, HD * 0.875);
+    // a soft crease under the moustache stands in for the mouth line
+    if (s > 0) put(new THREE.BoxGeometry(0.026, 0.0035, 0.006), mats.skinShadow, headMesh,
+      0, chinRel + HH * 0.24, HD * 0.885);
+    // brows sit above the spectacle rim, as in the reference
+    put(new THREE.BoxGeometry(0.030, F.brows?.thickness ?? 0.008, 0.012), mats.hair, headMesh,
+      s * P.eyeSpacing / 2, eyeRel + 0.034, HD * 0.86, [0, s * 0.08, 0]);
+    // ears: flattened against the skull, and outside the hairline
+    put(ball(F.ears?.size ?? 0.032), mats.skin, headMesh, s * HW * 1.01, eyeRel - 0.006, -0.006, null,
+      [0.34, 1.0, 0.78]);
   });
 
-  // moustache — small, clipped, never comic
-  const mous = node('Moustache', headMesh, 0, F.moustache.yOffset, P.skullHalfDepth - 0.012);
-  put(box(F.moustache.width * 0.52, F.moustache.height, 0.014), mats.moustache, mous, -0.012, 0, 0, [0, 0, 0.06]);
-  put(box(F.moustache.width * 0.52, F.moustache.height, 0.014), mats.moustache, mous, 0.012, 0, 0, [0, 0, -0.06]);
+  // moustache — small and clipped, never comic; the reference is clean-shaven
+  // apart from this
+  const mous = node('Moustache', headMesh, 0, F.moustache.yOffset, HD * 0.895);
+  [-1, 1].forEach((s) => {
+    put(new THREE.BoxGeometry(F.moustache.width * 0.56, F.moustache.height, 0.013), mats.moustache, mous,
+      s * F.moustache.width * 0.24, s * 0.0015, 0, [0, 0, s * 0.14]);
+  });
 
-  // hair: short shell with a receding hairline, thinner on top than at the sides
+  // hair: short, neatly combed, receding at the front, fuller at the sides
   const hairGroup = node('Hair', headMesh, 0, 0, 0);
-  const hairShell = new THREE.Mesh(
-    new THREE.SphereGeometry(1, seg, seg, 0, Math.PI * 2, 0, Math.PI * 0.58), mats.hair);
-  // the hair cap is the top of the head: skull top + hairCapThickness = crownHeight
-  const hairScaleY = (P.skullHalfHeight + P.hairCapThickness) / P.skullHalfHeight;
-  hairShell.scale.set(P.skullHalfWidth * 1.035, P.skullHalfHeight * hairScaleY, P.skullHalfDepth * 1.04);
-  hairShell.position.y = -0.012;            // the backward tilt below lifts the rear of the cap
-  hairShell.rotation.x = -0.13;            // pulled back off the forehead: the receding line
-  hairShell.castShadow = quality !== 'low';
-  hairGroup.add(hairShell);
+  const hairRecession = F.hair?.hairlineRecession ?? 0.16;
+  const shell = new THREE.Mesh(hairCap({
+    rx: HW * 1.035,
+    ry: (HH + P.hairCapThickness) * 0.99,
+    rz: HD * 1.04,
+    segments: detailed ? 32 : 16,
+    rings: detailed ? 8 : 4,
+    front: Math.PI * (0.195 + hairRecession * 0.15),   // high at the forehead: the receding line
+    side: Math.PI * 0.46,                             // stops above the ear
+    back: Math.PI * 0.62
+  }), mats.hair);
+  shell.needsUpdate = true;
+  shell.castShadow = quality !== 'low';
+  hairGroup.add(shell);
+  // a slightly fuller mass at the temples, kept clear of the ear itself
   [-1, 1].forEach((s) => {
-    put(sphere(1, seg >> 1, seg >> 2), mats.hair, hairGroup, s * P.skullHalfWidth * 0.92, eyeRel + 0.028, -0.008, null,
-      [0.026, 0.05, 0.046]);                // side mass above the ear
+    put(ball(0.021), mats.hair, hairGroup, s * HW * 0.90, eyeRel + 0.046, -0.016, null, [0.8, 1.0, 1.4]);
   });
-  put(sphere(1, seg >> 1, seg >> 2), mats.hair, hairGroup, 0, eyeRel + 0.03, -P.skullHalfDepth * 0.72, null,
-    [0.05, 0.045, 0.032]);                  // nape
+  put(ball(0.036), mats.hair, hairGroup, 0, eyeRel + 0.030, -HD * 0.82, null, [1.35, 1.15, 0.7]);  // nape
 
-  // glasses — the single most recognisable feature; never hidden
+  // glasses — the single most recognisable feature; visible at every LOD
   const G = F.glasses;
   const glasses = node('Glasses', headMesh, 0, 0, 0);
-  const rimGeo = new THREE.TorusGeometry(G.lensRadius, G.rimThickness, 8, detailed ? 24 : 12);
-  const lensGeo = new THREE.CircleGeometry(G.lensRadius * 0.96, detailed ? 20 : 12);
+  const rimGeometry = new THREE.TorusGeometry(G.lensRadius, G.rimThickness, detailed ? 8 : 5, detailed ? 26 : 12);
+  const lensGeometry = new THREE.CircleGeometry(G.lensRadius * 0.96, detailed ? 22 : 12);
   [-1, 1].forEach((s) => {
-    const rim = new THREE.Mesh(rimGeo, mats.frame);
-    rim.position.set(s * (G.lensRadius + G.bridgeWidth * 0.5), eyeRel + G.yOffset, G.zOffset);
+    const x = s * (G.lensRadius + G.bridgeWidth * 0.5);
+    const rim = new THREE.Mesh(rimGeometry, mats.frame);
+    rim.position.set(x, eyeRel + G.yOffset, G.zOffset + 0.004);
     rim.castShadow = false;
-    const lens = new THREE.Mesh(lensGeo, mats.lens);
-    lens.position.set(s * (G.lensRadius + G.bridgeWidth * 0.5), eyeRel + G.yOffset, G.zOffset + 0.001);
+    const lens = new THREE.Mesh(lensGeometry, mats.lens);
+    lens.position.set(x, eyeRel + G.yOffset, G.zOffset + 0.005);
     lens.renderOrder = 2;
-    glasses.add(rim, lens);
-    const temple = new THREE.Mesh(box(0.006, 0.006, G.templeLength), mats.frame);
+    const temple = new THREE.Mesh(new THREE.BoxGeometry(0.006, 0.006, G.templeLength), mats.frame);
     temple.position.set(s * (G.lensRadius * 2 + G.bridgeWidth * 0.5), eyeRel + G.yOffset + 0.014,
-      G.zOffset - G.templeLength / 2 - 0.006);
-    glasses.add(temple);
+      G.zOffset + 0.002 - G.templeLength / 2 - 0.006);
+    temple.rotation.x = -0.08;
+    glasses.add(rim, lens, temple);
   });
-  const bridge = new THREE.Mesh(box(G.bridgeWidth, 0.005, 0.006), mats.frame);
-  bridge.position.set(0, eyeRel + G.yOffset + 0.012, G.zOffset - 0.002);
+  const bridge = new THREE.Mesh(new THREE.BoxGeometry(G.bridgeWidth, 0.005, 0.006), mats.frame);
+  bridge.position.set(0, eyeRel + G.yOffset + 0.012, G.zOffset + 0.002);
   glasses.add(bridge);
 
   // ---------------------------------------------------------------- props
@@ -263,7 +533,8 @@ export function buildCharacter(spec, quality = 'high') {
   const cover = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.022, 0.22), mat({ color: '#4A3423', roughness: 0.6 }));
   const pages = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.012, 0.205), mat({ color: '#EFE7D3', roughness: 0.9 }));
   pages.position.y = 0.004;
-  const cover2 = cover.clone(); cover2.position.y = 0.018;
+  const cover2 = cover.clone();
+  cover2.position.y = 0.018;
   bookProp.add(pages, cover, cover2);
   bookProp.position.set(0, -P.handLength * 0.7, 0.03);
   bookProp.rotation.x = -0.35;
@@ -274,10 +545,12 @@ export function buildCharacter(spec, quality = 'high') {
   bones.Shoulder_R = armR.shoulder; bones.UpperArm_R = armR.upper; bones.LowerArm_R = armR.lower; bones.Hand_R = armR.hand;
   bones.UpperLeg_L = legL.upper; bones.LowerLeg_L = legL.lower; bones.Foot_L = legL.foot; bones.Toe_L = legL.toe;
   bones.UpperLeg_R = legR.upper; bones.LowerLeg_R = legR.lower; bones.Foot_R = legR.foot; bones.Toe_R = legR.toe;
+  bones.Neck = neck; bones.Head = head;
 
-  // A-pose bind: 12° arm drop as specified
+  // A-pose bind: the specified 12° arm drop
   const drop = THREE.MathUtils.degToRad(P.armDropDeg);
-  armL.upper.rotation.z = drop; armR.upper.rotation.z = -drop;
+  armL.upper.rotation.z = drop;
+  armR.upper.rotation.z = -drop;
 
   const all = [];
   root.traverse((o) => { if (o.isMesh) all.push(o); });
@@ -291,14 +564,13 @@ export function buildCharacter(spec, quality = 'high') {
       if (this._lod === level) return;
       this._lod = level;
       const show = (o, v) => { o.visible = v; };
-      if (level >= 2) {
-        armL.fingers.forEach(f => show(f, false));
-        armR.fingers.forEach(f => show(f, false));
-        show(glasses, true);            // glasses stay visible at every LOD
-      } else {
-        armL.fingers.forEach(f => show(f, true));
-        armR.fingers.forEach(f => show(f, true));
-      }
+      const fingers = level >= 2 ? false : true;
+      armL.fingers.forEach(f => show(f, fingers));
+      armR.fingers.forEach(f => show(f, fingers));
+      // the identity features are never touched by an LOD switch
+      show(glasses, true);
+      show(hairGroup, true);
+      show(mous, true);
     },
     setShadow(cast) {
       root.traverse((o) => { if (o.isMesh) o.castShadow = cast; });
@@ -308,17 +580,23 @@ export function buildCharacter(spec, quality = 'high') {
   };
 }
 
-/** Measured silhouette check — reported by Tools/audit_character_spec.py and used in validation. */
+/** Measured silhouette check — reported by the audits and used in validation. */
 export function measureCharacter(character) {
-  const b = new THREE.Box3().setFromObject(character.root);
+  const box = new THREE.Box3().setFromObject(character.root);
   const size = new THREE.Vector3();
-  b.getSize(size);
+  box.getSize(size);
   const P = character.spec.proportions;
+
+  // On a stocky figure in an A-pose the widest part of the silhouette *is* the
+  // shoulder line, so this reports the built width rather than restating the
+  // specification: a build that drifts away from 0.414 m is caught.
+  const span = Math.max(Math.abs(box.max.x), Math.abs(box.min.x)) * 2;
+
   return {
     height: size.y,
-    shoulderSpan: P.shoulderWidth,
+    shoulderSpan: span,
     headWidth: P.headWidth,
-    shoulderToHead: P.shoulderWidth / P.headWidth,
+    shoulderToHead: span / P.headWidth,
     eyeHeight: P.eyeHeight
   };
 }

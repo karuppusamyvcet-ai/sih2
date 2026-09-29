@@ -87,8 +87,10 @@ export class Player {
     const speed = (running ? this.speedRun : this.speedWalk) * mag;
 
     if (mag > 0.01) {
+      // forward is the direction the camera looks (from the camera toward the
+      // character), and right is its right-handed perpendicular: cross(forward, up)
       const forward = TMP.set(Math.sin(this.cameraYaw), 0, Math.cos(this.cameraYaw));
-      const right = TMP2.set(forward.z, 0, -forward.x);
+      const right = TMP2.set(-forward.z, 0, forward.x);
       const dir = new THREE.Vector3()
         .addScaledVector(forward, move.y)
         .addScaledVector(right, move.x);
@@ -203,14 +205,17 @@ export class Player {
       Math.cos(this.cameraYaw) * Math.cos(this.cameraPitch)
     ).normalize();
 
-    // obstacle avoidance: shorten the boom if a collider is in the way
+    // the camera trails behind the character: `dir` is the view direction, so
+    // the boom runs along its negative. Casting along the same backward vector
+    // is what shortens the boom against a wall instead of through the player
+    const back = dir.clone().negate();
     let allowed = dist;
     for (const box of this.world.colliders) {
-      const hit = this.rayBoxDistance(pivot, dir, box);
+      const hit = this.rayBoxDistance(pivot, back, box);
       if (hit !== null && hit < allowed) allowed = Math.max(1.1, hit - 0.25);
     }
 
-    const desired = new THREE.Vector3().copy(pivot).addScaledVector(dir, allowed);
+    const desired = new THREE.Vector3().copy(pivot).addScaledVector(back, allowed);
     desired.y = Math.max(0.55, desired.y);
     this.camera.position.lerp(desired, Math.min(1, dt * 9));
     if (this.cameraShake > 0) {
@@ -228,7 +233,8 @@ export class Player {
       Math.sin(this.cameraPitch) + 0.28,
       Math.cos(this.cameraYaw) * Math.cos(this.cameraPitch)
     ).normalize();
-    this.camera.position.copy(new THREE.Vector3(this.position.x, this.jump + height, this.position.z).addScaledVector(dir, this.cameraDistance));
+    this.camera.position.copy(new THREE.Vector3(this.position.x, this.jump + height, this.position.z)
+      .addScaledVector(dir, -this.cameraDistance));
     this.camera.lookAt(this.position.x, this.jump + height + 0.12, this.position.z);
   }
 

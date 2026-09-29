@@ -231,3 +231,43 @@ Each capture is compared against the §1 checklist (glasses visible ✔ · tie v
 5. Character reads correctly on Android LOW preset (silhouette preserved, glasses still legible).
 6. The "Digital Reconstruction" label is present wherever the character is presented as a historical figure.
 7. Changing one number in `character_spec.json` and rebuilding changes **both** builds identically.
+
+## Rendered verification (added after the first likeness review)
+
+The figure is generated, so "does it look like him?" has to be answerable without
+a headset, a phone or a build. `web/tools/render_character.mjs` walks the real
+object tree produced by `web/src/char/builder.js` and rasterises it on the CPU into
+four PNGs — front, side, three-quarter and a head close-up — which are checked in
+under `Documentation/reference/character-render/` and regenerated with:
+
+```bash
+node web/tools/render_character.mjs Documentation/reference/character-render
+```
+
+That review produced one round of real corrections, recorded here because they
+are as much a part of the likeness as the numbers:
+
+* the jacket is a **shelled garment** with an open front and an inner lining, so
+  the lapels, the shirt, the waistcoat and the tie sit in a V instead of being
+  painted on a barrel;
+* the surfaces are **lofted rings**, not boxes: the torso carries a hem, a waist,
+  a belly and a chest, and the limbs are tapered with balls at the joints;
+* the shoes carry a sole, a heel and an instep to the floor, and the trousers
+  break on the shoe;
+* the hairline is a function of azimuth — high at the forehead, sweeping down
+  over the ears — which is what makes the receding line legible;
+* the eyes are dark almonds behind the round lenses rather than white spheres,
+  and the brows sit above the spectacle rim.
+
+## Measurements as built
+
+| Measurement | Specification | As built |
+| --- | --- | --- |
+| Height (crown) | 1.700 m | 1.699 m |
+| Head height (chin to crown) | 0.236 m | 0.236 m |
+| Head to body | 7.20 | 7.20 |
+| Shoulder line | 1.400 m | 1.400 m |
+| Eye line | 1.580 m | 1.580 m |
+| Shoulder span (widest silhouette) | 0.414 m | 0.432 m (includes the sleeve caps) |
+| Triangles, high quality | ≤ 9 300 (LOD0 budget) | 10 368 — under review, see Known Limitations |
+
