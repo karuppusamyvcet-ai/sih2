@@ -1,0 +1,182 @@
+{
+  "schema": "heritage.quests.v1",
+  "version": "1.0.0",
+  "note": "Mission chain: MISSION 1 to MISSION 8 (the final knowledge challenge), followed by the HERITAGE ARCHIVIST completion status. Objectives are data, not code — the QuestManager reads this file at runtime, so a new objective can be added without recompiling. Objective types: reach, interact, collect, quiz, search, ask_guide, minigame, final.",
+  "objectiveTypes": ["reach", "interact", "collect", "quiz", "search", "ask_guide", "minigame", "final"],
+  "missions": [
+    {
+      "id": "mission_01_enter",
+      "index": 1,
+      "title": "Enter the Digital Heritage Museum",
+      "hudTitle": "Enter the Digital Heritage Museum",
+      "description": "Arrive in the central hall of the Digital Ambedkar Heritage Museum and orient yourself: the six gallery doors are on the far wall.",
+      "zone": "hub",
+      "rewardPoints": 20,
+      "objectives": [
+        {"id": "obj_01_walk", "type": "reach", "label": "Walk forward into the central hall", "target": "hub_center", "radius": 6.0},
+        {"id": "obj_01_guide", "type": "interact", "label": "Meet the holographic guide at the information desk", "target": "exhibit_hub_guide_terminal"},
+        {"id": "obj_01_doors", "type": "interact", "label": "Read the labels above the six gallery doors", "target": "exhibit_hub_door_labels", "count": 6},
+        {"id": "obj_01_archive", "type": "interact", "label": "Open the Digital Archive from the HUD (Tab or the ARCHIVE button)", "target": "ui_archive"}
+      ]
+    },
+    {
+      "id": "mission_02_early_life",
+      "index": 2,
+      "title": "Discover Early Life",
+      "hudTitle": "Discover Early Life",
+      "description": "Walk the rising timeline from 1891 to 1927 and answer the checkpoints.",
+      "zone": "early_life",
+      "doorId": "door_01",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_01_enter"},
+      "rewardPoints": 60,
+      "objectives": [
+        {"id": "obj_02_enter", "type": "reach", "label": "Enter the Early Life & Education gallery", "target": "zone_early_life_entry", "radius": 3.0},
+        {"id": "obj_02_exhibits", "type": "interact", "label": "Examine the birth, school and matriculation exhibits", "target": "zone_early_life", "count": 3},
+        {"id": "obj_02_columbia", "type": "interact", "label": "Listen to the Columbia years narration", "target": "exhibit_early_columbia"},
+        {"id": "obj_02_quiz", "type": "quiz", "label": "Complete the Early Life checkpoint quiz", "target": "q_early_1", "count": 4},
+        {"id": "obj_02_order", "type": "quiz", "label": "Sort the education timeline", "target": "q_order_early"},
+        {"id": "obj_02_exit", "type": "reach", "label": "Return to the central hall", "target": "hub_center", "radius": 6.0}
+      ]
+    },
+    {
+      "id": "mission_03_social_reform",
+      "index": 3,
+      "title": "Explore Social Reform",
+      "hudTitle": "Explore Social Reform",
+      "description": "The campaigns of 1920 to 1936, with the two centre-hall mini-games: Match the Event and Sort the Timeline.",
+      "zone": "social_reform",
+      "doorId": "door_02",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_02_early_life"},
+      "rewardPoints": 70,
+      "objectives": [
+        {"id": "obj_03_enter", "type": "reach", "label": "Enter the Social Reform gallery", "target": "zone_social_reform_entry", "radius": 3.0},
+        {"id": "obj_03_mahad", "type": "interact", "label": "Enter the Mahad reconstruction and find the water tank", "target": "exhibit_social_mahad_scene"},
+        {"id": "obj_03_minigame", "type": "minigame", "label": "Complete “Match the Event”", "target": "minigame_match_event"},
+        {"id": "obj_03_timeline", "type": "minigame", "label": "Complete “Sort the Timeline”", "target": "minigame_sort_timeline"},
+        {"id": "obj_03_pact", "type": "interact", "label": "Read both sides of the Poona Pact exhibit", "target": "exhibit_social_poonapact"},
+        {"id": "obj_03_quiz", "type": "quiz", "label": "Answer the Social Reform questions", "target": "q_social_1", "count": 3}
+      ]
+    },
+    {
+      "id": "mission_04_constitution",
+      "index": 4,
+      "title": "Enter the Constitution Gallery",
+      "hudTitle": "Enter the Constitution Gallery",
+      "description": "Study the circular constitutional table: the Preamble, the Fundamental Rights and Article 32.",
+      "zone": "law_constitution",
+      "doorId": "door_03",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_03_social_reform"},
+      "rewardPoints": 80,
+      "objectives": [
+        {"id": "obj_04_enter", "type": "reach", "label": "Enter the Law & Constitution gallery", "target": "zone_law_constitution_entry", "radius": 3.0},
+        {"id": "obj_04_table", "type": "interact", "label": "Open the interactive Constitution table", "target": "exhibit_law_table"},
+        {"id": "obj_04_preamble", "type": "interact", "label": "Read the Preamble and the Objectives Resolution together", "target": "exhibit_law_preamble"},
+        {"id": "obj_04_rights", "type": "interact", "label": "Open two articles from the Fundamental Rights wall", "target": "exhibit_law_rights_wall", "count": 2},
+        {"id": "obj_04_article32", "type": "interact", "label": "Listen to the reading of the Article 32 extract", "target": "exhibit_law_article32"},
+        {"id": "obj_04_quiz", "type": "quiz", "label": "Complete the constitutional knowledge quiz", "target": "q_law_1", "count": 5}
+      ]
+    },
+    {
+      "id": "mission_05_manuscripts",
+      "index": 5,
+      "title": "Search the Manuscript Archive",
+      "hudTitle": "Search the Manuscript Archive",
+      "description": "Use the document viewer in the research room: page turns, magnification and metadata.",
+      "zone": "manuscripts",
+      "doorId": "door_04",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_04_constitution"},
+      "rewardPoints": 80,
+      "objectives": [
+        {"id": "obj_05_enter", "type": "reach", "label": "Enter the Scholarship Archive", "target": "zone_manuscripts_entry", "radius": 3.0},
+        {"id": "obj_05_books", "type": "interact", "label": "Open three books in the document viewer", "target": "exhibit_manuscript_shelf", "count": 3},
+        {"id": "obj_05_magnify", "type": "interact", "label": "Magnify a page and read its metadata panel", "target": "exhibit_manuscript_magnifier"},
+        {"id": "obj_05_search", "type": "search", "label": "Search the archive for “caste” or “education”", "target": "search_any"},
+        {"id": "obj_05_quiz", "type": "quiz", "label": "Answer the manuscript questions", "target": "q_man_1", "count": 3}
+      ]
+    },
+    {
+      "id": "mission_06_memorials",
+      "index": 6,
+      "title": "Visit Digital Memorials",
+      "hudTitle": "Visit Digital Memorials",
+      "description": "Choose a site on the map table and walk through its labelled reconstruction.",
+      "zone": "memorials",
+      "doorId": "door_05",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_05_manuscripts"},
+      "rewardPoints": 90,
+      "objectives": [
+        {"id": "obj_06_enter", "type": "reach", "label": "Enter the Memorials gallery", "target": "zone_memorials_entry", "radius": 3.0},
+        {"id": "obj_06_map", "type": "interact", "label": "Open the memorial map table", "target": "exhibit_memorial_map"},
+        {"id": "obj_06_visit", "type": "interact", "label": "Visit two memorial reconstructions", "target": "memorial_reconstruction", "count": 2},
+        {"id": "obj_06_quiz", "type": "quiz", "label": "Complete the memorial matching exercise", "target": "q_match_memorials"},
+        {"id": "obj_06_narration", "type": "interact", "label": "Listen to a memorial narration", "target": "exhibit_memorial_narration"}
+      ]
+    },
+    {
+      "id": "mission_07_legacy",
+      "index": 7,
+      "title": "Complete the Legacy Archive",
+      "hudTitle": "Complete the Legacy Archive",
+      "description": "Search the whole collection, ask the Archive Guide, and review your progress on the achievement wall.",
+      "zone": "legacy",
+      "doorId": "door_06",
+      "unlockRule": {"type": "mission_complete", "missionId": "mission_06_memorials"},
+      "rewardPoints": 100,
+      "objectives": [
+        {"id": "obj_07_enter", "type": "reach", "label": "Enter the Legacy & Digital Archive", "target": "zone_legacy_entry", "radius": 3.0},
+        {"id": "obj_07_search", "type": "search", "label": "Run three searches in the archive search terminal", "target": "search_any", "count": 3},
+        {"id": "obj_07_guide", "type": "ask_guide", "label": "Ask the Archive Guide two questions", "target": "exhibit_legacy_ai", "count": 2},
+        {"id": "obj_07_media", "type": "interact", "label": "Play an item from the audio or video archive wall", "target": "exhibit_legacy_media_wall"},
+        {"id": "obj_07_wall", "type": "interact", "label": "Review your achievements", "target": "exhibit_legacy_achievement_wall"}
+      ]
+    },
+    {
+      "id": "mission_08_final",
+      "index": 8,
+      "title": "Final Knowledge Challenge",
+      "hudTitle": "Final Knowledge Challenge",
+      "description": "Six stages: identify the topic, match the archive entries, arrange the timeline, answer the constitutional questions, identify the documents, and answer the final questions. The completion certificate follows.",
+      "zone": "legacy",
+      "unlockRule": {"type": "all_missions_complete"},
+      "rewardPoints": 150,
+      "objectives": [
+        {"id": "obj_08_s1", "type": "final", "stage": 1, "label": "Stage 1 — Identify the historical topic"},
+        {"id": "obj_08_s2", "type": "final", "stage": 2, "label": "Stage 2 — Match archive entries with their descriptions"},
+        {"id": "obj_08_s3", "type": "final", "stage": 3, "label": "Stage 3 — Arrange the timeline items"},
+        {"id": "obj_08_s4", "type": "final", "stage": 4, "label": "Stage 4 — Constitutional questions"},
+        {"id": "obj_08_s5", "type": "final", "stage": 5, "label": "Stage 5 — Identify the documents"},
+        {"id": "obj_08_s6", "type": "final", "stage": 6, "label": "Stage 6 — Final knowledge questions"},
+        {"id": "obj_08_cert", "type": "final", "stage": 7, "label": "Receive the completion certificate", "target": "certificate_screen"}
+      ]
+    }
+  ],
+  "completion": {
+    "id": "heritage_archivist",
+    "title": "HERITAGE ARCHIVIST",
+    "description": "Awarded when all six galleries have been completed, the Archive Guide has been consulted and the final knowledge challenge has been passed.",
+    "requires": ["mission_01_enter", "mission_02_early_life", "mission_03_social_reform", "mission_04_constitution", "mission_05_manuscripts", "mission_06_memorials", "mission_07_legacy", "mission_08_final"],
+    "minQuizAccuracy": 0.6
+  },
+  "demoFlow": {
+    "note": "DEMO MODE for the SIH presentation. Starts in the museum lobby with a guided objective and reaches all ten demonstration features within 5–10 minutes.",
+    "steps": [
+      {"step": 1, "label": "Start in the lobby — third-person character, cinematic reveal", "guidance": "Move with WASD or the joystick. Look with the mouse or by swiping."},
+      {"step": 2, "label": "Six gallery doors, labelled above each frame", "guidance": "Walk along the far wall — six doors, six galleries."},
+      {"step": 3, "label": "Interactive exhibit — the timeline wall in the hub", "guidance": "Aim at the panel and press E, or tap INTERACT."},
+      {"step": 4, "label": "Open the archive (Tab / ARCHIVE button)", "guidance": "Search, filter by category, open an entry and read its source."},
+      {"step": 5, "label": "Document viewer — a manuscript from the research room", "guidance": "Page turn and magnify; read the metadata panel."},
+      {"step": 6, "label": "Audio-visual exhibit — the speech reading in the Constitution gallery", "guidance": "Subtitles are on by default and can be switched off in Settings."},
+      {"step": 7, "label": "Educational quiz — the Preamble knowledge check", "guidance": "Every answer, right or wrong, is followed by the explanation."},
+      {"step": 8, "label": "Ask the Archive Guide a question", "guidance": "Try “What does Article 32 do?” and look at the records it cites."},
+      {"step": 9, "label": "Digital memorial — Deekshabhoomi reconstruction", "guidance": "Select it on the map table, then walk through the stupa plaza."},
+      {"step": 10, "label": "Progress dashboard — achievements, discoveries and knowledge points", "guidance": "The final challenge unlocks once the galleries are complete."}
+    ],
+    "skippable": true,
+    "presentationMode": {
+      "id": "presentation_mode",
+      "description": "An automated guided sequence through museum → character → six doors → archive → manuscript → memorial → quiz → AI assistant → results, for a live judge demonstration.",
+      "autoAdvanceSeconds": 45,
+      "allowInterrupt": true
+    }
+  }
+}

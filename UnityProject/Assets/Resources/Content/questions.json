@@ -1,0 +1,499 @@
+{
+  "schema": "heritage.questions.v1",
+  "version": "1.0.0",
+  "note": "Quiz bank. Five question types are implemented by the QuizManager: multiple_choice, true_false, ordering, matching, image_identification. Every item carries an explanation (shown after the answer whatever the outcome), a citation, and the archive records it draws on. The engine never shows only 'wrong'.",
+  "types": ["multiple_choice", "true_false", "ordering", "matching", "image_identification"],
+  "defaultPoints": 10,
+  "questions": [
+    {
+      "id": "q_early_1", "zone": "early_life", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "In which year was Dr. B. R. Ambedkar born?",
+      "options": [{"id": "a", "text": "1886"}, {"id": "b", "text": "1891"}, {"id": "c", "text": "1895"}, {"id": "d", "text": "1901"}],
+      "answerId": "b",
+      "explanation": "He was born on 14 April 1891 at Mhow in the Central Provinces (today Dr. Ambedkar Nagar, Madhya Pradesh), the fourteenth child of Ramji Maloji Sakpal and Bhimabai.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1; Dr. Ambedkar Foundation biographical record.",
+      "archiveRefs": ["arc_early_birth_1891"], "timelineRefs": ["ev_1891"]
+    },
+    {
+      "id": "q_early_2", "zone": "early_life", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "Where was he born?",
+      "options": [{"id": "a", "text": "Satara"}, {"id": "b", "text": "Bombay"}, {"id": "c", "text": "Mhow"}, {"id": "d", "text": "Nagpur"}],
+      "answerId": "c",
+      "explanation": "Mhow was a military cantonment, which is why the family lived there: his father was a Subedar in the British Indian Army. The town is now named Dr. Ambedkar Nagar and the birthplace is marked by the Bhim Janmabhoomi memorial, one of the eight sites in the Memorials gallery.",
+      "source": "Dr. Ambedkar Foundation; Government of Madhya Pradesh records on the memorial.",
+      "archiveRefs": ["arc_early_birth_1891", "arc_mem_bhim_janmabhoomi"], "timelineRefs": ["ev_1891"]
+    },
+    {
+      "id": "q_early_3", "zone": "early_life", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Which university awarded him the degree of Master of Arts in 1915?",
+      "options": [{"id": "a", "text": "University of Bombay"}, {"id": "b", "text": "Columbia University, New York"}, {"id": "c", "text": "London School of Economics"}, {"id": "d", "text": "University of the Punjab"}],
+      "answerId": "b",
+      "explanation": "He joined Columbia University in 1913 and received the M.A. in 1915. Among his teachers there was the philosopher and educationist John Dewey. His first scholarly paper on caste was presented at a Columbia seminar in May 1916.",
+      "source": "Columbia University Libraries, Rare Book & Manuscript Library — B. R. Ambedkar collection.",
+      "archiveRefs": ["arc_early_columbia_1913"], "timelineRefs": ["ev_1913", "ev_1916"]
+    },
+    {
+      "id": "q_early_4", "zone": "early_life", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Where did he earn the MSc and DSc degrees in economics in the 1920s?",
+      "options": [{"id": "a", "text": "Columbia University"}, {"id": "b", "text": "Heidelberg University"}, {"id": "c", "text": "London School of Economics"}, {"id": "d", "text": "University of Edinburgh"}],
+      "answerId": "c",
+      "explanation": "The London School of Economics awarded the MSc in Economics in 1921 and the DSc in 1923. In the same period he was called to the Bar at Gray's Inn (1923). His studies were interrupted more than once for want of funds — a fact the gallery displays prominently, because it ties the biography to the education mission of his later work.",
+      "source": "LSE Library archives; Gray's Inn record; standard biographical accounts.",
+      "archiveRefs": ["arc_early_lse"], "timelineRefs": ["ev_1923"]
+    },
+    {
+      "id": "q_early_5", "zone": "early_life", "type": "true_false", "difficulty": 2, "points": 10,
+      "prompt": "He was called to the Bar at Gray's Inn in London in 1923.",
+      "answerBool": true,
+      "explanation": "Correct — in 1923 he was called to the Bar at Gray's Inn, in the same year that his DSc was awarded and his book on the rupee was published. Legal training is one reason the constitutional galleries treat him as a constitutional lawyer as well as a political figure.",
+      "source": "Gray's Inn record as cited in standard biographical accounts.",
+      "archiveRefs": ["arc_early_lse"], "timelineRefs": ["ev_1923"]
+    },
+    {
+      "id": "q_order_early", "zone": "early_life", "type": "ordering", "difficulty": 3, "points": 20,
+      "prompt": "Arrange these milestones of his education in chronological order.",
+      "items": [
+        {"id": "i1", "text": "Matriculation, University of Bombay (1908)"},
+        {"id": "i2", "text": "B.A., Elphinstone College (1912)"},
+        {"id": "i3", "text": "Joins Columbia University (1913)"},
+        {"id": "i4", "text": "Paper “Castes in India” at Columbia (1916)"},
+        {"id": "i5", "text": "MSc in Economics, LSE (1921)"},
+        {"id": "i6", "text": "DSc in Economics, LSE (1923)"}
+      ],
+      "correctOrder": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "explanation": "The order shows why the Early Life gallery is built as a rising ramp: matriculation in 1908 leads to the B.A. in 1912, the Columbia years from 1913, the first paper on caste in 1916, and the London degrees in 1921 and 1923. The twenty-year sequence from matriculation to DSc is the backbone of the gallery.",
+      "source": "University of Bombay, Columbia University and LSE records as compiled in standard biographical accounts.",
+      "archiveRefs": ["arc_early_matric_1908", "arc_early_elphinstone_college", "arc_early_columbia_1913", "arc_early_castes_in_india_1916", "arc_early_lse"],
+      "timelineRefs": ["ev_1908", "ev_1912", "ev_1913", "ev_1916", "ev_1923"]
+    },
+
+    {
+      "id": "q_social_1", "zone": "social_reform", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "What did the Mahad satyagraha of 20 March 1927 assert?",
+      "options": [
+        {"id": "a", "text": "The right to enter a temple"},
+        {"id": "b", "text": "The right to use a public water tank"},
+        {"id": "c", "text": "The right to a separate electorate"},
+        {"id": "d", "text": "The right to strike in factories"}
+      ],
+      "answerId": "b",
+      "explanation": "The satyagraha at Chavdar Lake in Mahad asserted the right of the community to use a public water tank, following a Bombay government resolution that opened public places maintained out of public funds. The action was repeated in December 1927. The gallery reconstructs the approach to the tank from public descriptions of the site.",
+      "source": "Accounts of the Mahad satyagraha (1927); Dr. Babasaheb Ambedkar: Writings and Speeches.",
+      "archiveRefs": ["arc_social_mahad_1927"], "timelineRefs": ["ev_1927"]
+    },
+    {
+      "id": "q_social_2", "zone": "social_reform", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Which newspaper did he launch in January 1920?",
+      "options": [{"id": "a", "text": "Mooknayak"}, {"id": "b", "text": "Bahishkrit Bharat"}, {"id": "c", "text": "Janata"}, {"id": "d", "text": "Prabuddha Bharat"}],
+      "answerId": "a",
+      "explanation": "Mooknayak — 'leader of the voiceless' — was launched as a Marathi fortnightly on 31 January 1920, with support from Shahu Chhatrapati of Kolhapur. Bahishkrit Bharat came in 1927, by which time the press was being used to organise the Mahad and Nashik campaigns. The Social Reform gallery's reading table reproduces the masthead style as a clearly labelled typographic reconstruction.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1; standard accounts of Marathi periodical history.",
+      "archiveRefs": ["arc_social_mooknayak_1920", "arc_social_bahishkrit_bharat_1927"], "timelineRefs": ["ev_1920"]
+    },
+    {
+      "id": "q_social_3", "zone": "social_reform", "type": "multiple_choice", "difficulty": 3, "points": 15,
+      "prompt": "What did the Poona Pact of September 1932 put in place?",
+      "options": [
+        {"id": "a", "text": "Separate electorates for the Depressed Classes"},
+        {"id": "b", "text": "Reserved seats within a joint electorate"},
+        {"id": "c", "text": "The abolition of provincial legislatures"},
+        {"id": "d", "text": "A moratorium on temple-entry campaigns"}
+      ],
+      "answerId": "b",
+      "explanation": "The Pact replaced the separate electorates granted by the communal award with reserved seats inside a joint electorate, and added provisions on representation. It was negotiated at Yerwada Jail while Gandhi was fasting. The gallery sets out both the case for separate electorates (that only such an electorate could give the community real representation) and the objection to it, with citations.",
+      "source": "Text of the Poona Pact (1932), Government of India records; contemporary accounts.",
+      "archiveRefs": ["arc_social_poonapact_1932", "arc_social_round_table"], "timelineRefs": ["ev_1932"]
+    },
+    {
+      "id": "q_social_4", "zone": "social_reform", "type": "true_false", "difficulty": 2, "points": 10,
+      "prompt": "The Kalaram Temple satyagraha of the 1930s took place at Nashik.",
+      "answerBool": true,
+      "explanation": "Correct — the campaign for entry into the Kalaram Temple at Nashik ran from 1930 and was eventually discontinued when the temple remained closed. It is often read as the point at which the strategy of seeking entry into existing religious institutions was abandoned, two decades before the conversion of 1956.",
+      "source": "Accounts of the Kalaram temple satyagraha; Dr. Babasaheb Ambedkar: Writings and Speeches.",
+      "archiveRefs": ["arc_social_kalaram_1930"], "timelineRefs": ["ev_1930"]
+    },
+    {
+      "id": "q_social_5", "zone": "social_reform", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "“Annihilation of Caste” was written in 1936 as an address that was never delivered. Why not?",
+      "options": [
+        {"id": "a", "text": "The organisers asked him to revise the text and the address was cancelled"},
+        {"id": "b", "text": "He was prevented from travelling by the colonial government"},
+        {"id": "c", "text": "He was ill on the date of the conference"},
+        {"id": "d", "text": "The conference was banned by the police"}
+      ],
+      "answerId": "a",
+      "explanation": "The address was prepared for the annual conference of the Jat-Pat Todak Mandal at Lahore in 1936. When the organisation asked for the text to be revised, the address was not delivered, and Ambedkar published it himself in the same year together with a reply to Gandhi's criticism of it. The gallery presents the published text and the Gandhi–Ambedkar exchange side by side.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1 (including the preface to the 1937 edition).",
+      "archiveRefs": ["arc_social_annihilation_1936", "arc_man_what_congress_gandhi_1945"], "timelineRefs": ["ev_1936"]
+    },
+    {
+      "id": "q_match_social", "zone": "social_reform", "type": "matching", "difficulty": 3, "points": 20,
+      "prompt": "Match each campaign or settlement with the year in which it began.",
+      "pairs": [
+        {"id": "m1", "left": "Mooknayak newspaper", "right": "1920"},
+        {"id": "m2", "left": "Bahishkrit Hitakarini Sabha", "right": "1924"},
+        {"id": "m3", "left": "Mahad satyagraha", "right": "1927"},
+        {"id": "m4", "left": "First Round Table Conference", "right": "1930"},
+        {"id": "m5", "left": "Poona Pact", "right": "1932"},
+        {"id": "m6", "left": "Independent Labour Party", "right": "1936"}
+      ],
+      "explanation": "The sequence shows a movement moving from publishing and organisation (1920–1924) to mass action (1927–1930) and then to constitutional negotiation (1930–1936). Reading the dates as a block is the point of the exercise: each step creates the conditions for the next.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches; accounts of the campaigns of 1920–1936.",
+      "archiveRefs": ["arc_social_mooknayak_1920", "arc_social_bahishkrit_hitakarini_1924", "arc_social_mahad_1927", "arc_social_round_table", "arc_social_poonapact_1932", "arc_social_ilp_1936"],
+      "timelineRefs": ["ev_1920", "ev_1924", "ev_1927", "ev_1930b", "ev_1932", "ev_1936b"]
+    },
+    {
+      "id": "q_order_social", "zone": "social_reform", "type": "ordering", "difficulty": 3, "points": 20,
+      "prompt": "Arrange these events of the reform movement in chronological order.",
+      "items": [
+        {"id": "s1", "text": "Mooknayak newspaper founded (1920)"},
+        {"id": "s2", "text": "Bahishkrit Hitakarini Sabha founded (1924)"},
+        {"id": "s3", "text": "Mahad satyagraha (March 1927)"},
+        {"id": "s4", "text": "Burning of the Manusmriti at Mahad (December 1927)"},
+        {"id": "s5", "text": "First Round Table Conference, London (1930)"},
+        {"id": "s6", "text": "Poona Pact (1932)"}
+      ],
+      "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+      "explanation": "1927 appears twice, and the order within that year matters: the water-tank satyagraha in March, and the symbolic protest at the December conference. Both precede the shift to negotiation in London in 1930 and the settlement of 1932.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches; accounts of the Mahad conferences.",
+      "archiveRefs": ["arc_social_mahad_1927", "arc_social_manusmriti_1927", "arc_social_round_table", "arc_social_poonapact_1932"],
+      "timelineRefs": ["ev_1927", "ev_1927b", "ev_1930b", "ev_1932"]
+    },
+
+    {
+      "id": "q_law_1", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "Which committee did Dr. Ambedkar chair from 29 August 1947?",
+      "options": [{"id": "a", "text": "The Union Powers Committee"}, {"id": "b", "text": "The Drafting Committee"}, {"id": "c", "text": "The Minorities Committee"}, {"id": "d", "text": "The Advisory Committee on Fundamental Rights"}],
+      "answerId": "b",
+      "explanation": "The Constituent Assembly appointed a seven-member Drafting Committee on 29 August 1947 under his chairmanship. Its other members were Alladi Krishnaswamy Ayyar, N. Gopalaswami Ayyangar, K. M. Munshi, Mohd. Saadulla, B. L. Mitter and D. P. Khaitan. The exhibit names the whole Committee, because the draft was a collective work that also drew on the reports of earlier committees.",
+      "source": "Constituent Assembly Debates, Vol. V (29 August 1947).",
+      "archiveRefs": ["arc_law_drafting_committee"], "timelineRefs": ["ev_1947"]
+    },
+    {
+      "id": "q_law_2", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "Article 17 of the Constitution deals with which subject?",
+      "options": [{"id": "a", "text": "Freedom of religion"}, {"id": "b", "text": "Abolition of untouchability"}, {"id": "c", "text": "Right to property"}, {"id": "d", "text": "Protection of monuments"}],
+      "answerId": "b",
+      "explanation": "Article 17 abolishes untouchability and forbids its practice in any form, making the enforcement of any disability arising from it an offence. It sits in Part III among the fundamental rights, which is why the case is examined in the Constitutional Gallery immediately after the Social Reform gallery's account of the Mahad campaigns.",
+      "source": "Constitution of India, Article 17; India Code.",
+      "archiveRefs": ["arc_law_fundamental_rights"], "timelineRefs": []
+    },
+    {
+      "id": "q_law_3", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 2, "points": 15,
+      "prompt": "Which provision did Ambedkar call the very soul and the very heart of the Constitution, because it makes the fundamental rights enforceable?",
+      "options": [{"id": "a", "text": "Article 14"}, {"id": "b", "text": "Article 21"}, {"id": "c", "text": "Article 32"}, {"id": "d", "text": "Article 368"}],
+      "answerId": "c",
+      "explanation": "Article 32 gives a person the right to move the Supreme Court directly for the enforcement of fundamental rights, through writs such as habeas corpus and mandamus. Speaking on 25 November 1949, Ambedkar said that without it the rights would have no means of enforcement. The gallery shows the five writs with plain-language examples.",
+      "source": "Constituent Assembly Debates, Vol. XI, 25 November 1949; Constitution of India, Article 32.",
+      "archiveRefs": ["arc_law_article32"], "timelineRefs": []
+    },
+    {
+      "id": "q_law_4", "zone": "law_constitution", "type": "true_false", "difficulty": 1, "points": 10,
+      "prompt": "The Constitution of India was adopted on 26 November 1949 and came into force on 26 January 1950.",
+      "answerBool": true,
+      "explanation": "Correct, and the two dates have different meanings. Adoption on 26 November 1949 is the date now observed as Constitution Day; commencement on 26 January 1950 is the date on which the Constitution became operative and India became a republic.",
+      "source": "Constituent Assembly Debates, Vol. XI; Government of India notification on Constitution Day (2015).",
+      "archiveRefs": ["arc_law_adoption_1949", "arc_law_commencement_1950"], "timelineRefs": ["ev_1949", "ev_1950"]
+    },
+    {
+      "id": "q_law_5", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "According to the Preamble, from whom does the Constitution derive its authority?",
+      "options": [{"id": "a", "text": "The Constituent Assembly"}, {"id": "b", "text": "The Parliament of India"}, {"id": "c", "text": "The people of India"}, {"id": "d", "text": "The President of India"}],
+      "answerId": "c",
+      "explanation": "The Preamble begins 'We, the People of India', placing sovereignty in the people rather than in any institution the Constitution creates. The Objectives Resolution of December 1946, which is displayed beside the Preamble in the gallery, is where this framing was first moved in the Assembly.",
+      "source": "Constitution of India, Preamble; Constituent Assembly Debates, Vol. I (Objectives Resolution, 13 December 1946).",
+      "archiveRefs": ["arc_law_preamble", "arc_law_objectives_resolution"], "timelineRefs": ["ev_1946"]
+    },
+    {
+      "id": "q_law_6", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Article 46 of the Directive Principles asks the State to promote the educational and economic interests of which groups?",
+      "options": [
+        {"id": "a", "text": "Industrial workers in urban areas"},
+        {"id": "b", "text": "The Scheduled Castes, Scheduled Tribes and other weaker sections"},
+        {"id": "c", "text": "Members of the armed forces"},
+        {"id": "d", "text": "Residents of the Union Territories"}
+      ],
+      "answerId": "b",
+      "explanation": "Article 46 directs the State to promote with special care the educational and economic interests of the weaker sections of the people, and in particular of the Scheduled Castes and the Scheduled Tribes, and to protect them from social injustice and all forms of exploitation. This is the constitutional expression of the education mission that the People's Education Society pursued in institution-building.",
+      "source": "Constitution of India, Article 46; India Code.",
+      "archiveRefs": ["arc_law_dpsp", "arc_legacy_peoples_education_society"], "timelineRefs": ["ev_1945"]
+    },
+    {
+      "id": "q_law_7", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "In which Part of the Constitution are the Fundamental Rights set out?",
+      "options": [{"id": "a", "text": "Part II"}, {"id": "b", "text": "Part III"}, {"id": "c", "text": "Part IV"}, {"id": "d", "text": "Part XI"}],
+      "answerId": "b",
+      "explanation": "Part III contains Articles 12 to 35. Part II deals with citizenship and Part IV with the Directive Principles — a distinction worth holding on to, because the enforcement of the two parts is different: fundamental rights are enforceable in court, directive principles guide policy.",
+      "source": "Constitution of India, Parts II, III and IV; India Code.",
+      "archiveRefs": ["arc_law_fundamental_rights", "arc_law_dpsp", "arc_law_commencement_1950"], "timelineRefs": []
+    },
+    {
+      "id": "q_law_8", "zone": "law_constitution", "type": "multiple_choice", "difficulty": 3, "points": 15,
+      "prompt": "Ambedkar argued in the Constituent Assembly that constitutional forms alone are not enough. What did he say was also required?",
+      "options": [
+        {"id": "a", "text": "A written bill of rights"},
+        {"id": "b", "text": "A constitutional morality — a habit of respecting constitutional means and methods"},
+        {"id": "c", "text": "A second chamber in every legislature"},
+        {"id": "d", "text": "A permanent emergency provision"}
+      ],
+      "answerId": "b",
+      "explanation": "In the debate of 4 November 1948 he spoke of constitutional morality: the habits of procedure, tolerance of opposition and restraint that make a constitution work in practice. The gallery presents it with its citation, as an argument made in a specific debate.",
+      "source": "Constituent Assembly Debates, Vol. VII, 4 November 1948.",
+      "archiveRefs": ["arc_law_constitutional_morality"], "timelineRefs": ["ev_1948"]
+    },
+    {
+      "id": "q_match_rights", "zone": "law_constitution", "type": "matching", "difficulty": 3, "points": 20,
+      "prompt": "Match each article of the Constitution with the subject it deals with.",
+      "pairs": [
+        {"id": "r1", "left": "Article 14", "right": "Equality before the law"},
+        {"id": "r2", "left": "Article 15", "right": "Prohibition of discrimination"},
+        {"id": "r3", "left": "Article 17", "right": "Abolition of untouchability"},
+        {"id": "r4", "left": "Article 21", "right": "Protection of life and personal liberty"},
+        {"id": "r5", "left": "Article 32", "right": "Right to constitutional remedies"},
+        {"id": "r6", "left": "Article 46", "right": "Promotion of interests of the weaker sections"}
+      ],
+      "explanation": "Read together, this is the equality chain of the Constitution: a general guarantee (14), a prohibition on discrimination (15), a specific prohibition relevant to the archive's history (17), a guarantee of life and liberty (21), a remedy to enforce all of them (32), and a positive instruction to government (46).",
+      "source": "Constitution of India; India Code.",
+      "archiveRefs": ["arc_law_fundamental_rights", "arc_law_article32", "arc_law_dpsp"], "timelineRefs": []
+    },
+
+    {
+      "id": "q_man_1", "zone": "manuscripts", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Which of these works was completed in 1956 and published after his death, in 1957?",
+      "options": [{"id": "a", "text": "Who Were the Shudras?"}, {"id": "b", "text": "The Untouchables"}, {"id": "c", "text": "The Buddha and His Dhamma"}, {"id": "d", "text": "Thoughts on Pakistan"}],
+      "answerId": "c",
+      "explanation": "He was working on 'The Buddha and His Dhamma' until shortly before his death in December 1956; it was published in 1957 by the People's Education Society. It is the last item on the Manuscript Gallery's chronological bay and follows directly from the Nagpur conversion of 14 October 1956.",
+      "source": "First edition, People's Education Society, Bombay, 1957; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 11.",
+      "archiveRefs": ["arc_man_buddha_dhamma", "arc_legacy_death_1956"], "timelineRefs": ["ev_1957"]
+    },
+    {
+      "id": "q_man_2", "zone": "manuscripts", "type": "multiple_choice", "difficulty": 3, "points": 15,
+      "prompt": "“The Problem of the Rupee: Its Origin and Its Solution” grew out of which period of his work?",
+      "options": [
+        {"id": "a", "text": "His undergraduate years in Bombay"},
+        {"id": "b", "text": "His doctoral work in economics in London, in the early 1920s"},
+        {"id": "c", "text": "His years as Law Minister after 1947"},
+        {"id": "d", "text": "His last years in Delhi"}
+      ],
+      "answerId": "b",
+      "explanation": "The book belongs to the London and New York period of 1916–1923 and was published in London in 1923. It is the most technical of his books: a study of Indian currency and exchange policy arguing for a managed currency and a stable exchange standard.",
+      "source": "Original edition, P. S. King & Son, London, 1923 — verify public-domain status locally.",
+      "archiveRefs": ["arc_early_problem_rupee", "arc_early_lse"], "timelineRefs": ["ev_1923"]
+    },
+    {
+      "id": "q_man_3", "zone": "manuscripts", "type": "true_false", "difficulty": 2, "points": 10,
+      "prompt": "The paper “Castes in India: Their Mechanism, Genesis and Development” was presented at a seminar at Columbia University in May 1916.",
+      "answerBool": true,
+      "explanation": "Correct — it was delivered on 9 May 1916 at an anthropology seminar at Columbia and published in the Indian Antiquary in 1917. It is the earliest sustained piece of his scholarly writing on caste, twenty years before 'Annihilation of Caste'.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1.",
+      "archiveRefs": ["arc_early_castes_in_india_1916"], "timelineRefs": ["ev_1916"]
+    },
+    {
+      "id": "q_man_4", "zone": "manuscripts", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "In the manuscript archive, what does an entry marked “isReconstruction: true” mean?",
+      "options": [
+        {"id": "a", "text": "The item is an authentic document held by an institution"},
+        {"id": "b", "text": "The item is a generated or artistic recreation, not an authentic document"},
+        {"id": "c", "text": "The item has been verified by a historian"},
+        {"id": "d", "text": "The item is free of copyright"}
+      ],
+      "answerId": "b",
+      "explanation": "The archive distinguishes institutional holdings from generated or artistic recreations, and labels the second kind clearly. This is a rule of the platform, not a detail: a reconstruction must never be mistaken for an original. Where a genuine public-domain text or scan is available, the record is marked as not a reconstruction and the institution attaches the file through the content-import system.",
+      "source": "Platform documentation — the metadata schema of this archive.",
+      "archiveRefs": ["arc_legacy_archive_schema", "arc_man_ba_manuscript_page"], "timelineRefs": []
+    },
+    {
+      "id": "q_order_books", "zone": "manuscripts", "type": "ordering", "difficulty": 3, "points": 20,
+      "prompt": "Arrange these works in order of publication.",
+      "items": [
+        {"id": "b1", "text": "“Castes in India” (1916)"},
+        {"id": "b2", "text": "“The Problem of the Rupee” (1923)"},
+        {"id": "b3", "text": "“Federation versus Freedom” (1939)"},
+        {"id": "b4", "text": "“Annihilation of Caste” (1936)"},
+        {"id": "b5", "text": "“Who Were the Shudras?” (1946)"},
+        {"id": "b6", "text": "“The Buddha and His Dhamma” (1957)"}
+      ],
+      "correctOrder": ["b1", "b2", "b4", "b3", "b5", "b6"],
+      "explanation": "Two orderings are easy to get wrong: 'Annihilation of Caste' (1936) comes before 'Federation versus Freedom' (1939), and the last book is posthumous. The Manuscript Gallery arranges its shelves in this same sequence, so walking the room and reading the answers reinforce each other.",
+      "source": "Publication dates of the first editions; Dr. Babasaheb Ambedkar: Writings and Speeches.",
+      "archiveRefs": ["arc_early_castes_in_india_1916", "arc_early_problem_rupee", "arc_social_annihilation_1936", "arc_man_federation_freedom_1939", "arc_man_who_were_shudras_1946", "arc_man_buddha_dhamma"],
+      "timelineRefs": ["ev_1916", "ev_1923", "ev_1936", "ev_1939", "ev_1957"]
+    },
+
+    {
+      "id": "q_mem_1", "zone": "memorials", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "Where is Chaitya Bhoomi, the site of the cremation in December 1956?",
+      "options": [{"id": "a", "text": "Nagpur"}, {"id": "b", "text": "Dadar, Mumbai"}, {"id": "c", "text": "Delhi"}, {"id": "d", "text": "Mhow"}],
+      "answerId": "b",
+      "explanation": "He died at his residence at 26 Alipur Road in Delhi on 6 December 1956 and was cremated at Dadar in Bombay on 7 December. The Dadar site, Chaitya Bhoomi, is now a major memorial and the focus of the annual observances on 6 December.",
+      "source": "Standard biographical record; Dr. Ambedkar Foundation.",
+      "archiveRefs": ["arc_mem_chaityabhoomi", "arc_legacy_death_1956"], "timelineRefs": ["ev_1956b"]
+    },
+    {
+      "id": "q_mem_2", "zone": "memorials", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Deekshabhoomi in Nagpur is associated with which event?",
+      "options": [
+        {"id": "a", "text": "The founding of the Bahishkrit Hitakarini Sabha"},
+        {"id": "b", "text": "The conversion to Buddhism on 14 October 1956"},
+        {"id": "c", "text": "The signing of the Poona Pact"},
+        {"id": "d", "text": "The publication of “Who Were the Shudras?”"}
+      ],
+      "answerId": "b",
+      "explanation": "At Nagpur on 14 October 1956 he embraced Buddhism together with a very large gathering of followers, and administered the twenty-two vows he had framed. A memorial stupa now stands on the site. The date is observed annually as Dhamma Chakra Pravartan Din.",
+      "source": "Standard accounts of the conversion ceremony, October 1956; Dr. Ambedkar Foundation.",
+      "archiveRefs": ["arc_mem_deekshabhoomi", "arc_legacy_conversion_1956"], "timelineRefs": ["ev_1956a"]
+    },
+    {
+      "id": "q_match_memorials", "zone": "memorials", "type": "matching", "difficulty": 3, "points": 20,
+      "prompt": "Match each memorial with its city.",
+      "pairs": [
+        {"id": "k1", "left": "Chaitya Bhoomi", "right": "Mumbai"},
+        {"id": "k2", "left": "Deekshabhoomi", "right": "Nagpur"},
+        {"id": "k3", "left": "Dr. Ambedkar National Memorial", "right": "Delhi"},
+        {"id": "k4", "left": "Bhim Janmabhoomi", "right": "Mhow (Dr. Ambedkar Nagar)"},
+        {"id": "k5", "left": "Ambedkar Memorial Park", "right": "Lucknow"},
+        {"id": "k6", "left": "Dr. Ambedkar International Centre", "right": "New Delhi"}
+      ],
+      "explanation": "Two entries are in Delhi, which is worth noticing: the National Memorial at 26 Alipur Road, where he lived and died, and the International Centre on Janpath, which is a research and documentation institution. The gallery keeps them distinct on the map for exactly that reason.",
+      "source": "Dr. Ambedkar Foundation; Ministry of Social Justice and Empowerment; State government records.",
+      "archiveRefs": ["arc_mem_chaityabhoomi", "arc_mem_deekshabhoomi", "arc_mem_alipur_memorial", "arc_mem_bhim_janmabhoomi", "arc_mem_ambedkar_park_lucknow", "arc_mem_dr_ambedkar_international_centre"],
+      "timelineRefs": ["ev_2018", "ev_2008"]
+    },
+
+    {
+      "id": "q_leg_1", "zone": "legacy", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "When was Dr. Ambedkar awarded the Bharat Ratna?",
+      "options": [{"id": "a", "text": "1956, in his lifetime"}, {"id": "b", "text": "1979"}, {"id": "c", "text": "1990, posthumously"}, {"id": "d", "text": "2015"}],
+      "answerId": "c",
+      "explanation": "The Bharat Ratna, India's highest civilian honour, was awarded posthumously in 1990. The Legacy Archive places it at the start of a sequence of national recognitions that continues with the founding of institutions, the collected Writings and Speeches, and Constitution Day observances.",
+      "source": "Government of India award records, 1990.",
+      "archiveRefs": ["arc_legacy_bharat_ratna_1990"], "timelineRefs": ["ev_1990"]
+    },
+    {
+      "id": "q_leg_2", "zone": "legacy", "type": "multiple_choice", "difficulty": 2, "points": 10,
+      "prompt": "Which society did he found in 1945 to open higher education to students who had been excluded from it?",
+      "options": [{"id": "a", "text": "The People's Education Society"}, {"id": "b", "text": "The Bahishkrit Hitakarini Sabha"}, {"id": "c", "text": "The Scheduled Castes Federation"}, {"id": "d", "text": "The Indian Labour Party"}],
+      "answerId": "a",
+      "explanation": "The People's Education Society was founded in 1945; Siddharth College in Bombay opened in 1946, and Milind College at Aurangabad followed in 1950. The Legacy Archive's education wing is built around this institutional record, which is the practical counterpart of Article 46.",
+      "source": "People's Education Society institutional record; standard biographical accounts.",
+      "archiveRefs": ["arc_legacy_peoples_education_society", "arc_law_dpsp"], "timelineRefs": ["ev_1945"]
+    },
+    {
+      "id": "q_leg_3", "zone": "legacy", "type": "true_false", "difficulty": 2, "points": 10,
+      "prompt": "The collected edition “Dr. Babasaheb Ambedkar: Writings and Speeches” has been published by the Government of Maharashtra.",
+      "answerBool": true,
+      "explanation": "Correct — the series began publication from 1979 under the Government of Maharashtra, compiled and edited by Vasant Moon, and has been extended subsequently with the involvement of the Dr. Ambedkar Foundation. This archive cites that edition throughout, which is why every record carries a volume reference.",
+      "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Government of Maharashtra / Dr. Ambedkar Foundation.",
+      "archiveRefs": ["arc_legacy_writings_speeches"], "timelineRefs": ["ev_1979"]
+    },
+    {
+      "id": "q_leg_4", "zone": "legacy", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "26 November is observed in India as which day?",
+      "options": [{"id": "a", "text": "Republic Day"}, {"id": "b", "text": "Independence Day"}, {"id": "c", "text": "Constitution Day (Samvidhan Divas)"}, {"id": "d", "text": "National Education Day"}],
+      "answerId": "c",
+      "explanation": "The Constitution was adopted on 26 November 1949, and since 2015 that date is observed as Constitution Day, with readings of the Preamble and civic-education programmes. Republic Day, 26 January, marks the date the Constitution came into force in 1950 — a different event.",
+      "source": "Ministry of Social Justice and Empowerment; Government of India notification, 2015.",
+      "archiveRefs": ["arc_legacy_constitution_day", "arc_law_adoption_1949", "arc_law_commencement_1950"],
+      "timelineRefs": ["ev_1949", "ev_1950", "ev_2015"]
+    },
+    {
+      "id": "q_img_rights", "zone": "law_constitution", "type": "image_identification", "difficulty": 2, "points": 15,
+      "prompt": "This diagram (a generated illustration, not a historical document) shows a chain: a guarantee of equality, a prohibition of discrimination, a specific prohibition, a guarantee of life and liberty, and finally a remedy. Which provision completes the chain as the remedy?",
+      "imageRef": "gen_diagram_equality_chain",
+      "imageLabel": "Digital Reconstruction — generated diagram, not an authentic document",
+      "options": [{"id": "a", "text": "Article 14"}, {"id": "b", "text": "Article 19"}, {"id": "c", "text": "Article 32"}, {"id": "d", "text": "Article 368"}],
+      "answerId": "c",
+      "explanation": "A right without a remedy is not enforceable. Article 32 lets a person approach the Supreme Court directly for the enforcement of fundamental rights, which is why the gallery ends the Fundamental Rights bay with it. The diagram in this question is generated by the platform and is labelled as a reconstruction.",
+      "source": "Constitution of India, Articles 14, 15, 17, 21 and 32; Constituent Assembly Debates, Vol. XI.",
+      "archiveRefs": ["arc_law_article32", "arc_law_fundamental_rights"], "timelineRefs": []
+    },
+    {
+      "id": "q_img_preamble", "zone": "law_constitution", "type": "image_identification", "difficulty": 1, "points": 10,
+      "prompt": "A generated panel in the gallery opens with the words “We, the People of India”. Which part of the Constitution is being displayed?",
+      "imageRef": "gen_panel_preamble",
+      "imageLabel": "Digital Reconstruction — typographic panel, not an authentic document",
+      "options": [{"id": "a", "text": "The Preamble"}, {"id": "b", "text": "Part III"}, {"id": "c", "text": "The Seventh Schedule"}, {"id": "d", "text": "Article 368"}],
+      "answerId": "a",
+      "explanation": "The Preamble states the source of the Constitution's authority and its objects — justice, liberty, equality and fraternity. The panel in the gallery is a typographic reconstruction prepared for exhibition; the authentic text is attached from India Code through the content-import system and is presented without alteration.",
+      "source": "Constitution of India, Preamble; India Code.",
+      "archiveRefs": ["arc_law_preamble"], "timelineRefs": ["ev_1949"]
+    },
+
+    {
+      "id": "q_final_1", "zone": "legacy", "type": "multiple_choice", "difficulty": 1, "points": 10,
+      "prompt": "The museum has exactly six galleries. Which of these is NOT one of them?",
+      "options": [
+        {"id": "a", "text": "Early Life & Education"},
+        {"id": "b", "text": "Social Reform"},
+        {"id": "c", "text": "Space Exploration"},
+        {"id": "d", "text": "Legacy & Digital Archive"}
+      ],
+      "answerId": "c",
+      "explanation": "The six galleries are Early Life & Education, Social Reform, Law & Constitution, Books, Manuscripts & Scholarship, Memorials & Historical Places, and Legacy & Digital Archive. The hub has exactly six doors, and each one is labelled above its frame.",
+      "source": "Platform documentation — the museum layout.",
+      "archiveRefs": ["arc_legacy_archive_schema"], "timelineRefs": []
+    },
+    {
+      "id": "q_final_2", "zone": "legacy", "type": "multiple_choice", "difficulty": 2, "points": 15,
+      "prompt": "In the Preamble, which of the objects is paired with the phrase “of status and of opportunity”?",
+      "options": [{"id": "a", "text": "Justice"}, {"id": "b", "text": "Liberty"}, {"id": "c", "text": "Equality"}, {"id": "d", "text": "Fraternity"}],
+      "answerId": "c",
+      "explanation": "The Preamble speaks of equality of status and of opportunity. The pairing is significant: formal equality of opportunity alone does not address differences of status, which is why the same document also contains Article 17 and the enabling clauses of Article 15.",
+      "source": "Constitution of India, Preamble; India Code.",
+      "archiveRefs": ["arc_law_preamble", "arc_law_fundamental_rights"], "timelineRefs": []
+    },
+    {
+      "id": "q_final_3", "zone": "legacy", "type": "true_false", "difficulty": 2, "points": 10,
+      "prompt": "The phrase “constitutional morality” appears in his Constituent Assembly speech of 4 November 1948, where he argued that a constitution on paper is not self-sustaining.",
+      "answerBool": true,
+      "explanation": "Correct. In that debate he warned that constitutional forms would not by themselves preserve democratic government, and argued for the habits of constitutional conduct — respect for procedure, for opposition and for limits on power. The phrase is cited across the archive to that debate.",
+      "source": "Constituent Assembly Debates, Vol. VII, 4 November 1948.",
+      "archiveRefs": ["arc_law_constitutional_morality"], "timelineRefs": ["ev_1948"]
+    },
+    {
+      "id": "q_final_4", "zone": "legacy", "type": "ordering", "difficulty": 3, "points": 25,
+      "prompt": "Arrange these national milestones in chronological order.",
+      "items": [
+        {"id": "f1", "text": "The Constituent Assembly first meets (December 1946)"},
+        {"id": "f2", "text": "The Drafting Committee is appointed (August 1947)"},
+        {"id": "f3", "text": "The Constitution is adopted (November 1949)"},
+        {"id": "f4", "text": "The Constitution comes into force (January 1950)"},
+        {"id": "f5", "text": "The conversion at Nagpur (October 1956)"},
+        {"id": "f6", "text": "Constitution Day begins to be observed (2015)"}
+      ],
+      "correctOrder": ["f1", "f2", "f3", "f4", "f5", "f6"],
+      "explanation": "The framing of the Constitution took three years and one month from the Assembly's first sitting to adoption, and a further seven weeks to commencement. The last item in the list shows that the process of interpreting and observing the Constitution continued long after the drafting ended.",
+      "source": "Constituent Assembly Debates; Government of India notification, 2015.",
+      "archiveRefs": ["arc_law_ca_formation", "arc_law_drafting_committee", "arc_law_adoption_1949", "arc_law_commencement_1950", "arc_legacy_conversion_1956", "arc_legacy_constitution_day"],
+      "timelineRefs": ["ev_1946", "ev_1947", "ev_1949", "ev_1950", "ev_1956a", "ev_2015"]
+    },
+    {
+      "id": "q_final_5", "zone": "legacy", "type": "multiple_choice", "difficulty": 3, "points": 20,
+      "prompt": "What does this archive require on every record, without exception?",
+      "options": [
+        {"id": "a", "text": "A photograph"},
+        {"id": "b", "text": "A citation to a source"},
+        {"id": "c", "text": "A video"},
+        {"id": "d", "text": "A quotation"}
+      ],
+      "answerId": "b",
+      "explanation": "Every record carries a source field, and every generated image, model or diagram is labelled as a reconstruction rather than an authentic holding. The rule is what makes the platform usable as an institutional archive rather than a presentation: a visitor can always ask where a statement came from.",
+      "source": "Platform documentation — the metadata schema and the source policy.",
+      "archiveRefs": ["arc_legacy_archive_schema", "arc_man_ba_manuscript_page"], "timelineRefs": []
+    },
+    {
+      "id": "q_final_6", "zone": "legacy", "type": "multiple_choice", "difficulty": 3, "points": 25,
+      "prompt": "Why does the Archive Guide refuse to answer a historical question that is not covered by the archive?",
+      "options": [
+        {"id": "a", "text": "Because it runs out of memory"},
+        {"id": "b", "text": "Because it is designed to answer from the approved archive only, and to say when a topic is not covered"},
+        {"id": "c", "text": "Because it does not understand the question"},
+        {"id": "d", "text": "Because it requires an internet connection"}
+      ],
+      "answerId": "b",
+      "explanation": "The assistant is retrieval-based: it searches the curated archive and answers from the passages it finds, showing the records it used. When the archive does not cover a question it says so and suggests related coverage instead of inventing an answer. Offline, the same behaviour is provided by the local index, labelled 'Offline Archive Guide'.",
+      "source": "Platform documentation — the AI architecture and response rules.",
+      "archiveRefs": ["arc_legacy_archive_schema"], "timelineRefs": []
+    }
+  ]
+}

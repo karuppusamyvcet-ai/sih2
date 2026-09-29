@@ -1,0 +1,183 @@
+{
+  "schema": "heritage.guide.v1",
+  "version": "1.0.0",
+  "name": "Archive Guide",
+  "role": "Retrieval-based educational assistant",
+  "note": "The Guide never answers from model memory. It retrieves passages from the curated content database (archive.json, glossary.json, timeline.json, memorials.json, zones.json), composes an answer from those passages, and lists the records it used. If nothing relevant is retrieved it says so and suggests related coverage. With no internet connection the same retrieval runs against the local index and the panel is labelled 'Offline Archive Guide'.",
+  "architecture": {
+    "pipeline": [
+      "player question",
+      "query processing (tokenise, stopword removal, synonym expansion)",
+      "archive retrieval (inverted index over title + keywords + description + glossary terms)",
+      "ranking (term frequency, zone boost, category boost)",
+      "answer composition (extractive summary + guided pointers)",
+      "source list",
+      "player"
+    ],
+    "retrieval": {
+      "indexFields": [
+        "title",
+        "keywords",
+        "description",
+        "significance",
+        "term",
+        "shortDef",
+        "longDef",
+        "tags",
+        "city"
+      ],
+      "weights": {
+        "title": 3.0,
+        "keywords": 2.4,
+        "term": 3.2,
+        "shortDef": 1.8,
+        "longDef": 1.2,
+        "description": 1.0,
+        "tags": 1.4
+      },
+      "topK": 4,
+      "minScore": 3.0,
+      "minScoreNote": "A hit must reach this score to count as coverage. Below it the Guide says the archive does not cover the topic rather than answering from a weak match. Measured: off-topic questions such as a cricket result peak around 2.2, on-topic questions start near 4.",
+      "lowConfidenceAt": 7.0,
+      "lowConfidenceNote": "Between minScore and this value the Guide answers but prefixes the low-confidence notice, so a passing mention is never dressed up as a full answer.",
+      "rankingNote": "Scoring is presence-weighted (strongest field wins), multiplied by a bounded inverse-document-frequency factor, with a 1.4x bonus for terms in the record title and 0.22x weight for synonym-only matches, so a synonym can surface a record but never outrank one that matches the words the player typed."
+    },
+    "synonyms": {
+      "constitution": [
+        "samvidhan",
+        "constitutional",
+        "preamble",
+        "article",
+        "drafting"
+      ],
+      "caste": [
+        "jati",
+        "varna",
+        "untouchability",
+        "endogamy",
+        "social exclusion"
+      ],
+      "education": [
+        "study",
+        "college",
+        "university",
+        "school",
+        "scholarship",
+        "library"
+      ],
+      "memorial": [
+        "chaitya",
+        "deeksha",
+        "statue",
+        "monument",
+        "park",
+        "site"
+      ],
+      "book": [
+        "manuscript",
+        "writing",
+        "volume",
+        "text",
+        "publication"
+      ],
+      "equality": [
+        "equal",
+        "rights",
+        "discrimination",
+        "justice",
+        "dignity"
+      ],
+      "reform": [
+        "movement",
+        "satyagraha",
+        "campaign",
+        "agitation"
+      ],
+      "ambedkar": [
+        "babasaheb",
+        "bhimrao",
+        "doctor",
+        "dr"
+      ],
+      "buddhism": [
+        "dhamma",
+        "conversion",
+        "nagpur",
+        "precepts",
+        "vows"
+      ],
+      "rights": [
+        "fundamental",
+        "article 32",
+        "remedies",
+        "writ"
+      ]
+    },
+    "answerPolicy": {
+      "maxSentences": 5,
+      "alwaysCiteSources": true,
+      "refuseWhenNoRetrieval": true,
+      "noFabricatedQuotes": true,
+      "noFabricatedCitations": true,
+      "labelGeneratedMedia": true,
+      "hedgeContestedClaims": true
+    },
+    "optionalCloud": {
+      "enabled": false,
+      "description": "An institution may enable a cloud language model for paraphrase. When enabled, the retrieved passages are the only context passed to the model, the model's output is discarded if it introduces an entity not present in the retrieved records, and the source list is still generated from the retrieval step and not from the model.",
+      "endpointEnvVar": "HERITAGE_GUIDE_ENDPOINT",
+      "apiKeyEnvVar": "HERITAGE_GUIDE_API_KEY",
+      "timeoutSeconds": 8,
+      "fallbackOnError": "local_retrieval"
+    }
+  },
+  "messages": {
+    "greeting": "I am the Archive Guide. I answer from this archive only — ask me about the constitution, the campaigns, the books, the memorials or the timeline, and I will show you the records I used.",
+    "offlineLabel": "Offline Archive Guide",
+    "offlineNotice": "No connection: answering from the local archive index.",
+    "noResults": "The archive does not cover that. I would rather tell you that than guess. Related material is available under: {topics}.",
+    "sourcesHeading": "Records used",
+    "reconstructionWarning": "This includes a generated reconstruction. It is labelled as such and is not an authentic photograph or document.",
+    "lowConfidence": "The archive touches on this only in passing. Here is what it holds, with the records: {sources}."
+  },
+  "suggestedQuestions": [
+    "What does Article 32 do?",
+    "Why is the Preamble important?",
+    "What happened at Mahad in 1927?",
+    "Which books did he write?",
+    "What is at Deekshabhoomi?",
+    "What was the Poona Pact?",
+    "Which memorials are in the archive?",
+    "What is constitutional morality?",
+    "When was the Constitution adopted?",
+    "What did the Poona Pact change about representation?",
+    "Where can I find the manuscript viewer?",
+    "What is Article 17 about?"
+  ],
+  "guidedPointers": [
+    {
+      "topic": "constitution",
+      "route": "Law & Constitution gallery, Door 3 — start at the interactive Constitution table, then the Fundamental Rights wall."
+    },
+    {
+      "topic": "manuscripts",
+      "route": "Books, Manuscripts & Scholarship, Door 4 — the book shelf wall opens the document viewer with page turning and magnification."
+    },
+    {
+      "topic": "memorials",
+      "route": "Memorials & Historical Places, Door 5 — select a plinth on the map table to walk through a reconstruction."
+    },
+    {
+      "topic": "early_life",
+      "route": "Early Life & Education, Door 1 — the gallery is a rising ramp; walk it left to right."
+    },
+    {
+      "topic": "social_reform",
+      "route": "Social Reform, Door 2 — the Mahad reconstruction is in the centre of the hall, with two mini-games at the far end."
+    },
+    {
+      "topic": "legacy",
+      "route": "Legacy & Digital Archive, Door 6 — search terminals, the audio and video wall, and the final challenge dais."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+name: Build and verify
+
+# The fast gates run on every push and pull request without Unity, so a content
+# mistake is caught in about a minute. The two builds then produce the Windows
+# executable and the Android APK as workflow artefacts.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  gates:
+    name: Content, character, C# and browser gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Content archive
+        run: python3 Tools/validate_content.py
+
+      - name: Character specification audit
+        run: python3 Tools/audit_character_spec.py
+
+      - name: Unity C# static check
+        run: python3 Tools/check_csharp.py
+
+      - name: Browser build validation
+        run: node web/tools/validate_build.js
+
+      - name: Browser build test suites
+        run: bash web/tools/run_tests.sh
+
+  unity-build:
+    name: ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    needs: gates
+    # Unity builds need a licence; until the three secrets below are configured
+    # the job is skipped with a notice rather than reporting a false green.
+    if: ${{ github.event_name == 'workflow_dispatch' || vars.UNITY_BUILD_ENABLED == 'true' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: StandaloneWindows64
+            artifact: AmbedkarDigitalHeritage-windows
+            path: Builds/Windows
+          - target: Android
+            artifact: AmbedkarDigitalHeritage-android
+            path: Builds/Android
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gates before building
+        run: |
+          python3 Tools/validate_content.py
+          python3 Tools/audit_character_spec.py
+          python3 Tools/check_csharp.py
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: UnityProject/Library
+          key: unity-${{ matrix.target }}-${{ hashFiles('UnityProject/Assets/**', 'UnityProject/Packages/manifest.json') }}
+          restore-keys: unity-${{ matrix.target }}-
+
+      - name: Build
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: UnityProject
+          unityVersion: 6000.0.23f1
+          targetPlatform: ${{ matrix.target }}
+          buildsPath: Builds
+          buildName: AmbedkarDigitalHeritage
+          androidTargetSdkVersion: 0
+          androidExportType: androidPackage
+          allowDirtyBuild: true
+
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.path }}
+          if-no-files-found: error
