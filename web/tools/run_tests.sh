@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the character/animation runtime test against the *vendored* three.js.
+# Runs the browser build test suites against the *vendored* three.js.
 #
 # The browser modules import the bare specifier "three" (resolved by the
 # importmap in index.html). Node needs a real node_modules entry, so this
@@ -18,7 +18,9 @@ cp -r "$WEB/content" "$TREE/content"
 mkdir -p "$TREE/tools"
 cp "$WEB/tools/test_character.js" "$TREE/tools/test_character.mjs"
 cp "$WEB/tools/test_gameplay.js" "$TREE/tools/test_gameplay.mjs"
-cp "$WEB/tools/test_content.js" "$TREE/tools/test_content.mjs"
+# test_content.js is a CommonJS driver (it reads the module sources itself),
+# so it keeps the .cjs extension when it is copied into the throwaway tree.
+cp "$WEB/tools/test_content.js" "$TREE/tools/test_content.cjs"
 cp "$WEB/vendor/three.module.js" "$TREE/node_modules/three/index.js"
 cat > "$TREE/node_modules/three/package.json" <<'JSON'
 { "name": "three", "version": "0.160.1", "type": "module", "main": "index.js", "exports": { ".": "./index.js" } }
@@ -42,6 +44,13 @@ PLAY=$?
 
 echo ""
 echo "### content engine ###"
-node tools/test_content.mjs 2>/dev/null || true
+node tools/test_content.cjs
+CONTENT=$?
 
-exit $(( CHAR + PLAY ))
+echo ""
+if [ $(( CHAR + PLAY + CONTENT )) -eq 0 ]; then
+  echo "ALL SUITES PASSED"
+else
+  echo "SUITE FAILURES: character=$CHAR gameplay=$PLAY content=$CONTENT"
+fi
+exit $(( CHAR + PLAY + CONTENT ))

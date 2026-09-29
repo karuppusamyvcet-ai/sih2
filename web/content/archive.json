@@ -21,9 +21,9 @@
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1 (Dr. Ambedkar Foundation, Ministry of Social Justice and Empowerment); Dr. Ambedkar Foundation biographical record.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "text", "label": "Birth record summary", "ref": "", "isReconstruction": true, "note": "Text summary authored for this platform."},
-        {"type": "image", "label": "Visualisation: cantonment street, Mhow, 1890s", "ref": "", "isReconstruction": true, "note": "Procedurally generated reconstruction. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: Birth at Mhow", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "text", "label": "Birth record summary", "reference": "", "isReconstruction": true, "note": "Text summary authored for this platform."},
+        {"type": "image", "label": "Visualisation: cantonment street, Mhow, 1890s", "reference": "", "isReconstruction": true, "note": "Procedurally generated reconstruction. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: Birth at Mhow", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_early_family_sakpal", "arc_mem_bhim_janmabhoomi", "arc_early_school_satara"]
     },
@@ -41,7 +41,7 @@
       "keywords": ["family", "father", "army", "Satara", "education", "Marathi"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1; standard biographical record.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Family background note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Family background note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_early_birth_1891", "arc_early_school_satara"]
     },
     {
@@ -58,7 +58,7 @@
       "keywords": ["school", "Satara", "exclusion", "untouchability", "studies"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1 (autobiographical notes and letters); standard biographical record.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "School-record reconstruction", "ref": "", "isReconstruction": true, "note": "Facsimile-style reconstruction prepared for exhibition. It is not an original document."}],
+      "media": [{"type": "document", "label": "School-record reconstruction", "reference": "", "isReconstruction": true, "note": "Facsimile-style reconstruction prepared for exhibition. It is not an original document."}],
       "related": ["arc_early_matric_1908", "arc_social_mahad_1927"]
     },
     {
@@ -75,7 +75,7 @@
       "keywords": ["matriculation", "1908", "Bombay University", "education milestone"],
       "source": "University of Bombay records as cited in standard biographical accounts; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Examination notice reconstruction", "ref": "", "isReconstruction": true, "note": "Not an original notice."}],
+      "media": [{"type": "document", "label": "Examination notice reconstruction", "reference": "", "isReconstruction": true, "note": "Not an original notice."}],
       "related": ["arc_early_elphinstone_college", "arc_early_baroda_scholarship"]
     },
     {
@@ -92,7 +92,7 @@
       "keywords": ["Ramabai", "family", "1906", "Mahad 1927", "1935"],
       "source": "Standard biographical record; accounts of the Mahad satyagraha (1927); Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Biographical note", "ref": "", "isReconstruction": true, "note": "Authored summary, no photograph available in the archive for this record."}],
+      "media": [{"type": "text", "label": "Biographical note", "reference": "", "isReconstruction": true, "note": "Authored summary, no photograph available in the archive for this record."}],
       "related": ["arc_social_mahad_1927", "arc_legacy_savita_ambedkar"]
     },
     {
@@ -109,7 +109,7 @@
       "keywords": ["Elphinstone College", "B.A.", "1912", "economics", "political science"],
       "source": "University of Bombay / Elphinstone College record as cited in standard biographical accounts.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Academic record note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Academic record note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_early_baroda_scholarship", "arc_early_columbia_1913"]
     },
     {
@@ -126,7 +126,7 @@
       "keywords": ["scholarship", "Baroda", "Sayajirao Gaekwad", "1913", "patronage"],
       "source": "Baroda State records as cited in standard biographical accounts; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Scholarship undertaking (reconstruction)", "ref": "", "isReconstruction": true, "note": "Facsimile-style reconstruction, not the original instrument."}],
+      "media": [{"type": "document", "label": "Scholarship undertaking (reconstruction)", "reference": "", "isReconstruction": true, "note": "Facsimile-style reconstruction, not the original instrument."}],
       "related": ["arc_early_columbia_1913", "arc_early_baroda_service"]
     },
     {
@@ -144,8 +144,8 @@
       "source": "Columbia University Libraries, Rare Book & Manuscript Library — B. R. Ambedkar collection and university record.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: Columbia seminar room, 1916", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: the Columbia years", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "image", "label": "Visualisation: Columbia seminar room, 1916", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: the Columbia years", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_early_castes_in_india_1916", "arc_early_lse", "arc_early_phd_1927"]
     },
@@ -163,7 +163,7 @@
       "keywords": ["caste", "endogamy", "1916", "Indian Antiquary", "sociology", "seminar paper"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1 (Government of Maharashtra / Dr. Ambedkar Foundation).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Paper text viewer", "ref": "", "isReconstruction": false, "note": "Full text to be attached from a public-domain edition by the content team."}],
+      "media": [{"type": "document", "label": "Paper text viewer", "reference": "", "isReconstruction": false, "note": "Full text to be attached from a public-domain edition by the content team."}],
       "related": ["arc_early_columbia_1913", "arc_social_annihilation_1936"]
     },
     {
@@ -181,7 +181,7 @@
       "source": "LSE Library archives; Gray's Inn record as cited in standard biographical accounts.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: LSE courtyard, 1920s", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
+        {"type": "image", "label": "Visualisation: LSE courtyard, 1920s", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
       ],
       "related": ["arc_early_problem_rupee", "arc_law_drafting_committee"]
     },
@@ -199,7 +199,7 @@
       "keywords": ["rupee", "currency", "economics", "1923", "exchange rate", "monetary policy"],
       "source": "Original edition, P. S. King & Son, London, 1923 (public domain in many jurisdictions — verify locally).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Title page image", "ref": "", "isReconstruction": true, "note": "Reconstruction of a title page. Attach a genuine public-domain scan through the content-import system."}],
+      "media": [{"type": "document", "label": "Title page image", "reference": "", "isReconstruction": true, "note": "Reconstruction of a title page. Attach a genuine public-domain scan through the content-import system."}],
       "related": ["arc_early_lse", "arc_early_phd_1927"]
     },
     {
@@ -216,7 +216,7 @@
       "keywords": ["Sydenham College", "teaching", "Bombay", "1918", "professor"],
       "source": "Standard biographical record; institutional history of Sydenham College, Bombay.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Institutional note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Institutional note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_early_lse", "arc_social_mooknayak_1920"]
     },
     {
@@ -233,7 +233,7 @@
       "keywords": ["PhD", "Columbia", "1927", "thesis", "provincial finance", "Seligman"],
       "source": "Columbia University Libraries record; published edition, P. S. King & Son, London, 1925.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Thesis title page", "ref": "", "isReconstruction": true, "note": "Reconstruction; attach a genuine scan via content import."}],
+      "media": [{"type": "document", "label": "Thesis title page", "reference": "", "isReconstruction": true, "note": "Reconstruction; attach a genuine scan via content import."}],
       "related": ["arc_early_columbia_1913", "arc_early_problem_rupee"]
     },
     {
@@ -250,7 +250,7 @@
       "keywords": ["Baroda", "employment", "1923", "accommodation", "exclusion"],
       "source": "Standard biographical record; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Service note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Service note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_early_baroda_scholarship", "arc_social_bahishkrit_hitakarini_1924"]
     },
 
@@ -268,7 +268,7 @@
       "keywords": ["Mooknayak", "newspaper", "1920", "Marathi", "press", "Kolhapur"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1; standard accounts of Marathi periodical history.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "image", "label": "Visualisation: Marathi press room, 1920", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
+      "media": [{"type": "image", "label": "Visualisation: Marathi press room, 1920", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
       "related": ["arc_social_bahishkrit_bharat_1927", "arc_social_bahishkrit_hitakarini_1924"]
     },
     {
@@ -285,7 +285,7 @@
       "keywords": ["Bahishkrit Hitakarini Sabha", "1924", "organisation", "welfare", "education"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1 and Vol. 17; standard biographical accounts.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Organisation record", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Organisation record", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_social_mahad_1927", "arc_social_ilp_1936"]
     },
     {
@@ -303,9 +303,9 @@
       "source": "Accounts of the Mahad satyagraha (1927); Dr. Babasaheb Ambedkar: Writings and Speeches; contemporary press record.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: Mahad water tank, 1927", "ref": "", "isReconstruction": true, "note": "Procedurally generated reconstruction. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: the Mahad satyagraha", "ref": "", "isReconstruction": true, "note": "Platform narration voice."},
-        {"type": "video", "label": "Sequence: Mahad reconstruction flythrough", "ref": "", "isReconstruction": true, "note": "Realtime in-engine sequence."}
+        {"type": "image", "label": "Visualisation: Mahad water tank, 1927", "reference": "", "isReconstruction": true, "note": "Procedurally generated reconstruction. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: the Mahad satyagraha", "reference": "", "isReconstruction": true, "note": "Platform narration voice."},
+        {"type": "video", "label": "Sequence: Mahad reconstruction flythrough", "reference": "", "isReconstruction": true, "note": "Realtime in-engine sequence."}
       ],
       "related": ["arc_social_manusmriti_1927", "arc_social_kalaram_1930", "arc_social_bahishkrit_bharat_1927"]
     },
@@ -323,7 +323,7 @@
       "keywords": ["Manusmriti", "1927", "protest", "caste", "symbol", "Mahad"],
       "source": "Accounts of the Mahad conference, December 1927; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Contextual note", "ref": "", "isReconstruction": true, "note": "Authored summary for exhibition."}],
+      "media": [{"type": "text", "label": "Contextual note", "reference": "", "isReconstruction": true, "note": "Authored summary for exhibition."}],
       "related": ["arc_social_mahad_1927", "arc_social_annihilation_1936"]
     },
     {
@@ -340,7 +340,7 @@
       "keywords": ["Kalaram", "Nashik", "temple entry", "1930", "satyagraha"],
       "source": "Accounts of the Kalaram temple satyagraha; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "image", "label": "Visualisation: Nashik temple approach", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
+      "media": [{"type": "image", "label": "Visualisation: Nashik temple approach", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
       "related": ["arc_social_round_table", "arc_legacy_conversion_1956"]
     },
     {
@@ -357,7 +357,7 @@
       "keywords": ["Round Table Conference", "London", "1930", "1931", "representation"],
       "source": "Proceedings of the Round Table Conferences (1930–32), Government of India records.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Conference proceedings note", "ref": "", "isReconstruction": true, "note": "Authored summary; original proceedings to be attached via content import."}],
+      "media": [{"type": "document", "label": "Conference proceedings note", "reference": "", "isReconstruction": true, "note": "Authored summary; original proceedings to be attached via content import."}],
       "related": ["arc_social_poonapact_1932"]
     },
     {
@@ -375,8 +375,8 @@
       "source": "Text of the Poona Pact (1932), Government of India records; contemporary accounts.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "document", "label": "Pact text (reconstruction layout)", "ref": "", "isReconstruction": true, "note": "Facsimile-style layout prepared for exhibition; attach the authentic text from a public record."},
-        {"type": "audio", "label": "Dual narration: the two positions", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "document", "label": "Pact text (reconstruction layout)", "reference": "", "isReconstruction": true, "note": "Facsimile-style layout prepared for exhibition; attach the authentic text from a public record."},
+        {"type": "audio", "label": "Dual narration: the two positions", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_social_round_table", "arc_social_annihilation_1936"]
     },
@@ -394,7 +394,7 @@
       "keywords": ["Independent Labour Party", "1936", "elections", "1937", "labour", "politics"],
       "source": "Standard biographical and political history record; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Party programme note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Party programme note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_social_scf_1942", "arc_social_bahishkrit_hitakarini_1924"]
     },
     {
@@ -411,7 +411,7 @@
       "keywords": ["Scheduled Castes Federation", "1942", "politics", "representation"],
       "source": "Standard political history record; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Organisation note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Organisation note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_social_ilp_1936", "arc_law_ca_formation"]
     },
     {
@@ -429,8 +429,8 @@
       "source": "Original 1936 edition (public domain in many jurisdictions — verify locally); Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "document", "label": "Document reader with page-turn", "ref": "", "isReconstruction": false, "note": "Attach full public-domain text via content import."},
-        {"type": "image", "label": "Title-page reconstruction", "ref": "", "isReconstruction": true, "note": "Not an authentic scan."}
+        {"type": "document", "label": "Document reader with page-turn", "reference": "", "isReconstruction": false, "note": "Attach full public-domain text via content import."},
+        {"type": "image", "label": "Title-page reconstruction", "reference": "", "isReconstruction": true, "note": "Not an authentic scan."}
       ],
       "related": ["arc_early_castes_in_india_1916", "arc_man_who_were_shudras_1946", "arc_social_poonapact_1932"]
     },
@@ -448,7 +448,7 @@
       "keywords": ["Bahishkrit Bharat", "newspaper", "1927", "Janata", "press"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches; standard accounts of Marathi periodical history.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Newspaper masthead reconstruction", "ref": "", "isReconstruction": true, "note": "Typographic reconstruction, clearly labelled."}],
+      "media": [{"type": "document", "label": "Newspaper masthead reconstruction", "reference": "", "isReconstruction": true, "note": "Typographic reconstruction, clearly labelled."}],
       "related": ["arc_social_mooknayak_1920", "arc_social_mahad_1927"]
     },
     {
@@ -465,7 +465,7 @@
       "keywords": ["petition", "memorandum", "representation", "1919", "1932", "Southborough"],
       "source": "Colonial-era government records as compiled in Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Document inventory", "ref": "", "isReconstruction": true, "note": "Authored inventory."}],
+      "media": [{"type": "text", "label": "Document inventory", "reference": "", "isReconstruction": true, "note": "Authored inventory."}],
       "related": ["arc_social_round_table", "arc_law_states_minorities_1947"]
     },
 
@@ -483,7 +483,7 @@
       "keywords": ["Constituent Assembly", "1946", "Bombay", "Viceroy's Executive Council", "framing"],
       "source": "Constituent Assembly Debates (Government of India, public record).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "image", "label": "Visualisation: Assembly chamber layout", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
+      "media": [{"type": "image", "label": "Visualisation: Assembly chamber layout", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
       "related": ["arc_law_objectives_resolution", "arc_law_drafting_committee"]
     },
     {
@@ -501,8 +501,8 @@
       "source": "Constituent Assembly Debates, Vol. V (29 August 1947); Government of India records.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: drafting table, 1947", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
-        {"type": "document", "label": "Draft Constitution structure viewer", "ref": "", "isReconstruction": true, "note": "Structural summary; attach the authentic text from a public record."}
+        {"type": "image", "label": "Visualisation: drafting table, 1947", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
+        {"type": "document", "label": "Draft Constitution structure viewer", "reference": "", "isReconstruction": true, "note": "Structural summary; attach the authentic text from a public record."}
       ],
       "related": ["arc_law_ca_formation", "arc_law_adoption_1949", "arc_law_states_minorities_1947"]
     },
@@ -520,7 +520,7 @@
       "keywords": ["Objectives Resolution", "1946", "Preamble", "Nehru", "aims"],
       "source": "Constituent Assembly Debates, Vol. I (13 December 1946 and 22 January 1947).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Resolution text panel", "ref": "", "isReconstruction": false, "note": "Text to be attached from Constituent Assembly Debates, a public record."}],
+      "media": [{"type": "document", "label": "Resolution text panel", "reference": "", "isReconstruction": false, "note": "Text to be attached from Constituent Assembly Debates, a public record."}],
       "related": ["arc_law_preamble", "arc_law_adoption_1949"]
     },
     {
@@ -537,7 +537,7 @@
       "keywords": ["Preamble", "justice", "liberty", "equality", "fraternity", "sovereignty"],
       "source": "Constitution of India, Preamble (Government of India; text available through India Code).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Preamble text panel", "ref": "", "isReconstruction": false, "note": "Attach the authentic text from India Code."}],
+      "media": [{"type": "document", "label": "Preamble text panel", "reference": "", "isReconstruction": false, "note": "Attach the authentic text from India Code."}],
       "related": ["arc_law_objectives_resolution", "arc_law_fundamental_rights", "arc_law_social_democracy"]
     },
     {
@@ -555,8 +555,8 @@
       "source": "Constitution of India, Part III (Government of India; text available through India Code).",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "document", "label": "Article browser", "ref": "", "isReconstruction": false, "note": "Article summaries authored for this platform; attach authoritative text."},
-        {"type": "image", "label": "Visualisation: rights diagram", "ref": "", "isReconstruction": true, "note": "Generated diagram."}
+        {"type": "document", "label": "Article browser", "reference": "", "isReconstruction": false, "note": "Article summaries authored for this platform; attach authoritative text."},
+        {"type": "image", "label": "Visualisation: rights diagram", "reference": "", "isReconstruction": true, "note": "Generated diagram."}
       ],
       "related": ["arc_law_article32", "arc_law_dpsp", "arc_law_preamble"]
     },
@@ -574,7 +574,7 @@
       "keywords": ["Article 32", "constitutional remedies", "Supreme Court", "1949", "quote"],
       "source": "Constituent Assembly Debates, Vol. XI, 25 November 1949 (Government of India, public record).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "audio", "label": "Reading of the extract (platform voice)", "ref": "", "isReconstruction": true, "note": "This is a modern narration reading, not a recording of the original speech."}],
+      "media": [{"type": "audio", "label": "Reading of the extract (platform voice)", "reference": "", "isReconstruction": true, "note": "This is a modern narration reading, not a recording of the original speech."}],
       "related": ["arc_law_fundamental_rights", "arc_law_constitutional_morality"]
     },
     {
@@ -591,7 +591,7 @@
       "keywords": ["constitutional morality", "1948", "democracy", "draft constitution", "civic education"],
       "source": "Constituent Assembly Debates, Vol. VII, 4 November 1948 (Government of India, public record).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Concept explainer", "ref": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
+      "media": [{"type": "document", "label": "Concept explainer", "reference": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
       "related": ["arc_law_social_democracy", "arc_law_article32"]
     },
     {
@@ -608,7 +608,7 @@
       "keywords": ["social democracy", "1949", "equality", "adoption address", "quote"],
       "source": "Constituent Assembly Debates, Vol. XI, 25 November 1949 (Government of India, public record).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "audio", "label": "Reading of the extract (platform voice)", "ref": "", "isReconstruction": true, "note": "Modern narration; not an original recording."}],
+      "media": [{"type": "audio", "label": "Reading of the extract (platform voice)", "reference": "", "isReconstruction": true, "note": "Modern narration; not an original recording."}],
       "related": ["arc_law_preamble", "arc_law_constitutional_morality", "arc_legacy_certificate_note"]
     },
     {
@@ -625,7 +625,7 @@
       "keywords": ["Directive Principles", "Part IV", "Article 38", "Article 46", "welfare", "education"],
       "source": "Constitution of India, Part IV (Government of India; text available through India Code).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Article 46 explainer", "ref": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
+      "media": [{"type": "document", "label": "Article 46 explainer", "reference": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
       "related": ["arc_law_fundamental_rights", "arc_legacy_peoples_education_society"]
     },
     {
@@ -642,7 +642,7 @@
       "keywords": ["States and Minorities", "1947", "memorandum", "safeguards", "representation"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 1.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Memorandum summary viewer", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "document", "label": "Memorandum summary viewer", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_law_drafting_committee", "arc_social_depressed_classes_petition"]
     },
     {
@@ -660,8 +660,8 @@
       "source": "Constituent Assembly Debates, Vol. XI; Government of India notifications on Constitution Day.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: Assembly adopts the Constitution", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: the adoption", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "image", "label": "Visualisation: Assembly adopts the Constitution", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: the adoption", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_law_commencement_1950", "arc_law_social_democracy", "arc_legacy_constitution_day"]
     },
@@ -679,7 +679,7 @@
       "keywords": ["26 January 1950", "Republic Day", "commencement", "Rajendra Prasad"],
       "source": "Government of India records; Constitution of India, Article 394 (commencement).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Commencement note", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Commencement note", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_law_adoption_1949", "arc_legacy_constitution_day"]
     },
     {
@@ -696,7 +696,7 @@
       "keywords": ["Law Minister", "1947", "1951", "Hindu Code Bill", "resignation", "women's rights"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 14; parliamentary records of 1951.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Hindu Code Bill explainer", "ref": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
+      "media": [{"type": "document", "label": "Hindu Code Bill explainer", "reference": "", "isReconstruction": true, "note": "Platform-authored explainer with citation."}],
       "related": ["arc_law_drafting_committee", "arc_law_hindu_code_bill"]
     },
     {
@@ -713,7 +713,7 @@
       "keywords": ["Hindu Code Bill", "1948", "1951", "women's rights", "inheritance", "marriage"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 14; parliamentary records.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Legislative timeline note", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Legislative timeline note", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_law_first_law_minister"]
     },
     {
@@ -730,7 +730,7 @@
       "keywords": ["Rajya Sabha", "1952", "Parliament", "1956"],
       "source": "Parliament of India records.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Parliamentary note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Parliamentary note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_law_first_law_minister", "arc_legacy_death_1956"]
     },
 
@@ -748,7 +748,7 @@
       "keywords": ["Pakistan", "1940", "partition", "communal politics", "federalism"],
       "source": "Original editions (1940, 1945/46) — verify public-domain status locally before displaying full text.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Contents overview", "ref": "", "isReconstruction": true, "note": "Authored overview with citation."}],
+      "media": [{"type": "document", "label": "Contents overview", "reference": "", "isReconstruction": true, "note": "Authored overview with citation."}],
       "related": ["arc_man_what_congress_gandhi_1945", "arc_man_federation_freedom_1939"]
     },
     {
@@ -765,7 +765,7 @@
       "keywords": ["federation", "1939", "Government of India Act 1935", "minorities", "federalism"],
       "source": "Original edition (1939) — verify public-domain status locally.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Summary note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Summary note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_law_drafting_committee", "arc_law_states_minorities_1947"]
     },
     {
@@ -782,7 +782,7 @@
       "keywords": ["Congress", "Gandhi", "1945", "critique", "untouchability", "politics"],
       "source": "Original 1945 edition — verify public-domain status locally; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Paired-extracts reader", "ref": "", "isReconstruction": true, "note": "Editorial pairing prepared for exhibition, with citations."}],
+      "media": [{"type": "document", "label": "Paired-extracts reader", "reference": "", "isReconstruction": true, "note": "Editorial pairing prepared for exhibition, with citations."}],
       "related": ["arc_social_poonapact_1932", "arc_social_annihilation_1936"]
     },
     {
@@ -799,7 +799,7 @@
       "keywords": ["Shudras", "1946", "varna", "history", "textual criticism"],
       "source": "Original 1946 edition — verify public-domain status locally; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 7.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Argument summary", "ref": "", "isReconstruction": true, "note": "Authored summary noting historiographical debate."}],
+      "media": [{"type": "document", "label": "Argument summary", "reference": "", "isReconstruction": true, "note": "Authored summary noting historiographical debate."}],
       "related": ["arc_man_untouchables_1948", "arc_man_riddles_hinduism"]
     },
     {
@@ -816,7 +816,7 @@
       "keywords": ["untouchability", "1948", "origins", "broken men", "history"],
       "source": "Original 1948 edition — verify public-domain status locally; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 7.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Theory summary with editorial note", "ref": "", "isReconstruction": true, "note": "Authored summary; flagged as a debated thesis."}],
+      "media": [{"type": "text", "label": "Theory summary with editorial note", "reference": "", "isReconstruction": true, "note": "Authored summary; flagged as a debated thesis."}],
       "related": ["arc_man_who_were_shudras_1946", "arc_law_fundamental_rights"]
     },
     {
@@ -833,7 +833,7 @@
       "keywords": ["Riddles in Hinduism", "posthumous", "1987", "manuscript history", "editorial questions"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 4 (Government of Maharashtra, 1987).",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Publication-history note", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "document", "label": "Publication-history note", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_man_who_were_shudras_1946", "arc_legacy_writings_speeches"]
     },
     {
@@ -851,8 +851,8 @@
       "source": "First edition, People's Education Society, Bombay, 1957; Dr. Babasaheb Ambedkar: Writings and Speeches, Vol. 11.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "document", "label": "Chapter structure viewer", "ref": "", "isReconstruction": true, "note": "Authored structural summary with citation."},
-        {"type": "image", "label": "Visualisation: the writing desk, 1956", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
+        {"type": "document", "label": "Chapter structure viewer", "reference": "", "isReconstruction": true, "note": "Authored structural summary with citation."},
+        {"type": "image", "label": "Visualisation: the writing desk, 1956", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
       ],
       "related": ["arc_legacy_conversion_1956", "arc_mem_deekshabhoomi"]
     },
@@ -870,7 +870,7 @@
       "keywords": ["Ranade", "Gandhi", "Jinnah", "1943", "leadership", "lecture"],
       "source": "Original 1943 booklet — verify public-domain status locally.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Lecture summary", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Lecture summary", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_man_what_congress_gandhi_1945"]
     },
     {
@@ -887,7 +887,7 @@
       "keywords": ["Gandhi", "1943", "emancipation", "debate", "untouchables"],
       "source": "Original 1943 edition — verify public-domain status locally.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Summary note", "ref": "", "isReconstruction": true, "note": "Authored summary."}],
+      "media": [{"type": "text", "label": "Summary note", "reference": "", "isReconstruction": true, "note": "Authored summary."}],
       "related": ["arc_man_what_congress_gandhi_1945", "arc_social_poonapact_1932"]
     },
     {
@@ -904,7 +904,7 @@
       "keywords": ["manuscript", "accession", "provenance", "rights", "placeholder", "workflow"],
       "source": "Platform documentation record — not a historical source.",
       "reviewStatus": "platform-example",
-      "media": [{"type": "document", "label": "Manuscript page template (clearly marked placeholder)", "ref": "", "isReconstruction": true, "note": "This is an explicitly declared placeholder, never presented as an authentic document."}],
+      "media": [{"type": "document", "label": "Manuscript page template (clearly marked placeholder)", "reference": "", "isReconstruction": true, "note": "This is an explicitly declared placeholder, never presented as an authentic document."}],
       "related": ["arc_legacy_archive_schema"]
     },
 
@@ -923,9 +923,9 @@
       "source": "Dr. Ambedkar Foundation; standard biographical record of the cremation, December 1956.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: Chaitya Bhoomi memorial", "ref": "", "isReconstruction": true, "note": "Procedurally generated 3D reconstruction. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: remembrance at Dadar", "ref": "", "isReconstruction": true, "note": "Platform narration voice."},
-        {"type": "model", "label": "3D reconstruction: memorial plaza", "ref": "mem_chaityabhoomi", "isReconstruction": true, "note": "Stylised reconstruction built from public descriptions. Not a surveyed model."}
+        {"type": "image", "label": "Visualisation: Chaitya Bhoomi memorial", "reference": "", "isReconstruction": true, "note": "Procedurally generated 3D reconstruction. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: remembrance at Dadar", "reference": "", "isReconstruction": true, "note": "Platform narration voice."},
+        {"type": "model", "label": "3D reconstruction: memorial plaza", "reference": "mem_chaityabhoomi", "isReconstruction": true, "note": "Stylised reconstruction built from public descriptions. Not a surveyed model."}
       ],
       "related": ["arc_legacy_death_1956", "arc_mem_rajgruha"]
     },
@@ -944,8 +944,8 @@
       "source": "Dr. Ambedkar Foundation; standard accounts of the conversion ceremony, October 1956.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "model", "label": "3D reconstruction: stupa and plaza", "ref": "mem_deekshabhoomi", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
-        {"type": "image", "label": "Visualisation: the Nagpur gathering, 1956", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
+        {"type": "model", "label": "3D reconstruction: stupa and plaza", "reference": "mem_deekshabhoomi", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
+        {"type": "image", "label": "Visualisation: the Nagpur gathering, 1956", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
       ],
       "related": ["arc_legacy_conversion_1956", "arc_man_buddha_dhamma", "arc_mem_chaityabhoomi"]
     },
@@ -964,8 +964,8 @@
       "source": "Ministry of Social Justice and Empowerment; Dr. Ambedkar Foundation records on the National Memorial.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "model", "label": "3D reconstruction: the Delhi residence", "ref": "mem_alipur", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
-        {"type": "text", "label": "Memorial information panel", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}
+        {"type": "model", "label": "3D reconstruction: the Delhi residence", "reference": "mem_alipur", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
+        {"type": "text", "label": "Memorial information panel", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}
       ],
       "related": ["arc_legacy_death_1956", "arc_legacy_ambedkar_foundation"]
     },
@@ -984,8 +984,8 @@
       "source": "Standard accounts of the Rajgruha memorial; Dr. Ambedkar Foundation.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "model", "label": "3D reconstruction: the library room", "ref": "mem_rajgruha", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
-        {"type": "image", "label": "Visualisation: library shelves", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
+        {"type": "model", "label": "3D reconstruction: the library room", "reference": "mem_rajgruha", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
+        {"type": "image", "label": "Visualisation: library shelves", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
       ],
       "related": ["arc_mem_chaityabhoomi", "arc_man_ba_manuscript_page"]
     },
@@ -1004,8 +1004,8 @@
       "source": "Dr. Ambedkar Foundation; Government of Madhya Pradesh records on the memorial.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "model", "label": "3D reconstruction: birthplace memorial garden", "ref": "mem_janmabhoomi", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
-        {"type": "audio", "label": "Narration: 14 April, Mhow", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "model", "label": "3D reconstruction: birthplace memorial garden", "reference": "mem_janmabhoomi", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
+        {"type": "audio", "label": "Narration: 14 April, Mhow", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_early_birth_1891", "arc_early_family_sakpal"]
     },
@@ -1024,8 +1024,8 @@
       "source": "Government of Uttar Pradesh records on the Ambedkar Memorial Park.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "model", "label": "3D reconstruction: colonnade and water channel", "ref": "mem_lucknow", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
-        {"type": "image", "label": "Visualisation: colonnade at dusk", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
+        {"type": "model", "label": "3D reconstruction: colonnade and water channel", "reference": "mem_lucknow", "isReconstruction": true, "note": "Stylised reconstruction. Not a surveyed model."},
+        {"type": "image", "label": "Visualisation: colonnade at dusk", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}
       ],
       "related": ["arc_mem_hyderabad_statue", "arc_legacy_ambedkar_foundation"]
     },
@@ -1043,7 +1043,7 @@
       "keywords": ["Hyderabad", "statue", "Hussain Sagar", "2016", "public monument"],
       "source": "Government of Telangana records on the statue.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "image", "label": "Visualisation: lakefront statue", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
+      "media": [{"type": "image", "label": "Visualisation: lakefront statue", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."}],
       "related": ["arc_mem_ambedkar_park_lucknow"]
     },
     {
@@ -1060,7 +1060,7 @@
       "keywords": ["International Centre", "Janpath", "Delhi", "research", "documentation", "Ministry of Social Justice and Empowerment"],
       "source": "Ministry of Social Justice and Empowerment; Dr. Ambedkar Foundation.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Institutional information panel", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Institutional information panel", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_legacy_ambedkar_foundation", "arc_legacy_archive_schema"]
     },
 
@@ -1079,8 +1079,8 @@
       "source": "Standard accounts of the conversion ceremony, October 1956; Dr. Babasaheb Ambedkar: Writings and Speeches.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: the Nagpur grounds, 1956", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
-        {"type": "audio", "label": "Narration: 14 October 1956", "ref": "", "isReconstruction": true, "note": "Platform narration voice."}
+        {"type": "image", "label": "Visualisation: the Nagpur grounds, 1956", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
+        {"type": "audio", "label": "Narration: 14 October 1956", "reference": "", "isReconstruction": true, "note": "Platform narration voice."}
       ],
       "related": ["arc_mem_deekshabhoomi", "arc_legacy_savita_ambedkar", "arc_man_buddha_dhamma"]
     },
@@ -1098,7 +1098,7 @@
       "keywords": ["Savita Ambedkar", "doctor", "1948", "Maisaheb", "Buddhist movement", "2003"],
       "source": "Standard biographical record; accounts of the 1956 conversion.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Biographical panel", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Biographical panel", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_legacy_conversion_1956", "arc_legacy_death_1956"]
     },
     {
@@ -1115,7 +1115,7 @@
       "keywords": ["6 December 1956", "death", "Delhi", "Alipur Road", "cremation", "remembrance"],
       "source": "Standard biographical record; Dr. Ambedkar Foundation.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Remembrance panel", "ref": "", "isReconstruction": true, "note": "Authored summary; presented without dramatisation."}],
+      "media": [{"type": "text", "label": "Remembrance panel", "reference": "", "isReconstruction": true, "note": "Authored summary; presented without dramatisation."}],
       "related": ["arc_mem_chaityabhoomi", "arc_mem_alipur_memorial", "arc_man_buddha_dhamma"]
     },
     {
@@ -1132,7 +1132,7 @@
       "keywords": ["Bharat Ratna", "1990", "posthumous", "honour", "national recognition"],
       "source": "Government of India award records, 1990.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "image", "label": "Visualisation: citation panel", "ref": "", "isReconstruction": true, "note": "Generated panel, not a photograph of the award."}],
+      "media": [{"type": "image", "label": "Visualisation: citation panel", "reference": "", "isReconstruction": true, "note": "Generated panel, not a photograph of the award."}],
       "related": ["arc_legacy_ambedkar_foundation", "arc_legacy_constitution_day"]
     },
     {
@@ -1149,7 +1149,7 @@
       "keywords": ["Dr. Ambedkar Foundation", "1992", "Ministry of Social Justice and Empowerment", "memorials", "scholarships"],
       "source": "Dr. Ambedkar Foundation, Ministry of Social Justice and Empowerment.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Institutional panel", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Institutional panel", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_mem_dr_ambedkar_international_centre", "arc_legacy_writings_speeches"]
     },
     {
@@ -1166,7 +1166,7 @@
       "keywords": ["Writings and Speeches", "collected works", "Vasant Moon", "1979", "citation", "volumes"],
       "source": "Dr. Babasaheb Ambedkar: Writings and Speeches, Government of Maharashtra / Dr. Ambedkar Foundation.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "document", "label": "Volume index browser", "ref": "", "isReconstruction": true, "note": "Authored index of volumes and contents."}],
+      "media": [{"type": "document", "label": "Volume index browser", "reference": "", "isReconstruction": true, "note": "Authored index of volumes and contents."}],
       "related": ["arc_social_annihilation_1936", "arc_legacy_archive_schema"]
     },
     {
@@ -1183,7 +1183,7 @@
       "keywords": ["Constitution Day", "Samvidhan Divas", "26 November", "2015", "Preamble reading", "civic education"],
       "source": "Ministry of Social Justice and Empowerment; Government of India notification, 2015.",
       "reviewStatus": "editorial-review-required",
-      "media": [{"type": "text", "label": "Programme note", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}],
+      "media": [{"type": "text", "label": "Programme note", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}],
       "related": ["arc_law_adoption_1949", "arc_law_preamble"]
     },
     {
@@ -1201,8 +1201,8 @@
       "source": "People's Education Society institutional record; standard biographical accounts.",
       "reviewStatus": "editorial-review-required",
       "media": [
-        {"type": "image", "label": "Visualisation: Siddharth College, 1946", "ref": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
-        {"type": "text", "label": "Institutional panel", "ref": "", "isReconstruction": true, "note": "Authored summary with citation."}
+        {"type": "image", "label": "Visualisation: Siddharth College, 1946", "reference": "", "isReconstruction": true, "note": "Procedurally generated. Not an authentic photograph."},
+        {"type": "text", "label": "Institutional panel", "reference": "", "isReconstruction": true, "note": "Authored summary with citation."}
       ],
       "related": ["arc_law_dpsp", "arc_legacy_ambedkar_foundation"]
     },
@@ -1220,7 +1220,7 @@
       "keywords": ["metadata", "schema", "catalogue", "provenance", "rights", "search index", "deliverable"],
       "source": "Platform documentation — not a historical source.",
       "reviewStatus": "platform-example",
-      "media": [{"type": "document", "label": "Schema reference card", "ref": "", "isReconstruction": true, "note": "Platform documentation."}],
+      "media": [{"type": "document", "label": "Schema reference card", "reference": "", "isReconstruction": true, "note": "Platform documentation."}],
       "related": ["arc_man_ba_manuscript_page", "arc_legacy_writings_speeches"]
     },
     {
@@ -1237,7 +1237,7 @@
       "keywords": ["conclusion", "certificate", "heritage archivist", "completion", "closing note"],
       "source": "Platform documentation. The user-facing text is authored, not quoted from a historical source.",
       "reviewStatus": "platform-example",
-      "media": [{"type": "text", "label": "Closing note", "ref": "", "isReconstruction": true, "note": "Authored text."}],
+      "media": [{"type": "text", "label": "Closing note", "reference": "", "isReconstruction": true, "note": "Authored text."}],
       "related": ["arc_law_social_democracy", "arc_legacy_archive_schema"]
     }
   ]

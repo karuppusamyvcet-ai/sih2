@@ -46,6 +46,9 @@ namespace Heritage.Core
         public List<string> zonesCompleted = new List<string>();
         public List<string> memorialsVisited = new List<string>();
         public List<string> quizCorrect = new List<string>();
+        public List<string> missionsCompleted = new List<string>();
+        public List<string> objectiveCounts = new List<string>();   // "missionId/objectiveId=count"
+
         public QuizStat quizStats = new QuizStat();
         public int knowledgePoints, searchesRun, guideQuestions, sourcesOpened;
         public float playSeconds;
@@ -67,6 +70,7 @@ namespace Heritage.Core
         public event Action<int> PointsChanged;
 
         ContentDatabase _content;
+        string _badge;
         string SavePath => Path.Combine(Application.persistentDataPath, "save_v1.json");
         string BackupPath => Path.Combine(Application.persistentDataPath, "save_v1.corrupt.json");
 
@@ -299,6 +303,68 @@ namespace Heritage.Core
             PointsChanged?.Invoke(Progress.knowledgePoints);
             Changed?.Invoke("progress");
         }
+
+        // ------------------------------------------------- mission progress
+        // QuestSystem owns the mission logic; these four accessors own the save
+        // format, so the encoding lives in exactly one place.
+        public bool MissionCompleted(string missionId)
+        {
+            return !string.IsNullOrEmpty(missionId) && Progress.missionsCompleted.Contains(missionId);
+        }
+
+        public void MarkMissionComplete(string missionId)
+        {
+            if (string.IsNullOrEmpty(missionId) || Progress.missionsCompleted.Contains(missionId)) return;
+            Progress.missionsCompleted.Add(missionId);
+            Progress.missionIndex = Progress.missionsCompleted.Count;
+            Save();
+            Changed?.Invoke("mission");
+        }
+
+        public int ObjectiveCount(string missionId, string objectiveId)
+        {
+            string key = missionId + "/" + objectiveId;
+            foreach (var entry in Progress.objectiveCounts)
+            {
+                int split = entry.LastIndexOf('=');
+                if (split <= 0) continue;
+                if (entry.Substring(0, split) != key) continue;
+                int value;
+                if (int.TryParse(entry.Substring(split + 1), out value)) return value;
+            }
+            return 0;
+        }
+
+        public void SetObjectiveCount(string missionId, string objectiveId, int count)
+        {
+            string key = missionId + "/" + objectiveId;
+            for (int i = 0; i < Progress.objectiveCounts.Count; i++)
+            {
+                int split = Progress.objectiveCounts[i].LastIndexOf('=');
+                if (split <= 0 || Progress.objectiveCounts[i].Substring(0, split) != key) continue;
+                Progress.objectiveCounts[i] = key + "=" + count;
+                Save();
+                return;
+            }
+            Progress.objectiveCounts.Add(key + "=" + count);
+            Save();
+        }
+
+        public bool HasAchievement(string achievementId)
+        {
+            return !string.IsNullOrEmpty(achievementId) && Progress.achievements.Contains(achievementId);
+        }
+
+        public void AwardBadge(string badgeId)
+        {
+            if (string.IsNullOrEmpty(badgeId)) return;
+            _badge = badgeId;
+            Progress.finished = true;
+            Save();
+            Changed?.Invoke("completion");
+        }
+
+        public string Badge => _badge;
 
         public float QuizAccuracy()
         {

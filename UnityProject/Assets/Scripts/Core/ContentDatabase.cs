@@ -21,11 +21,19 @@ using UnityEngine;
 namespace Heritage.Core
 {
     // ----------------------------------------------------------------- models
+    // ---------------------------------------------------------------------
+    // Data structures. Every field here mirrors a key in the matching content
+    // file, and Tools/check_csharp.py fails the build when a content key has no
+    // field: JsonUtility would otherwise drop the value without an error, which
+    // is how an exhibit silently loses its rotation or a door its label.
+    // ---------------------------------------------------------------------
+
+    // archive.json
     [Serializable] public class MediaItem
     {
-        public string kind;              // image | audio | video | document | model
-        public string path;
+        public string type;              // image | audio | video | document | model
         public string label;
+        public string reference;         // the JSON key is "ref"; see ReadMedia()
         public bool isReconstruction;
         public string note;
     }
@@ -44,142 +52,350 @@ namespace Heritage.Core
         public string significance;
         public string[] keywords;
         public string source;
-        public string sourceUrl;
+        public string reviewStatus;
         public MediaItem[] media;
-        public string[] relatedIds;
+        public string[] related;
     }
 
     [Serializable] public class ArchiveFile { public string schema; public int version; public string note; public ArchiveRecord[] records; }
 
-    [Serializable] public class TimelineEvent { public string id; public int year; public string date; public string title; public string zone; public string archiveId; public string precision; }
+    // timeline.json
+    [Serializable] public class TimelineEvent
+    {
+        public string id;
+        public int year;
+        public string date;
+        public string title;
+        public string zone;
+        public string archiveId;
+        public string precision;
+    }
+
     [Serializable] public class TimelineFile { public string schema; public int version; public string note; public TimelineEvent[] events; }
+
+    // zones.json
+    [Serializable] public class UnlockRule { public string type; public string missionId; }
 
     [Serializable] public class ZoneDef
     {
-        public string id; public string name; public string subtitle; public string description;
-        public string sceneName; public string accentColor; public string icon; public int doorIndex;
-        public string doorLabel; public UnlockRule unlockRule; public string[] exhibitIds; public string[] objectiveIds;
+        public string id;
+        public int doorIndex;
+        public string name;
+        public string doorLabel;
+        public string shortName;
+        public string subtitle;
+        public string accentColor;
+        public string scene;
+        public string sceneAsset;
+        public string objectiveOnEnter;
+        public string description;
+        public string[] exhibitTypes;
+        public string[] quizIds;
+        public string[] archiveIds;
+        public UnlockRule unlockRule;
+        public string miniGame;
     }
-    [Serializable] public class UnlockRule { public string type; public string missionId; public string lockedMessage; }
+
     [Serializable] public class ZonesFile { public string schema; public int version; public string note; public ZoneDef[] zones; }
 
-    [Serializable] public class MuseumDoor { public string doorId; public int index; public string zone; public string label; public float[] position; public float[] size; public string accentColor; public string icon; public string lockedMessage; }
-    [Serializable] public class SpotGroup { public string id; public float[] position; public int count; public float spacing; public float intensity; public string color; }
-    [Serializable] public class SetDressing { public string id; public string kind; public float[] position; public float[] rotation; public float[] scale; public string material; }
-    [Serializable] public class HallSpec { public float width; public float depth; public float height; public float[] spawn; public float ceilingHeight; }
-    [Serializable] public class MuseumFile
+    // museum.json
+    [Serializable] public class MuseumDoor
     {
-        public string schema; public int version; public string note;
-        public HallSpec hall; public MuseumDoor[] doors; public SpotGroup[] spotGroups;
-        public SetDressing[] setDressing; public float[] ambient; public float ambientIntensity;
-        public float minimapScale; public Dictionary<string, object> lighting;
+        public string doorId;
+        public string zone;
+        public int index;
+        public float x;
+        public float z;
+        public float width;
+        public float height;
+        public string label;
+        public string accent;
+        public string icon;
+        public string lockedMessage;
     }
 
+    [Serializable] public class ColumnSpec { public float x; public float z; public float height; public float radius; public string style; }
+    [Serializable] public class ArchSpec { public float entranceWidth; public float entranceHeight; public string pattern; }
+
+    [Serializable] public class HallSpec
+    {
+        public float width;
+        public float depth;
+        public float height;
+        public float wallThickness;
+        public float wainscotHeight;
+        public int skylightStrips;
+        public string floorMaterial;
+        public string wallMaterial;
+        public string ceilingMaterial;
+        public ColumnSpec[] columns;
+        public ArchSpec arches;
+    }
+
+    [Serializable] public class SetDressing
+    {
+        public string id;
+        public string type;
+        public float x;
+        public float z;
+        public float rotationY;
+        public float[] size;
+        public float fillLevel;
+    }
+
+    [Serializable] public class MuseumFile
+    {
+        public string schema;
+        public int version;
+        public string name;
+        public string note;
+        public float[] spawnPoint;
+        public float spawnFacing;
+        public HallSpec hall;
+        public MuseumDoor[] doors;
+        public int doorCount;
+        public string doorCountRule;
+        public SetDressing[] setDressing;
+    }
+
+    // questions.json
     [Serializable] public class Option { public string id; public string text; }
     [Serializable] public class PairItem { public string id; public string left; public string right; }
     [Serializable] public class OrderItem { public string id; public string text; }
 
     [Serializable] public class Question
     {
-        public string id; public string type; public string zone; public string prompt;
-        public Option[] options; public string answerId; public bool answerBool;
-        public PairItem[] pairs; public OrderItem[] items; public string[] correctOrder;
-        public string explanation; public string source; public string[] archiveRefs;
-        public string[] conceptRefs; public int points; public string image; public string difficulty;
+        public string id;
+        public string zone;
+        public string type;              // multiple_choice | true_false | ordering | matching | image_identification
+        public int difficulty;
+        public int points;
+        public string prompt;
+        public Option[] options;
+        public string answerId;
+        public string explanation;
+        public string source;
+        public string[] archiveRefs;
+        public string[] timelineRefs;
+        public bool answerBool;
+        public OrderItem[] items;
+        public string[] correctOrder;
+        public PairItem[] pairs;
+        public string imageRef;
+        public string imageLabel;
     }
-    [Serializable] public class QuestionsFile { public string schema; public int version; public string note; public int defaultPoints; public Question[] questions; }
 
+    [Serializable] public class QuestionsFile { public string schema; public int version; public string note; public Question[] questions; }
+
+    // quests.json
     [Serializable] public class Objective
     {
-        public string id; public string type; public string label; public string target;
-        public float radius; public int count; public int stage;
+        public string id;
+        public string type;              // reach | interact | collect | quiz | search | ask_guide | minigame | final
+        public string label;
+        public string target;
+        public float radius;
+        public int count;
+        public int stage;
     }
+
     [Serializable] public class Mission
     {
-        public string id; public int index; public string title; public string hudTitle; public string description;
-        public string zone; public string doorId; public int rewardPoints; public Objective[] objectives;
+        public string id;
+        public int index;
+        public string title;
+        public string hudTitle;
+        public string description;
+        public string zone;
+        public int rewardPoints;
+        public Objective[] objectives;
+        public string doorId;
+        public UnlockRule unlockRule;
     }
-    [Serializable] public class Completion { public string id; public string title; public string description; public string[] requires; public float minQuizAccuracy; }
-    [Serializable] public class QuestsFile { public string schema; public int version; public string note; public Dictionary<string, string> objectiveTypes; public Mission[] missions; public Completion completion; }
 
+    [Serializable] public class Completion
+    {
+        public string id;
+        public string title;
+        public string description;
+        public string[] requires;
+        public float minQuizAccuracy;
+    }
+
+    [Serializable] public class QuestsFile { public string schema; public int version; public string note; public Mission[] missions; public Completion completion; }
+
+    // achievements.json
     [Serializable] public class Trigger { public string type; public string target; public int count; }
-    [Serializable] public class Achievement { public string id; public string title; public string description; public int points; public string icon; public Trigger trigger; }
-    [Serializable] public class DashboardField { public string id; public string label; }
-    [Serializable] public class ProgressDashboard { public string title; public DashboardField[] fields; }
+
+    [Serializable] public class Achievement
+    {
+        public string id;
+        public string title;
+        public string description;
+        public int points;
+        public string icon;
+        public Trigger trigger;
+        public bool isCompletionBadge;
+    }
+
+    [Serializable] public class DashboardField { public string id; public string label; public string source; }
+    [Serializable] public class ProgressDashboard { public string title; public string note; public DashboardField[] fields; }
     [Serializable] public class AchievementsFile { public string schema; public int version; public string note; public Achievement[] achievements; public ProgressDashboard progressDashboard; }
 
-    [Serializable] public class TourStop { public string id; public string label; public string text; public float[] position; public float[] look; public float dwell; public string narration; }
+    // memorials.json
+    [Serializable] public class TourStop { public string id; public string label; public string text; }
+
     [Serializable] public class MemorialSite
     {
-        public string id; public string name; public string city; public string state; public string country;
-        public float[] coordinates; public string sceneStyle; public Dictionary<string, float> sceneParams;
-        public string palette; public string archiveId; public string[] timelineIds; public string narration;
-        public string[] tags; public TourStop[] tour; public string reconstructionLabel;
+        public string id;
+        public string archiveId;
+        public string name;
+        public string city;
+        public string state;
+        public float[] coordinates;
+        public string category;
+        public string since;
+        public string sceneStyle;        // garden_memorial | house_library | plaza_memorial | stupa_complex | ...
+        public string palette;
+        public TourStop[] tour;
+        public string narration;
+        public string[] tags;
     }
-    [Serializable] public class MemorialsFile { public string schema; public int version; public string note; public string reconstructionLabel; public MemorialSite[] sites; }
 
+    [Serializable] public class MemorialsFile
+    {
+        public string schema;
+        public int version;
+        public string note;
+        public string reconstructionLabel;
+        public MemorialSite[] sites;
+    }
+
+    // glossary.json
     [Serializable] public class Concept
     {
-        public string id; public string term; public string zone; public string shortDef; public string longDef;
-        public string[] keywords; public string source; public string[] archiveIds;
+        public string id;
+        public string term;
+        public string zone;
+        public string shortDef;
+        public string longDef;
+        public string[] keywords;
+        public string source;
+        public string[] archiveIds;
     }
+
     [Serializable] public class GlossaryFile { public string schema; public int version; public string note; public Concept[] concepts; }
 
-    [Serializable] public class GuideMessage { public string greeting; public string offlineLabel; public string offlineNotice; public string noResults; public string sourcesHeading; public string reconstructionWarning; public string lowConfidence; public string offlineOnly; }
-
-    [Serializable] public class GuideAnswerPolicy
+    // guide.json
+    [Serializable] public class GuideMessage
     {
-        public bool useOnlyRetrievedPassages; public bool alwaysCiteSources; public bool refuseWhenUnsure;
-        public bool labelOfflineMode; public int maxSentences;
+        public string greeting;
+        public string offlineLabel;
+        public string offlineNotice;
+        public string noResults;
+        public string sourcesHeading;
+        public string reconstructionWarning;
+        public string lowConfidence;
     }
 
-    [Serializable] public class RetrievalConfig
-    {
-        public string[] indexFields; public float title; public float keywords; public float description;
-        public float significance; public float term; public float shortDef; public float longDef; public float tags;
-        public int topK; public float minScore; public float lowConfidenceAt;
-    }
+    [Serializable] public class ZonePointer { public string topic; public string route; }
 
     [Serializable] public class GuideFile
     {
-        public string schema; public int version; public string note;
-        public Dictionary<string, object> architecture;
-        public GuideMessage messages; public string[] suggestedQuestions; public ZonePointer[] guidedPointers;
+        public string schema;
+        public int version;
+        public string note;
+        public string name;
+        public string role;
+        public GuideMessage messages;
+        public string[] suggestedQuestions;
+        public ZonePointer[] guidedPointers;
     }
-    [Serializable] public class ZonePointer { public string zone; public string topic; public string route; }
 
+    // localization.json
     [Serializable] public class LocaleEntry { public string code; public string name; public string status; public string translator; }
     [Serializable] public class LocalizationFile
     {
-        public string schema; public int version; public string note;
-        public string defaultLocale; public LocaleEntry[] locales;
+        public string schema;
+        public int version;
+        public string note;
+        public string defaultLocale;
+        public LocaleEntry[] locales;
         public Dictionary<string, Dictionary<string, string>> strings;
     }
 
-    [Serializable] public class RoomSpec { public float[] size; public string style; public string[] palette; public float ceilingHeight; }
+    // exhibits.json
+    [Serializable] public class RoomSpec
+    {
+        public float width;
+        public float depth;
+        public float height;
+        public string style;
+        public string[] palette;
+        public float rampRise;
+        public string lightDirection;
+        public bool centerDiorama;
+        public bool roundTable;
+        public bool dome;
+        public bool shelfWalls;
+        public bool floorMap;
+        public int plinths;
+        public bool curvedWall;
+    }
+
+    [Serializable] public class PanelDef { public string title; public string body; }
+
     [Serializable] public class ExhibitDef
     {
-        public string id; public string zone; public string kind; public string label; public string interaction;
-        public float[] position; public float[] rotation; public string panel; public string[] archiveIds;
-        public string[] quizIds; public string[] conceptRefs; public string memorialId; public string[] timelineIds;
-        public string prompt; public bool walkable; public Dictionary<string, float> params;
+        public string id;
+        public string zone;
+        public string kind;
+        public string label;
+        public string interaction;
+        public float[] position;
+        public float rotationY;
+        public float[] size;
+        public string[] archiveIds;
+        public int[] timelineRange;
+        public PanelDef panel;
+        public bool guideIntro;
+        public string opensUI;
+        public MediaItem[] media;
+        public string[] timelineRefs;
+        public string[] quizIds;
+        public bool walkable;
+        public string minigame;
+        public string[] conceptIds;
+        public string[] memorialIds;
     }
+
     [Serializable] public class ExhibitsFile
     {
-        public string schema; public int version; public string note;
-        public Dictionary<string, RoomSpec> rooms; public ExhibitDef[] exhibits; public string[] interactionKinds;
+        public string schema;
+        public int version;
+        public string note;
+        public string[] interactionKinds;
+        public ExhibitDef[] exhibits;
     }
 
+    // character_spec.json
     [Serializable] public class ClipDef { public string name; public string kind; public float duration; public string[] bones; public string note; }
+
     [Serializable] public class CharacterSpec
     {
-        public string schema; public string id; public string displayName; public string role; public string disclaimer;
-        public float heightTotal; public Dictionary<string, float> proportions;
-        public Dictionary<string, object> facialFeatures; public Dictionary<string, object> clothing;
-        public Dictionary<string, object> materials; public string[] clipList;
+        public string schema;
+        public string id;
+        public string displayName;
+        public string role;
+        public string disclaimer;
+        public float heightTotal;
+        public Dictionary<string, float> proportions;
+        public Dictionary<string, object> facialFeatures;
+        public Dictionary<string, object> clothing;
+        public Dictionary<string, object> materials;
+        public string[] clipList;
     }
 
-    /// <summary>One retrievable passage: an archive record, a concept, a memorial or an event.</summary>
     public class SearchDoc
     {
         public string kind;
@@ -295,6 +511,57 @@ namespace Heritage.Core
                         if (kv.Value is List<object> list)
                             synonymTable[kv.Key] = list.ConvertAll(o => o.ToString()).ToArray();
             }
+            if (Raw.TryGetValue("museum", out var museumRoot))
+            {
+                MuseumLighting = MiniJson.GetObject(museumRoot, "lighting") ?? new Dictionary<string, object>();
+                MuseumMaterials = MiniJson.GetObject(museumRoot, "materials") ?? new Dictionary<string, object>();
+                MuseumUi = MiniJson.GetObject(museumRoot, "ui") ?? new Dictionary<string, object>();
+            }
+            if (Raw.TryGetValue("quests", out var questsRoot))
+            {
+                ObjectiveTypes = MiniJson.GetStringMap(questsRoot, "objectiveTypes");
+            }
+            if (Raw.TryGetValue("exhibits", out var exhibitsRoot))
+            {
+                // rooms is a map keyed by zone id, which JsonUtility cannot deserialise
+                var rooms = MiniJson.GetObject(exhibitsRoot, "rooms");
+                if (rooms != null)
+                    foreach (var pair in rooms)
+                    {
+                        var source = pair.Value as Dictionary<string, object>;
+                        if (source == null) continue;
+                        Rooms[pair.Key] = new RoomSpec
+                        {
+                            width = MiniJson.GetFloat(source, "width"),
+                            depth = MiniJson.GetFloat(source, "depth"),
+                            height = MiniJson.GetFloat(source, "height"),
+                            style = MiniJson.GetString(source, "style", "gallery"),
+                            palette = MiniJson.GetStringArray(source, "palette"),
+                            rampRise = MiniJson.GetFloat(source, "rampRise"),
+                            lightDirection = MiniJson.GetString(source, "lightDirection"),
+                            centerDiorama = MiniJson.GetBool(source, "centerDiorama"),
+                            roundTable = MiniJson.GetBool(source, "roundTable"),
+                            dome = MiniJson.GetBool(source, "dome"),
+                            shelfWalls = MiniJson.GetBool(source, "shelfWalls"),
+                            floorMap = MiniJson.GetBool(source, "floorMap"),
+                            plinths = MiniJson.GetInt(source, "plinths"),
+                            curvedWall = MiniJson.GetBool(source, "curvedWall")
+                        };
+                    }
+            }
+            if (Raw.TryGetValue("memorials", out var memorialRoot))
+            {
+                var sites = MiniJson.GetArray(memorialRoot, "sites");
+                if (sites != null)
+                    foreach (var entry in sites)
+                    {
+                        var site = entry as Dictionary<string, object>;
+                        if (site == null) continue;
+                        string id = MiniJson.GetString(site, "id");
+                        if (string.IsNullOrEmpty(id)) continue;
+                        MemorialSceneParams[id] = MiniJson.GetFloatMap(site, "sceneParams");
+                    }
+            }
             if (Raw.TryGetValue("character_spec", out var characterRoot) && character != null)
             {
                 ProportionValues = MiniJson.GetFloatMap(characterRoot, "proportions");
@@ -311,6 +578,21 @@ namespace Heritage.Core
         public Dictionary<string, object> FacialFeatures = new Dictionary<string, object>();
         public Dictionary<string, object> Clothing = new Dictionary<string, object>();
         public Dictionary<string, object> Materials = new Dictionary<string, object>();
+        public Dictionary<string, object> MuseumLighting = new Dictionary<string, object>();
+        public Dictionary<string, object> MuseumMaterials = new Dictionary<string, object>();
+        public Dictionary<string, object> MuseumUi = new Dictionary<string, object>();
+        public Dictionary<string, string> ObjectiveTypes = new Dictionary<string, string>();
+        public readonly Dictionary<string, RoomSpec> Rooms = new Dictionary<string, RoomSpec>();
+        public readonly Dictionary<string, Dictionary<string, float>> MemorialSceneParams =
+            new Dictionary<string, Dictionary<string, float>>();
+
+        /// <summary>Scene parameters for a memorial, or an empty map when it has none.</summary>
+        public Dictionary<string, float> SceneParams(string memorialId)
+        {
+            Dictionary<string, float> found;
+            if (MemorialSceneParams.TryGetValue(memorialId, out found)) return found;
+            return new Dictionary<string, float>();
+        }
 
         /// <summary>Character proportions, by spec key ("hipHeight", "shoulderWidth", ...).</summary>
         public float Proportion(string key, float fallback = 0f)

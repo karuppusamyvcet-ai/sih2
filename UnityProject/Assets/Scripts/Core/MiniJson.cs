@@ -188,6 +188,15 @@ namespace Heritage.Core
             return fallback;
         }
 
+        public static string[] GetStringArray(object parent, string key)
+        {
+            var list = GetArray(parent, key);
+            if (list == null) return new string[0];
+            var result = new string[list.Count];
+            for (int i = 0; i < list.Count; i++) result[i] = list[i] == null ? null : list[i].ToString();
+            return result;
+        }
+
         public static Dictionary<string, float> GetFloatMap(object parent, string key)
         {
             var result = new Dictionary<string, float>();

@@ -95,7 +95,6 @@ def main() -> int:
     files = sorted(SCRIPTS.rglob("*.cs"))
     if not files:
         problems.append("no C# sources found under UnityProject/Assets")
-        return report()
 
     content_ids: set[str] = set()
     allowed_literals: set[str] = set()
@@ -135,6 +134,16 @@ def main() -> int:
             for exhibit in data.get("exhibits", []):
                 allowed_literals.add(exhibit.get("interaction", ""))
                 allowed_literals.add(exhibit.get("kind", ""))
+        # every clip the specification names must be implemented in C#, or the
+        # Unity build silently loses an animation the browser build has
+        if path.name == "character_spec.json":
+            clips = data.get("clipList", [])
+            sources = "\n".join(f.read_text(encoding="utf-8") for f in SCRIPTS.rglob("*.cs"))
+            missing = [c for c in clips if ('"%s"' % c) not in sources]
+            if missing:
+                problems.append("character_spec.json names %d clip(s) with no C# implementation: %s"
+                                % (len(missing), ", ".join(missing)))
+
     # zone references appear as zone_<id>, zone_<id>_entry and as bare ids
     for zone in zone_ids:
         allowed_literals.update({zone, f"zone_{zone}", f"zone_{zone}_entry"})
@@ -197,7 +206,161 @@ def main() -> int:
                 if f"{target.split('/', 1)[1]}.json" not in resources:
                     problems.append(f"{rel}:{line_of(text, match.start())}: loads '{target}' but no such JSON exists")
 
+    check_schema(problems)
     return report()
+
+
+
+# ---------------------------------------------------------------------------
+# Schema gate: the content JSON and the [Serializable] C# structures must agree.
+#
+# JsonUtility silently ignores a JSON key that has no matching field, so a
+# rename in the content (rotationY → rotation, panel object → string) would make
+# the Unity build drop the data without a single error. This table names the
+# containers that gameplay reads and the class that must declare every key they
+# use, which is what caught the exhibit transform and museum layout drift.
+SCHEMA_CONTAINERS = {
+    "museum.json": [
+        ("doors", "MuseumDoor"),
+        ("setDressing", "SetDressing"),
+        ("hall", "HallSpec"),
+        ("hall.columns", "ColumnSpec"),
+        ("hall.arches", "ArchSpec"),
+    ],
+    "exhibits.json": [
+        ("exhibits", "ExhibitDef"),
+        ("rooms", "RoomSpec"),
+    ],
+    "questions.json": [
+        ("questions", "Question"),
+        ("questions.options", "Option"),
+        ("questions.pairs", "PairItem"),
+        ("questions.items", "OrderItem"),
+    ],
+    "quests.json": [
+        ("missions", "Mission"),
+        ("missions.objectives", "Objective"),
+        ("completion", "Completion"),
+    ],
+    "achievements.json": [
+        ("achievements", "Achievement"),
+        ("progressDashboard", "ProgressDashboard"),
+        ("progressDashboard.fields", "DashboardField"),
+    ],
+    "memorials.json": [
+        ("sites", "MemorialSite"),
+        ("sites.tour", "TourStop"),
+    ],
+    "archive.json": [
+        ("records", "ArchiveRecord"),
+        ("records.media", "MediaItem"),
+    ],
+    "glossary.json": [("concepts", "Concept")],
+    "timeline.json": [("events", "TimelineEvent")],
+    "zones.json": [
+        ("zones", "ZoneDef"),
+        ("zones.unlockRule", "UnlockRule"),
+    ],
+    "guide.json": [
+        ("guidedPointers", "ZonePointer"),
+        ("messages", "GuideMessage"),
+    ],
+    # character_spec.json is checked by the clip gate above; its proportions,
+    # facial features, clothing and materials are dictionaries read through
+    # MiniJson, so there is no single class to compare key-by-key.
+}
+
+
+# keys that are dictionaries in the JSON and are therefore read through MiniJson
+# instead of a [Serializable] field (JsonUtility cannot deserialise dictionaries)
+SCHEMA_DICTIONARY_KEYS = {
+    ("memorials.json", "MemorialSite"): {"sceneParams"},
+    ("guide.json", "GuideFile"): {"architecture", "answerPolicy", "retrieval", "synonyms"},
+    ("museum.json", "MuseumFile"): {"lighting", "materials", "ui"},
+    ("quests.json", "QuestsFile"): {"objectiveTypes"},
+    ("character_spec.json", "CharacterSpec"): {"proportions", "facialFeatures", "clothing", "materials",
+                                              "proceduralTextures", "derivations"},
+}
+
+
+def class_fields(sources: str) -> dict:
+    """Field names declared by each class, read from the stripped sources."""
+    code = strip_code(sources)
+    fields = {}
+    for match in re.finditer(r"\bclass\s+([A-Za-z_][A-Za-z0-9_]*)[^{;]*\{", code):
+        name = match.group(1)
+        depth = 1
+        i = match.end()
+        while i < len(code) and depth:
+            if code[i] == "{":
+                depth += 1
+            elif code[i] == "}":
+                depth -= 1
+            i += 1
+        body = code[match.end():i]
+        names = set()
+        for decl in re.finditer(r"\b([A-Za-z_][A-Za-z0-9_<>\[\]\.]*)\s+([a-z_][A-Za-z0-9_]*)\s*(?:=|;|,|\()", body):
+            names.add(decl.group(2))
+        fields[name] = names
+    return fields
+
+
+def check_schema(problems: list) -> None:
+    class_sources = "\n".join(f.read_text(encoding="utf-8") for f in SCRIPTS.rglob("*.cs"))
+    fields = class_fields(class_sources)
+
+    def walk(node, container, keys, class_name, path):
+        if container.endswith("[]"):
+            if not isinstance(node, list):
+                return
+            for item in node:
+                walk(item, container[:-2], keys, class_name, path)
+            return
+        if not isinstance(node, dict):
+            return
+        if container not in node:
+            return
+        value = node[container]
+        if isinstance(value, list):
+            items = value
+        elif isinstance(value, dict) and value and all(isinstance(v, dict) for v in value.values()):
+            items = list(value.values())          # a map keyed by id, e.g. rooms
+        else:
+            items = [value]                       # a single object, e.g. hall
+
+        declared = fields.get(class_name)
+        if declared is None:
+            problems.append(f"schema table names class {class_name}, which no C# file declares")
+            return
+        allowed = SCHEMA_DICTIONARY_KEYS.get((path, class_name), set())
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            for key in item:
+                if key in allowed:
+                    continue
+                if key not in declared:
+                    problems.append(f"Content/{path}: '{key}' has no field in the C# class {class_name} "
+                                    f"— JsonUtility would silently drop it")
+
+    for name, containers in SCHEMA_CONTAINERS.items():
+        path = CONTENT / name
+        if not path.exists():
+            problems.append(f"schema table names {name}, which does not exist")
+            continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for container, class_name in containers:
+            parts = container.split(".")
+            node = data
+            for part in parts[:-1]:
+                if isinstance(node, dict) and part in node:
+                    node = node[part]
+                else:
+                    node = None
+                    break
+            if node is None:
+                continue
+            walk(node, parts[-1], set(), class_name, name)
 
 
 def report() -> int:
